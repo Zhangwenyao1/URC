@@ -48,3 +48,12 @@ source ~/catkin_ws/devel/setup.bash
 rosrun r3ros talker.py
 ```
 
+# Editing robot model (URDF format)
+
+To use our robot with many standard ROS tools, we need to write down a model of the robot’s kinematics. That is, we need to describe the physical configuration of the robot, such as how many wheels it has, where they are placed, and which directions they turn in. This information will be used by rviz to visualize the state of the robot, by gazebo to simulate it, and by systems like the navigation stack to make it drive around the world in a purposeful manner.
+In ROS, we represent robot models in an XML format called Unified Robot Description Format (URDF) This format is designed to represent a wide variety of robots, from a two wheeled toy to a walking humanoid.
+
+```bash
+cd ~/catkin_ws/src/URC/urdf
+./open_model.sh robot.urdf
+```
