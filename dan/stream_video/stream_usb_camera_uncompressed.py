@@ -11,7 +11,7 @@ def camera():
   rospy.loginfo("starting...")
   rospy.init_node('VideoPublisher', anonymous=True)
   camera = rospy.Publisher('camera', Image)
-  camera_compressed = rospy.Publisher('camera/compressed', CompressedImage)
+  #camera_compressed = rospy.Publisher('camera/compressed', CompressedImage)
   rate = rospy.Rate(10) # 24hz
   cap = cv2.VideoCapture(0) # open first camera device
 
@@ -29,10 +29,10 @@ def camera():
       rospy.logwarn("something wrong opening frame")
       break
 
-    #msg_frame = CvBridge().cv2_to_imgmsg(frame, encoding='bgr8')
-    msg_frame_compressed = CvBridge().cv2_to_compressed_imgmsg(frame)
-    #camera.publish(msg_frame)
-    camera_compressed.publish(msg_frame_compressed)
+    msg_frame = CvBridge().cv2_to_imgmsg(frame, encoding='bgr8')
+    #msg_frame_compressed = CvBridge().cv2_to_compressed_imgmsg(frame)
+    camera.publish(msg_frame)
+    #camera_compressed.publish(msg_frame_compressed)
     rate.sleep()
 
   cap.release()
