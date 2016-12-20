@@ -43,7 +43,9 @@ echo 'export ROS_IP=`hostname -I`' >> ~/.bashrc
 # Run
 
 ```bash
+source ~/catkin_ws/devel/setup.bash
 roscore
+# in another terminal
 source ~/catkin_ws/devel/setup.bash
 rosrun r3ros talker.py
 ```
