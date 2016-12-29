@@ -8,7 +8,7 @@ class Constants{
     Constants();
     int getValue(String _key);
   private:
-    int M0;
+	int M0;
     int M1;
     int M2;
     int M3;
