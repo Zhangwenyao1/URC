@@ -1,4 +1,4 @@
-# ROS Basics
+# Arm Basics
 
 This code is based on (and explained in detail) Chapter 8 (page 389) of the ROS book "[Programming Robots with ROS](https://drive.google.com/drive/folders/0B0R9maYs7LgsVWpIOThTR1pVcTQ)".
 
