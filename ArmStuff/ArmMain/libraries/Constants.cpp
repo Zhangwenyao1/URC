@@ -3,6 +3,7 @@
 
 Consants::Constants{
   M0=0;
+  DM0 = 6;
   M1=1;
   M2=2;
   M3=3;
