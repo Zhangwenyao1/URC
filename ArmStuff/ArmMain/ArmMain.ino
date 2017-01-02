@@ -7,6 +7,8 @@
 #define M3 3
 #define M4 4
 #define M5 5
+//direction pins
+
 //pot pins 
 #define pot0 A0
 #define pot1 A1
