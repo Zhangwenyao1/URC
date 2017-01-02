@@ -4,6 +4,8 @@
 Motor::Motor(int _pin, int _dirPin){
   pin = _pin;
   dirPin = _dirPin;
+  pinMode(pin, OUTPUT);
+  pinMode(dirPin, OUTPUT);
 }
 void Motor::doMotors(double input){
   bool direction;
