@@ -1,12 +1,7 @@
 <?xml version="1.0"?>
 <robot name="cougarbot">
   <link name="world"/>
-<<<<<<< HEAD
   <link name="base_link">
-=======
- 
- <link name="base_link">
->>>>>>> origin
     <visual>
       <geometry>
         <cylinder length="0.05" radius="0.1"/>
@@ -32,24 +27,14 @@
     <parent link="world"/>
     <child link="base_link"/>
   </joint>
-<<<<<<< HEAD
   <link name="torso">
     <visual>
       <geometry>
         <cylinder length="0.5" radius="0.05"/>
-=======
-  
-
-<link name="torso">
-    <visual>
-      <geometry>
-        <cylinder length="0.084" radius="0.05"/>
->>>>>>> origin
       </geometry>
       <material name="silver">
         <color rgba="0.75 0.75 0.75 1"/>
       </material>
-<<<<<<< HEAD
       <origin rpy="0 0 0" xyz="0 0 0.25"/>
     </visual>
     <collision>
@@ -65,30 +50,11 @@
     </inertial>
   </link>
   <joint name="hip" type="continuous">
-=======
-      <origin rpy="0 0 0" xyz="0 0 0.042"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.084" radius="0.05"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.042"/>
-    </collision>
-    <inertial>
-      <mass value="1.0"/>
-      <origin rpy="0 0 0" xyz="0 0 0.042"/>
-      <inertia ixx="0.02146" iyy="0.02146" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
-    </inertial>
-  </link>
-  
-<joint name="hip" type="continuous">
->>>>>>> origin
     <axis xyz="0 0 1"/>
     <parent link="base_link"/>
     <child link="torso"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
   </joint>
-<<<<<<< HEAD
   <link name="upper_arm">
     <visual>
       <geometry>
@@ -106,26 +72,6 @@
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="0 0 0.2"/>
-=======
-
-<link name="upper_arm">
-    <visual>
-      <geometry>
-        <cylinder length="0.5584" radius="0.05"/>
-      </geometry>
-      <material name="silver"/>
-      <origin rpy="0 0 0" xyz="0 0 0.2792"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.5584" radius="0.05"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.2792"/>
-    </collision>
-    <inertial>
-      <mass value="1.0"/>
-      <origin rpy="0 0 0" xyz="0 0 0.2792"/>
->>>>>>> origin
       <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
     </inertial>
   </link>
@@ -133,7 +79,6 @@
     <axis xyz="0 1 0"/>
     <parent link="torso"/>
     <child link="upper_arm"/>
-<<<<<<< HEAD
     <origin rpy="0 1.5708 0" xyz="0.0 -0.1 0.45"/>
   </joint>
   <link name="lower_arm">
@@ -153,28 +98,6 @@
     <inertial>
       <mass value="1.0"/>
       <origin rpy="0 0 0" xyz="0 0 0.2"/>
-=======
-    <origin rpy="0 1.5708 0" xyz="0.0 -0.1 0.084"/>
-  </joint>
-
- <link name="lower_arm">
-    <visual>
-      <geometry>
-        <cylinder length="0.3673" radius="0.05"/>
-      </geometry>
-      <material name="silver"/>
-      <origin rpy="0 0 0" xyz="0 0 0.18365"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.3673" radius="0.05"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.18365"/>
-    </collision>
-    <inertial>
-      <mass value="1.0"/>
-      <origin rpy="0 0 0" xyz="0 0 0.18365"/>
->>>>>>> origin
       <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
     </inertial>
   </link>
@@ -182,16 +105,9 @@
     <axis xyz="0 1 0"/>
     <parent link="upper_arm"/>
     <child link="lower_arm"/>
-<<<<<<< HEAD
     <origin rpy="0 0 0" xyz="0.0 0.1 0.35"/>
   </joint>
   <link name="hand">
-=======
-    <origin rpy="0 0 0" xyz="0.0 0.1 0.5063"/>
-  </joint>
-
-<link name="hand">
->>>>>>> origin
     <visual>
       <geometry>
         <box size="0.05 0.05 0.05"/>
@@ -212,15 +128,9 @@
     <axis xyz="0 1 0"/>
     <parent link="lower_arm"/>
     <child link="hand"/>
-<<<<<<< HEAD
     <origin rpy="0 0 0" xyz="0.0 0.0 0.425"/>
   </joint>
   <transmission name="tran0">
-=======
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.39"/>
-  </joint>
-<transmission name="tran0">
->>>>>>> origin
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="hip">
       <hardwareInterface>PositionJointInterface</hardwareInterface>
@@ -269,10 +179,3 @@
     </plugin>
   </gazebo>
 </robot>
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> origin
