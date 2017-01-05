@@ -32,8 +32,7 @@ Potentiometer pots[4]={
   Potentiometer(pot3)  
 };
 void setup(){
-  Wire.begin(2);
-  Wire.onReceive(event);
+  Serial.begin(9600);
 }
 void event(int dataIn){
   while(1<Wire.available()){
