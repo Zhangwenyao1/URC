@@ -1,0 +1,39 @@
+build/
+#bin/
+#lib/
+msg_gen/
+srv_gen/
+# Lines that start with '#' are comments.
+# ignore objects and libraries
+*.o
+*.a
+*.d
+*.so
+*.lo
+*.la
+# ignore python compiled files:
+*.pyc
+# ignore gcov files
+*.gcda
+*.gcno
+*.gcov
+# we don't care about vi swp files
+*.swp
+# we also don't care about emacs swap files
+*~
+.backup-*
+# setup.bash is a generated file.
+setup.bash
+config.mk
+# gcov files
+*.gcno
+*.gcov
+# Testing output files
+*.out
+.build-version
+.rospack_cache
+*.tar.gz
+# ignore images
+*.jpg
+*.avi
+*.png

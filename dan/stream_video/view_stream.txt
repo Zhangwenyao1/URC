@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "to view raw stream enter command:"
+echo "rosrun image_view image_view image:=/camera"
+echo ""
+echo "to view compressed stream enter command:"
+echo "rosrun image_view image_view image:=/camera _image_transport:=compressed"
