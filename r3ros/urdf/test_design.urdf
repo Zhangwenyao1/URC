@@ -303,7 +303,7 @@
   
     <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <leftJoint>left_wheel_joint</leftJoint>
+      <leftJoint>front_left_wheelconnect</leftJoint>
       <rightJoint>front_right_wheelconnect</rightJoint>
       <robotBaseFrame>base_link</robotBaseFrame>
       <wheelSeparation>0.6</wheelSeparation>
