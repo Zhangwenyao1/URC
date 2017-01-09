@@ -49,6 +49,43 @@
     </visual>
   </link>
   
+  
+  <link name="front_wheel_right_axel">
+    <visual>
+      <geometry>
+        <box size="0.3 .1 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+    <link name="middle_wheel_right_axel">
+    <visual>
+      <geometry>
+        <box size="0.3 .1 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+    <link name="back_wheel_right_axel">
+    <visual>
+      <geometry>
+        <box size="0.3 .1 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
  <link name="fl_wheel">
    <visual>
      <geometry>
@@ -100,6 +137,24 @@
    <joint name="back_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="back_wheel_left_axel"/>
+      <origin xyz="0.15 0.5285 0"/>
+  </joint>
+  
+  <joint name="front_right_jointconnect" type="fixed">
+       <parent link="base_link"/>
+       <child link="front_wheel_right_axel"/>
+      <origin xyz="0.15 -0.5285 0"/>
+  </joint>
+  
+   <joint name="middle_right_jointconnect" type="fixed">
+       <parent link="base_link"/>
+       <child link="middle_wheel_right_axel"/>
+      <origin xyz="0.15 0 0"/>
+  </joint>
+  
+   <joint name="back_right_jointconnect" type="fixed">
+       <parent link="base_link"/>
+       <child link="back_wheel_right_axel"/>
       <origin xyz="0.15 0.5285 0"/>
   </joint>
   
