@@ -64,7 +64,7 @@
   <joint name="front_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="front_wheel_left_axel"/>
-      <origin xyz="0.08 0.645 0"/>
+      <origin xyz="0.08 0 0"/>
   </joint>
   
    <joint name="middle_left_jointconnect" type="fixed">
