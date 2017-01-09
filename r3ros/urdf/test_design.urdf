@@ -46,7 +46,7 @@
     <joint name="front_left_wheelconnect" type="fixed">
        <parent link="front_wheel_left_axel"/>
        <child link="fl_wheel"/>
-      <origin xyz="-0.08 -.645 0"/>
+      <origin xyz="0 0 0"/>
   </joint>
   
 </robot>
