@@ -4,7 +4,7 @@
  <link name="base_link">
     <visual>
       <geometry>
-        <box size="0.16 1.29 0.12"/>
+        <box size="0.16 1.057 0.12"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="white">
@@ -19,6 +19,30 @@
         <box size="0.3 .1 0.06"/>
       </geometry>
       <origin rpy="3.14 0 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+    <link name="middle_wheel_left_axel">
+    <visual>
+      <geometry>
+        <box size="0.3 .1 0.06"/>
+      </geometry>
+      <origin rpy="3.14 0 0" xyz="0 .528 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+    <link name="back_wheel_left_axel">
+    <visual>
+      <geometry>
+        <box size="0.3 .1 0.06"/>
+      </geometry>
+      <origin rpy="3.14 0 0" xyz="0 1.057 0"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
