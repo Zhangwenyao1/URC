@@ -61,6 +61,30 @@
     </visual>
  </link>
   
+   <link name="ml_wheel">
+   <visual>
+     <geometry>
+        <cylinder length="0.050" radius="0.127"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+ </link>
+  
+   <link name="bl_wheel">
+   <visual>
+     <geometry>
+        <cylinder length="0.050" radius="0.127"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+ </link>
+  
   <joint name="front_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="front_wheel_left_axel"/>
@@ -85,4 +109,15 @@
       <origin xyz="0.15 0 0"/>
   </joint>
   
+    <joint name="back_left_wheelconnect" type="fixed">
+       <parent link="back_wheel_left_axel"/>
+       <child link="bl_wheel"/>
+      <origin xyz="0.15 0 0"/>
+  </joint>
+  
+    <joint name="middle_left_wheelconnect" type="fixed">
+       <parent link="middle_wheel_left_axel"/>
+       <child link="ml_wheel"/>
+      <origin xyz="0.15 0 0"/>
+  </joint>
 </robot>
