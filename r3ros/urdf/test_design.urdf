@@ -222,30 +222,6 @@
 </inertial>
  </link>
   
-   <link name="left_wheel">
-    <visual>
-      <geometry>
-        <cylinder length="0.05" radius="0.035"/>
-      </geometry>
-      <material name="black"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.05" radius="0.035"/>
-      </geometry>
-    </collision>
-    <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="5.1458e-5" iyy="5.1458e-5" izz="6.125e-5" ixy="0" ixz="0" iyz="0"/>
-    </inertial>
-  </link>
-
-  <joint name="left_wheel_joint" type="continuous">
-    <axis xyz="0 0 1"/>
-    <parent link="base_link"/>
-    <child link="left_wheel"/>
-    <origin rpy="-1.5708 0 0" xyz="-0.2825 0.125 -.15"/>
-</joint>
   
   <joint name="front_left_jointconnect" type="fixed">
        <parent link="base_link"/>
@@ -285,35 +261,35 @@
   
     <joint name="front_left_wheelconnect" type="continuous">
        <axis xyz="0 0 1"/>
-       <parent link="front_wheel_left_axel"/>
+       <parent link="base_link"/>
        <child link="fl_wheel"/>
       <origin xyz="0.3 0 0"/>
   </joint>
   
     <joint name="back_left_wheelconnect" type="continuous">
        <axis xyz="0 0 1"/>
-       <parent link="back_wheel_left_axel"/>
+       <parent link="base_link"/>
        <child link="bl_wheel"/>
       <origin xyz="0.3 0 0"/>
   </joint>
   
     <joint name="middle_left_wheelconnect" type="continuous">
        <axis xyz="0 0 1"/>
-       <parent link="middle_wheel_left_axel"/>
+       <parent link="base_link"/>
        <child link="ml_wheel"/>
-      <origin xyz="0.15 0 0"/>
+      <origin xyz="0.3 0 0"/>
   </joint>
   
    <joint name="front_right_wheelconnect" type="continuous">
       <axis xyz="0 0 1"/>
-       <parent link="front_wheel_right_axel"/>
+       <parent link="base_link"/>
        <child link="fr_wheel"/>
-      <origin xyz="-0.15 0 0"/>
+      <origin xyz="-0.3 0 0"/>
   </joint>
   
     <joint name="back_right_wheelconnect" type="continuous">
        <axis xyz="0 0 1"/>
-       <parent link="back_wheel_right_axel"/>
+       <parent link="base_link"/>
        <child link="br_wheel"/>
       <origin xyz="-0.3 0 0"/>
   </joint>
