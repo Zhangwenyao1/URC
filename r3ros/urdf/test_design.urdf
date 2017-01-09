@@ -126,6 +126,15 @@
         <color rgba="0 0 0 1"/>
       </material>
     </visual>
+      <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.127"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="5.1458e-5" iyy="5.1458e-5" izz="6.125e-5" ixy="0" ixz="0" iyz="0"/>
+</inertial>
  </link>
   
    <link name="bl_wheel">
@@ -138,6 +147,15 @@
         <color rgba="0 0 0 1"/>
       </material>
     </visual>
+      <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.127"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="5.1458e-5" iyy="5.1458e-5" izz="6.125e-5" ixy="0" ixz="0" iyz="0"/>
+</inertial>
  </link>
   
    
@@ -172,6 +190,15 @@
         <color rgba="0 0 0 1"/>
       </material>
     </visual>
+      <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.127"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="5.1458e-5" iyy="5.1458e-5" izz="6.125e-5" ixy="0" ixz="0" iyz="0"/>
+</inertial>
  </link>
   
    <link name="br_wheel">
@@ -246,13 +273,13 @@
     <joint name="middle_left_wheelconnect" type="continuous">
        <parent link="middle_wheel_left_axel"/>
        <child link="ml_wheel"/>
-      <origin xyz="0.3 0 0"/>
+      <origin xyz="0.15 0 0"/>
   </joint>
   
    <joint name="front_right_wheelconnect" type="continuous">
        <parent link="front_wheel_right_axel"/>
        <child link="fr_wheel"/>
-      <origin xyz="-0.3 0 0"/>
+      <origin xyz="-0.15 0 0"/>
   </joint>
   
     <joint name="back_right_wheelconnect" type="continuous">
