@@ -24,65 +24,12 @@
       </material>
     </visual>
  </link>
-                             
-<link name="mlwheel">
-    <visual>
-      <geometry>
-        <cylinder length="0.050" radius="0.127"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-</link>
   
-<link name="blwheel">
-    <visual>
-      <geometry>
-        <cylinder length="0.050" radius=“0.127”/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-  </link>
+  <joint name="base_to_right_leg" type="fixed">
+       <parent link="base_link"/>
+       <child link="fl_wheel"/>
+      <origin xyz="0.22 0 .25"/>
+  </joint>
   
-<link name="frwheel">
-    <visual>
-      <geometry>
-        <cylinder length="0.050" radius="0.127"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-  </link>
-  
-<link name="mrwheel">
-    <visual>
-      <geometry>
-        <cylinder length="0.050" radius="0.127"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-  </link>
-  
-<link name="brwheel">
-    <visual>
-      <geometry>
-        <cylinder length="0.050" radius="0.127"/>
-      </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-  </link>
   
 </robot>
