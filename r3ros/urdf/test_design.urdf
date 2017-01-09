@@ -1,5 +1,5 @@
-<?xml version=“1.0”?>
-<robot name =“cougarbot”>
+<?xml version="1.0"?>
+<robot name ="cougarbot">
   
  <link name="base_link">
     <visual>
