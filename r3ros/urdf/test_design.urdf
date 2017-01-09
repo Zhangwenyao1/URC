@@ -6,7 +6,7 @@
       <geometry>
         <box size="0.16 1.057 0.12"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 2"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
@@ -298,13 +298,13 @@
        <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="mr_wheel"/>
-      <origin xyz="-0.3 0 0"/>
+      <origin xyz="-0.3 0 .5"/>
   </joint>
   
     <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <leftJoint>front_left_wheelconnect</leftJoint>
-      <rightJoint>front_right_wheelconnect</rightJoint>
+      <leftJoint>middle_left_wheelconnect</leftJoint>
+      <rightJoint>middle_right_wheelconnect</rightJoint>
       <robotBaseFrame>base_link</robotBaseFrame>
       <wheelSeparation>0.6</wheelSeparation>
       <wheelDiameter>0.254</wheelDiameter>
