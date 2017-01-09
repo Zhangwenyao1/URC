@@ -231,4 +231,21 @@
       <origin xyz="-0.3 0 0"/>
   </joint>
   
+    <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <leftJoint>front_left_wheelconnect</leftJoint>
+      <rightJoint>front_right_wheelconnect</rightJoint>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <wheelSeparation>0.25</wheelSeparation>
+      <wheelDiameter>0.07</wheelDiameter>
+      <publishWheelJointState>true</publishWheelJointState>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <jointName>back_left_wheelconnect, back_right_wheelconnect</jointName>
+    </plugin>
+    
+</gazebo>
 </robot>
