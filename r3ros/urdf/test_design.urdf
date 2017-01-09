@@ -260,42 +260,42 @@
   </joint>
   
     <joint name="front_left_wheelconnect" type="continuous">
-       <axis xyz="0 1 0"/>
+       <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="fl_wheel"/>
       <origin xyz="0.3 0.5285 0"/>
   </joint>
   
     <joint name="back_left_wheelconnect" type="continuous">
-       <axis xyz="0 1 0"/>
+       <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="bl_wheel"/>
       <origin xyz="0.3 -0.5285 0"/>
   </joint>
   
     <joint name="middle_left_wheelconnect" type="continuous">
-       <axis xyz="0 1 0"/>
+       <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="ml_wheel"/>
-      <origin xyz="0.3 0.5285 0"/>
+      <origin xyz="0.3 0 0"/>
   </joint>
   
    <joint name="front_right_wheelconnect" type="continuous">
-      <axis xyz="0 1 0"/>
+      <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="fr_wheel"/>
       <origin xyz="-0.3 0.5285 0"/>
   </joint>
   
     <joint name="back_right_wheelconnect" type="continuous">
-       <axis xyz="0 1 0"/>
+       <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="br_wheel"/>
       <origin xyz="-0.3 -0.5285 0"/>
   </joint>
   
     <joint name="middle_right_wheelconnect" type="continuous">
-       <axis xyz="0 1 0"/>
+       <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="mr_wheel"/>
       <origin xyz="-0.3 0 0"/>
