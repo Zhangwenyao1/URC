@@ -13,22 +13,22 @@
     </visual>
   </link>
   
- <link name=“flwheel">
+ <link name="fl_wheel">
    <visual>
      <geometry>
-        <cylinder length="0.050” radius=“0.127”/>
+        <cylinder length="0.050" radius="0.127"/>
       </geometry>
-      <origin rpy=“.1  0" xyz="0 0 0"/>
+      <origin rpy=".1  0" xyz="0 0 0"/>
       <material name="black">
         <color rgba="0 0 0 1"/>
       </material>
     </visual>
  </link>
-  
-<link name=“mlwheel">
+                             
+<link name="mlwheel">
     <visual>
       <geometry>
-        <cylinder length="0.050” radius=“0.127”/>
+        <cylinder length="0.050" radius="0.127"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="black">
@@ -37,10 +37,10 @@
     </visual>
 </link>
   
-<link name=“blwheel">
+<link name="blwheel">
     <visual>
       <geometry>
-        <cylinder length="0.050” radius=“0.127”/>
+        <cylinder length="0.050" radius=“0.127”/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="black">
@@ -49,10 +49,10 @@
     </visual>
   </link>
   
-<link name=“frwheel">
+<link name="frwheel">
     <visual>
       <geometry>
-        <cylinder length="0.050” radius=“0.127”/>
+        <cylinder length="0.050" radius="0.127"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="black">
@@ -61,10 +61,10 @@
     </visual>
   </link>
   
-<link name=“mrwheel">
+<link name="mrwheel">
     <visual>
       <geometry>
-        <cylinder length="0.050” radius=“0.127”/>
+        <cylinder length="0.050" radius="0.127"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="black">
@@ -73,10 +73,10 @@
     </visual>
   </link>
   
-<link name=“brwheel">
+<link name="brwheel">
     <visual>
       <geometry>
-        <cylinder length="0.050” radius=“0.127”/>
+        <cylinder length="0.050" radius="0.127"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="black">
