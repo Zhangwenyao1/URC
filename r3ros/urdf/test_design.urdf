@@ -6,7 +6,7 @@
       <geometry>
         <box size="0.16 1.29 0.12"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.085"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
@@ -28,7 +28,7 @@
   <joint name="base_to_right_leg" type="fixed">
        <parent link="base_link"/>
        <child link="fl_wheel"/>
-      <origin xyz=".16 1.29 0"/>
+      <origin xyz="0 1.29 0"/>
   </joint>
   
   
