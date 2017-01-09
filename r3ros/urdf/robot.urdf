@@ -71,6 +71,35 @@
     <origin rpy="-1.5708 0 0" xyz="0.05 0 -.15"/>
   </joint>
 
+  
+  <link name="bl_wheel">
+   <visual>
+     <geometry>
+        <cylinder length="0.10" radius="0.127"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+      <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.127"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="5.1458e-5" iyy="5.1458e-5" izz="6.125e-5" ixy="0" ixz="0" iyz="0"/>
+</inertial>
+ </link>
+
+    <joint name="back_left_wheelconnect" type="continuous">
+       <axis xyz="0 0 1"/>
+       <parent link="base_link"/>
+       <child link="bl_wheel"/>
+      <origin xyz="0.3 0 0"/>
+</joint>
+  
   <link name="right_wheel">
     <visual>
       <geometry>
