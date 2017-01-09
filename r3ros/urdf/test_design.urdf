@@ -320,7 +320,7 @@
   
     <joint name="middle_right_wheelconnect" type="continuous">
        <axis xyz="0 0 1"/>
-       <parent link="middle_wheel_right_axel"/>
+       <parent link="base_link"/>
        <child link="mr_wheel"/>
       <origin xyz="-0.3 0 0"/>
   </joint>
