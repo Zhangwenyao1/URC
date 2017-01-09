@@ -28,7 +28,7 @@
   <joint name="base_to_right_leg" type="fixed">
        <parent link="base_link"/>
        <child link="fl_wheel"/>
-      <origin xyz="0.22 0 .25"/>
+      <origin xyz=".16 1.29 0"/>
   </joint>
   
   
