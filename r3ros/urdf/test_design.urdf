@@ -67,6 +67,18 @@
       <origin xyz="-0.08 -.645 0"/>
   </joint>
   
+   <joint name="middle_left_jointconnect" type="fixed">
+       <parent link="base_link"/>
+       <child link="middle_wheel_left_axel"/>
+      <origin xyz="0.08 0.5285 0"/>
+  </joint>
+  
+   <joint name="back_left_jointconnect" type="fixed">
+       <parent link="base_link"/>
+       <child link="back_wheel_left_axel"/>
+      <origin xyz="0.08 1.057 0"/>
+  </joint>
+  
     <joint name="front_left_wheelconnect" type="fixed">
        <parent link="front_wheel_left_axel"/>
        <child link="fl_wheel"/>
