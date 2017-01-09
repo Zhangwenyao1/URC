@@ -30,7 +30,7 @@
       <geometry>
         <box size="0.3 .1 0.06"/>
       </geometry>
-      <origin rpy="3.14 0 0" xyz="0 .528 0"/>
+      <origin rpy="3.14 0 0" xyz="0 0 0"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
@@ -42,7 +42,7 @@
       <geometry>
         <box size="0.3 .1 0.06"/>
       </geometry>
-      <origin rpy="3.14 0 0" xyz="0 1.057 0"/>
+      <origin rpy="3.14 0 0" xyz="0 0 0"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
@@ -64,7 +64,7 @@
   <joint name="front_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="front_wheel_left_axel"/>
-      <origin xyz="-0.08 -.645 0"/>
+      <origin xyz="0.08 0.645 0"/>
   </joint>
   
    <joint name="middle_left_jointconnect" type="fixed">
