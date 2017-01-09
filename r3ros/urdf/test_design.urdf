@@ -37,7 +37,7 @@
     </visual>
  </link>
   
-  <joint name="front_left_wheelconnect" type="fixed">
+  <joint name="front_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="front_wheel_left_axel"/>
       <origin xyz="-0.08 -.645 0"/>
