@@ -6,7 +6,7 @@
       <geometry>
         <box size="0.16 1.057 0.12"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.06"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
@@ -226,37 +226,37 @@
   <joint name="front_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="front_wheel_left_axel"/>
-      <origin xyz="0.15 -0.5285 0"/>
+      <origin xyz="0.15 -0.5285 0.12"/>
   </joint>
   
    <joint name="middle_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="middle_wheel_left_axel"/>
-      <origin xyz="0.15 0 0"/>
+      <origin xyz="0.15 0 0.12"/>
   </joint>
   
    <joint name="back_left_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="back_wheel_left_axel"/>
-      <origin xyz="0.15 0.5285 0"/>
+      <origin xyz="0.15 0.5285 0.12"/>
   </joint>
   
   <joint name="front_right_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="front_wheel_right_axel"/>
-      <origin xyz="-0.15 -0.5285 0"/>
+      <origin xyz="-0.15 -0.5285 0.12"/>
   </joint>
   
    <joint name="middle_right_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="middle_wheel_right_axel"/>
-      <origin xyz="-0.15 0 0"/>
+      <origin xyz="-0.15 0 0.12"/>
   </joint>
   
    <joint name="back_right_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="back_wheel_right_axel"/>
-      <origin xyz="-0.15 0.5285 0"/>
+      <origin xyz="-0.15 0.5285 0.12"/>
   </joint>
   
     <joint name="front_left_wheelconnect" type="continuous">
