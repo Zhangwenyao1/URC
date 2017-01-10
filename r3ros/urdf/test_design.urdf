@@ -250,7 +250,7 @@
    <joint name="middle_right_jointconnect" type="fixed">
        <parent link="base_link"/>
        <child link="middle_wheel_right_axel"/>
-      <origin xyz="-0.15 0 0.12"/>
+      <origin xyz="-0.15 0 0.08"/>
   </joint>
   
    <joint name="back_right_jointconnect" type="fixed">
@@ -298,7 +298,7 @@
        <axis xyz="1 0 0"/>
        <parent link="base_link"/>
        <child link="mr_wheel"/>
-      <origin xyz="-0.3 0 .12"/>
+      <origin xyz="-0.3 0 .08"/>
   </joint>
   
     <gazebo>
