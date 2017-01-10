@@ -6,7 +6,6 @@
       <geometry>
         <box size="0.16 1.057 0.06"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.06"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
