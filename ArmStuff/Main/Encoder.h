@@ -5,7 +5,7 @@ class Encoder{
   public:
     Encoder(int A, int B);
     int getEncoderValues();
-    int doEncoders();
+    void doEncoders();
   private:
     int pinA;
     int pinB;

@@ -9,3 +9,7 @@ Encoder::Encoder(int A, int B){
 int Encoder::getEncoderValues(){
   return countValue;
 }
+void Encoder::doEncoders(){
+  count++;
+}
+

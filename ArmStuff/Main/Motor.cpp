@@ -8,13 +8,12 @@ Motor::Motor(int _pin, int _dirPin){
   pinMode(dirPin, OUTPUT);
 }
 void Motor::doMotors(double input){
-  bool direction;
-  int speed;
+  bool _direction;
   if(input < 0)
-    direction = false;
+    _direction = false;
   else 
-    direction = true;
+    _direction = true;
   
-  digitalWrite(dirPin,direction);
+  digitalWrite(dirPin,_direction);
   analogWrite(pin, map(0,1,0,255,abs(input)));
 }
