@@ -7,7 +7,7 @@ Motor::Motor(int _pin, int _dirPin){
   pinMode(pin, OUTPUT);
   pinMode(dirPin, OUTPUT);
 }
-void Motor::doMotors(double input){
+void Motor::doMotorsPWM(double input){
   bool _direction;
   if(input < 0)
     _direction = false;
@@ -16,4 +16,7 @@ void Motor::doMotors(double input){
   
   digitalWrite(dirPin,_direction);
   analogWrite(pin, map(0,1,0,255,abs(input)));
+}
+void Motor::doMotor(bool _drive){
+	digitalWrite(pin, _drive);
 }

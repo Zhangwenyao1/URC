@@ -4,4 +4,9 @@
 #include "Potentieometer.h"
 #include "Arm.h"
 
-Arm::
+Arm::Arm(Motor[] _joints,Potentiometer[] _pots; Encoder[] _encoder){
+	joints=_joints;
+	pots = _pots;
+	encoders = _encoder;
+}
+

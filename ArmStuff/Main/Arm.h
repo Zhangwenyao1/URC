@@ -7,8 +7,11 @@
 
 class Arm{
   public:
-    Arm();
-    int[] getPosition(Potentiometer[] _pots; Encoder[] _encoder);
-    void setMotorSpeed(Motor _motor, int _speed);    
+    Arm(Motor[] _joints,Potentiometer[] _pots; Encoder[] _encoder);
+  private:
+    Motor[] joints;
+    Potentiometer[] pots;
+    Encoder[] encoders;
+
 };
 #endif

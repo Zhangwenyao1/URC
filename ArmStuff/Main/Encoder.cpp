@@ -1,9 +1,8 @@
 #include "Arduino.h"
 #include "Encoder.h"
 
-Encoder::Encoder(int A, int B){
+Encoder::Encoder(int A){
   pinA = A;
-  pinB = B;
   countValue = 0;
 }
 int Encoder::getEncoderValues(){

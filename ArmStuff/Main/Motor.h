@@ -4,7 +4,8 @@
 class Motor{
   public:
     Motor(int _pin, int _dirPin);
-    void doMotors(double input);
+    void doMotors(bool _drive);
+    void doMotorsPWM(double input);
   private:
     int pin;
     int dirPin;

@@ -3,7 +3,10 @@
 #include "Motor.h";
 #include "Encoder.h";
 #include "Potentiometer.h";
+
 #include "Arm.h"
+#include "Winch.h"
+#include "Carousel.h";
 
 //motor pins
 #define baseM 0
@@ -54,12 +57,7 @@ void setup(){
   Serial.begin(9600);
 }
 void event(int dataIn){
-  while(1<Wire.available()){
-    switch(Wire.read()){
-      case 0://motor 0
-        motors[0].doMotors(Wire.requestFrom(master, 3, true));
-    }
-  }
+
 }
 void loop(){
 }
