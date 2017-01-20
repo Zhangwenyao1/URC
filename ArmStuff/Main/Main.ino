@@ -1,11 +1,9 @@
 //Main Arm Code, Ryerson Rams Robotics, URC2017
+#include "ros.h";
 #include "Motor.h";
 #include "Encoder.h";
 #include "Potentiometer.h";
 #include "Arm.h"
-//I2C addresses
-#define arm 2
-#define master 1
 
 //motor pins
 #define baseM 0
@@ -43,6 +41,7 @@ Motor motors[1] = {
 #define pot1 A1
 #define pot2 A2
 #define pot3 A3
+
 //potentiometer array constructor
 Potentiometer pots[4]={
   Potentiometer(pot0),
@@ -50,6 +49,7 @@ Potentiometer pots[4]={
   Potentiometer(pot2),
   Potentiometer(pot3)  
 };
+
 void setup(){
   Serial.begin(9600);
 }

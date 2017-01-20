@@ -1,0 +1,34 @@
+{
+    "name": "rosserial_arduino", 
+    "repository": {
+        "url": "https://github.com/OpenAgInitiative/rosserial_arduino_libs.git", 
+        "type": "git"
+    }, 
+    "platforms": [
+        "atmelavr", 
+        "atmelsam", 
+        "espressif8266", 
+        "intel_arc32", 
+        "microchippic32", 
+        "nordicnrf51", 
+        "teensy", 
+        "timsp430"
+    ], 
+    "frameworks": [
+        "arduino"
+    ], 
+    "version": "7c94d75abc", 
+    "authors": [
+        {
+            "maintainer": false, 
+            "name": "Open Agriculture Initiative", 
+            "url": "https://github.com/OpenAgInitiative", 
+            "email": null
+        }
+    ], 
+    "keywords": [
+        "rosserial"
+    ], 
+    "id": 345, 
+    "description": "An implementation of the rosserial protocol for Arduino"
+}
