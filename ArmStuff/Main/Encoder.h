@@ -3,11 +3,14 @@
 #include "Arduino.h"
 class Encoder{
   public:
-    Encoder(int A);
+    Encoder(int A, int B);
     int getEncoderValues();
-    void doEncoders();
+    void doEncoderA();
+    void doEncoderB();
   private:
     int pinA;
-    int countValue;
+    int pinB;
+    int countValueA;
+    int countValueB;
 };
 #endif

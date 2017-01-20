@@ -7,11 +7,8 @@
 
 class Arm{
   public:
-    Arm(Motor[] _joints,Potentiometer[] _pots; Encoder[] _encoder);
+    Arm();
   private:
-    Motor[] joints;
-    Potentiometer[] pots;
-    Encoder[] encoders;
 
 };
 #endif

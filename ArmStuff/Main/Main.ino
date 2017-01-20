@@ -35,9 +35,10 @@
 #define winchDir1 21
 #define winchDir2 22
 
-//motor array constructor
+/*motor array constructor
 Motor motors[1] = {
 };
+*/
 
 //pot pins 
 #define pot0 A0
@@ -53,11 +54,33 @@ Potentiometer pots[4]={
   Potentiometer(pot3)  
 };
 
-void setup(){
-  Serial.begin(9600);
-}
-void event(int dataIn){
+//encoder pins
+#define encA 23
+#define encB 24
+Encoder enc = Encoder(encA,encB);
 
+//Limit Switches
+#define closeSwitch 25
+#define openSwitch 26
+#define indexSwitch 27
+
+Switch switches[3]{
+	Switch(closeSwitch),
+	Switch(openSwitch),
+	Switch(indexSwitch)
+};
+
+//Arm
+
+//Carousel
+Carousel carousel = Carousel();
+//Winch
+
+
+void setup(){
+	attachInterrupt(digitalPinToInterrupt(encA), enc.doEncoderA, RISING);
+	attachInterrupt(digitalPinToInterrupt(encA), enc.doEncoderB, RISING);
 }
+
 void loop(){
 }
