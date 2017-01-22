@@ -1,5 +1,7 @@
 //Main Arm Code, Ryerson Rams Robotics, URC2017
+#include <Arduino.h>
 #include "ros.h";
+
 #include "Motor.h";
 #include "Encoder.h";
 #include "Potentiometer.h";
@@ -18,27 +20,21 @@
 #define winchM 6
 
 //direction pins
-#define baseDir1 7
-#define baseDir2 8
-#define elbowDir1 9
-#define elbowDir2 10
-#define wristDir1 11
-#define wristDir2 12
-#define gripperDir1 13
-#define gripperDir2 14
-#define gripperDir1 15
-#define gripperDir2 16
+#define baseDir 7
+#define elbowDir 9
+#define wristDir 11
+#define gripperDir 13
 #define carouselSpinDir1 17
 #define carouselSpinDir2 18
 #define carouselCrankDir1 19
 #define carouselCrankDir2 20
 #define winchDir1 21
-#define winchDir2 22
 
-/*motor array constructor
-Motor motors[1] = {
-};
-*/
+Motor base = Motor(baseM, baseDir);
+Motor elbow = Motor(elbowM, elbowDir);
+Motor wrist = Motor(wristM, wirstDir);
+Motor gripper = Motor(gripperM, gripperDir);
+
 
 //pot pins 
 #define pot0 A0
@@ -46,29 +42,22 @@ Motor motors[1] = {
 #define pot2 A2
 #define pot3 A3
 
-//potentiometer array constructor
-Potentiometer pots[4]={
-  Potentiometer(pot0),
-  Potentiometer(pot1),
-  Potentiometer(pot2),
-  Potentiometer(pot3)  
-};
+Potentiometer elbown = Potentiometer(pot0);
+Potentiometer wrist = Potentiometer(pot1);
 
 //encoder pins
 #define encA 23
 #define encB 24
-Encoder enc = Encoder(encA,encB);
+Encoder encoder = Encoder(encA,encB);
 
 //Limit Switches
-#define closeSwitch 25
-#define openSwitch 26
-#define indexSwitch 27
+#define _closeSwitch 25
+#define _openSwitch 26
+#define _indexSwitch 27
 
-Switch switches[3]{
-	Switch(closeSwitch),
-	Switch(openSwitch),
-	Switch(indexSwitch)
-};
+Swtich closeSwitch = Switch(_closeSwitch);
+Switch openSwitch = Switch(_openSwitch);
+Switch indexSwitch = Switch(_indexSwitch);
 
 //Arm
 

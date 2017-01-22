@@ -2,7 +2,8 @@
 #define Carousel_h
 #include "Arduino.h"
 #include "Motor.h"
-class Winch{
+#include "Switch.h"
+class Carousel{
   public:
     Carousel(Motor _rotationMotor, Motor _crankMotor, Switch _closedSwitch, Switch _openSwitch, Switch _indexSwtich);
     void open();

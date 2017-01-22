@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "Encoder.h"
 #include "Motor.h"
-#include "Potentieometer.h"
+#include "Potentiometer.h"
 #include "Arm.h"
 
 Arm::Arm(){

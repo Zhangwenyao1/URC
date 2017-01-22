@@ -9,14 +9,15 @@ Motor::Motor(int _pin, int _dirPin){
 }
 void Motor::doMotorsPWM(double input){
   bool _direction;
-  if(input < 0)
-    _direction = false;
-  else 
-    _direction = true;
-  
+  _direction = ((input<0) ? false : true);
+
   digitalWrite(dirPin,_direction);
   analogWrite(pin, map(0,1,0,255,abs(input)));
 }
 void Motor::doMotor(int _drive){
-	digitalWrite(pin, _drive);
+	  bool _direction;
+	  _direction = ((input<0) ? false : true);
+
+	  digitalWrite(dirPin,_direction);
+	  digitalWrite(pin, _drive);
 }

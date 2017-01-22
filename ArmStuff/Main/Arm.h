@@ -2,7 +2,7 @@
 #define Arm_h
 #include "Arduino.h"
 #include "Motor.h"
-#include "Potentieometer.h"
+#include "Potentiometer.h"
 #include "Encoder.h"
 
 class Arm{
