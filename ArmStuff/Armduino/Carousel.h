@@ -5,15 +5,17 @@
 #include "Switch.h"
 class Carousel{
   public:
-    Carousel(Motor _rotationMotor, Motor _crankMotor, Switch _closedSwitch, Switch _openSwitch, Switch _indexSwtich);
-    void open();
-    void close();
+    Carousel(int m1, int m2, int dir1, int dir2, int _pin1, int _pin2, int _pin3);
+    void Open();
+    void Close();
     void rotate(int _index);
     void fillIndex(int _index);
+    void emptyIndex(int _index);
     bool checkIndex(int _index);
   private:
-    Motor rotationMotor, crankMotor;
-    Switch closeSwitch, openSwitch, indexSwitch;
+    Motor rotationMotor;
+    Motor crankMotor;
+    Switch closedSwitch, openSwitch, indexSwitch;
     bool fullIndexes[6];
     int index;
 

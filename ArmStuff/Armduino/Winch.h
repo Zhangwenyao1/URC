@@ -4,7 +4,7 @@
 #include "Motor.h"
 class Winch{
   public:
-    Winch(Motor _motor);
+    Winch(int m1, int dir1);
     void doMotor(bool _drive);
   private:
     Motor motor;

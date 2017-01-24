@@ -4,6 +4,7 @@
 
 class Switch{
 	public:
+    Switch();
 	  Switch(int _pin);
 	  bool getState();
 	private:

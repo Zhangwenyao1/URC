@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "Motor.h"
 
+Motor::Motor(){ }
 Motor::Motor(int _pin, int _dirPin){
   pin = _pin;
   dirPin = _dirPin;
@@ -16,7 +17,7 @@ void Motor::doMotorsPWM(double input){
 }
 void Motor::doMotor(int _drive){
 	  bool _direction;
-	  _direction = ((input<0) ? false : true);
+	  _direction = ((_drive<0) ? false : true);
 
 	  digitalWrite(dirPin,_direction);
 	  digitalWrite(pin, _drive);

@@ -6,6 +6,8 @@ Encoder::Encoder(int A, int B){
   pinB = B;
   countValueA = 0;
   countValueB = 0;
+  pinMode(pinA, INPUT);
+  pinMode(pinB, INPUT);
 }
 int Encoder::getEncoderValues(){
 	int value = (countValueA+countValueB)/2;
