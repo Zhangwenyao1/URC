@@ -28,8 +28,8 @@ void Carousel::Close(){
 }
 void Carousel::rotate(int _index){
 	int goTo = ((_index + index > 5)?index-_index:index+_index);
-	while(index<_index){
-		index = ((Switch.getState() == HIGH)? index++ : index);
+	while(index < _index){
+		index = ((indexSwitch.getState() == HIGH)? index++ : index);
 		rotationMotor.doMotor(1);
 	}
 }

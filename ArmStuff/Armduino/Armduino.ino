@@ -99,8 +99,8 @@ void setup(){
   initializePublishers();
   initializeSubscribers();
 	//interrupt pins for encoders
-	attachInterrupt(digitalPinToInterrupt(encA), doEncoderA, RISING);
-	attachInterrupt(digitalPinToInterrupt(encB), doEncoderB, RISING);
+	attachInterrupt(digitalPinToInterrupt(encA), _doEncoderA, RISING);
+	attachInterrupt(digitalPinToInterrupt(encB), _doEncoderB, RISING);
 }
 void loop(){
 	updatePublishers();
@@ -120,11 +120,11 @@ void updatePublishers(){
 	//set data
 	getJoint1Position.data = j1Pos.getValue();
 	//publish data
-	_getJoint1Position.publish(getJoint1Position.data);
+	_getJoint1Position.publish(&getJoint1Position);
 }
-void doEncoderA(){
+void _doEncoderA(){
   encoder.doEncoderA();
 }
-void doEncoderB(){
+void _doEncoderB(){
   encoder.doEncoderB();
 }

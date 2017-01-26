@@ -8,8 +8,8 @@ class Motor{
   public:
     Motor(int _pin, int _dirPin);
     Motor();
-    void doMotor(std_msgs::UInt16 _drive);
-    void doMotorsPWM(std_msgs::Float32 input);
+    void doMotor(uint16_t _drive);
+    void doMotorsPWM(std_msgs::Float32 _input);
   private:
     int pin;
     int dirPin;

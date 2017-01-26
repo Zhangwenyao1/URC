@@ -12,8 +12,8 @@ Encoder::Encoder(int A, int B){
   pinMode(pinA, INPUT);
   pinMode(pinB, INPUT);
 }
-std_msgs::UInt16 Encoder::getEncoderValues(){
-	std_msgs::UInt16 value = (countValueA+countValueB)/2;
+uint16_t Encoder::getEncoderValues(){
+	uint16_t value = (countValueA+countValueB)/2;
 	return (value > 0) ? (value):(1);
 }
 void Encoder::doEncoderA(){

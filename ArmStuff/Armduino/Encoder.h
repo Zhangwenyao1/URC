@@ -7,7 +7,7 @@
 class Encoder{
   public:
     Encoder(int A, int B);
-    std_msgs::UInt16 getEncoderValues();
+    uint16_t getEncoderValues();
     void doEncoderA();
     void doEncoderB();
   private:
