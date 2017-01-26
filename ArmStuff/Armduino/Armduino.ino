@@ -8,6 +8,7 @@
 #include "Encoder.h";
 #include "Potentiometer.h";
 
+#include "Joint.h"
 #include "Winch.h"
 #include "Carousel.h";
 
@@ -38,7 +39,7 @@ Motor carouselCrank =  Motor(carouselCrankM, carouselCrankDir);
 Motor winchMotor = Motor(winchM, winchDir);
 
 //pot pins
-#define _j1Pos A0
+#define _j1Pos A0cd 	`
 #define _j2Pos A1
 #define _j3Pos A2
 #define pot3 A3
@@ -52,6 +53,12 @@ Potentiometer j3Pos = Potentiometer(_j3Pos);
 #define encB 24
 //encoder declaration
 Encoder encoder = Encoder(encA, encB);
+
+//Joint Declaration
+Joint joint1 = Joint(j1M,j1Pos);
+Joint joint2 = Joint(j2M,j2Pos);
+Joint joint3 = Joint(j3M,j3Pos);
+Joint joint4 = Joint(j4M,encoder);
 
 //Limit Switches
 #define _closeSwitch 25
@@ -72,23 +79,24 @@ ros::NodeHandle nh;
 
 //Subscribers
 void setJoint1Position(const std_msgs::Float32& cmd_msg){
-  
-  j1M.doMotorsPWM(cmd_msg);
+	joint1.setPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint1Position("setjoint1Position",setJoint1Position);
 
 void setJoint2Position(const std_msgs::Float32& cmd_msg){
-  
-  j2M.doMotorsPWM(cmd_msg);
+	joint2.setPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint2Position("setjoint2Position",setJoint2Position);
 
 void setJoint3Position(const std_msgs::Float32& cmd_msg){
-  
-  j3M.doMotorsPWM(cmd_msg);
+	joint3.setPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint3Position("setjoint3Position",setJoint3Position);
 
+void setJoint4Position(const std_msgs::Float32& cmd_msg){
+	joint4.setPosition(cmg_msg);
+}
+ros::Subscriber<std_msgs::Float32> _setJoint4Position("setJoint4Position",setJoint4Position);
 
 //Publishers
 std_msgs::UInt16 getJoint1Position;
@@ -115,10 +123,11 @@ void initializeSubscribers(){
 	nh.subscribe(_setJoint1Position);
 	nh.subscribe(_setJoint2Position);
 	nh.subscribe(_setJoint3Position);
+	nh.subscribe(_setJoint4Position);
 }
 void updatePublishers(){
 	//set data
-	getJoint1Position.data = j1Pos.getValue();
+	getJoint1Position.data = joint1.getPosition();
 	//publish data
 	_getJoint1Position.publish(&getJoint1Position);
 }

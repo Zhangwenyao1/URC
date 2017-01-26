@@ -4,6 +4,7 @@
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
 
+Encoder::Encoder(){}
 Encoder::Encoder(int A, int B){
   pinA = A;
   pinB = B;

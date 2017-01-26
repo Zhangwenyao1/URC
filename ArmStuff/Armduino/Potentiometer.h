@@ -3,6 +3,7 @@
 #include "Arduino.h"
 class Potentiometer{
   public:
+    Potentiometer();
     Potentiometer(int _pin);
     uint16_t getValue();
   private:

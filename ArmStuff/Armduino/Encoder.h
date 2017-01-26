@@ -6,6 +6,7 @@
 #include <std_msgs/Float32.h>
 class Encoder{
   public:
+	Encoder();
     Encoder(int A, int B);
     uint16_t getEncoderValues();
     void doEncoderA();
