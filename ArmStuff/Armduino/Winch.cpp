@@ -4,8 +4,8 @@
 
 Motor motor;
 
-Winch::Winch(int m1, int dir1){
-	Motor motor = Motor(m1,dir1);
+Winch::Winch(Motor _winchM){
+	motor = _winchM;
 }
 void Winch::doMotor(bool _drive){
 	motor.doMotor(_drive);

@@ -9,12 +9,12 @@ Switch closedSwitch;
 Switch openSwitch;
 Switch indexSwitch; 
 
-Carousel::Carousel(int m1, int m2, int dir1, int dir2, int _pin1, int _pin2, int _pin3){
-	Motor rotationMotor = Motor(m1,dir1);
-	Motor crankMotor = Motor(m2,dir2);
-	Switch closedSwitch = Switch(_pin1);
-	Switch openSwitch = Switch(_pin2);
-	Switch indexSwitch = Switch(_pin3);
+Carousel::Carousel(Motor _rotate, Motor _crank, Switch _open, Switch _close, Switch _index){
+	rotationMotor = _rotate;
+	crankMotor = _crank;
+	closedSwitch = _close;
+	openSwitch = _open;
+	indexSwitch = _index;
 }
 void Carousel::Open(){
 	int _Direction;
@@ -27,7 +27,11 @@ void Carousel::Close(){
 	crankMotor.doMotor(_Direction);
 }
 void Carousel::rotate(int _index){
-
+	int goTo = ((_index + index > 5)?index-_index:index+_index);
+	while(index<_index){
+		index = ((Switch.getState() == HIGH)? index++ : index);
+		rotationMotor.doMotor(1);
+	}
 }
 void Carousel::fillIndex(int _index){
 	fullIndexes[_index] = true;

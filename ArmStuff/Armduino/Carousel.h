@@ -5,7 +5,7 @@
 #include "Switch.h"
 class Carousel{
   public:
-    Carousel(int m1, int m2, int dir1, int dir2, int _pin1, int _pin2, int _pin3);
+    Carousel(Motor _rotate, Motor _crank, Switch _open, Switch _close, Switch _index);
     void Open();
     void Close();
     void rotate(int _index);
