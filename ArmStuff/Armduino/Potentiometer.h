@@ -6,9 +6,9 @@
 #include <std_msgs/Float32.h>
 class Potentiometer{
   public:
-    Potentiometer(std_msgs::UInt16 _pin);
+    Potentiometer(int _pin);
     std_msgs::UInt16 getValue();
   private:
-    std_msgs::UInt16 pin;
+    int pin;
 };
 #endif

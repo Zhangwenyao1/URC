@@ -94,9 +94,10 @@ ros::Subscriber<std_msgs::Float32> _setJoint3Position("setjoint3Position",setJoi
 std_msgs::UInt16 getJoint1Position;
 ros::Publisher _getJoint1Position("getJoint1Position", &getJoint1Position);
 
-
 void setup(){
 	nh.initNode();//initialize the node handle
+  initializePublishers();
+  initializeSubscribers();
 	//interrupt pins for encoders
 	attachInterrupt(digitalPinToInterrupt(encA), doEncoderA, RISING);
 	attachInterrupt(digitalPinToInterrupt(encB), doEncoderB, RISING);
