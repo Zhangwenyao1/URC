@@ -8,10 +8,10 @@ class Carousel{
     Carousel(Motor _rotate, Motor _crank, Switch _open, Switch _close, Switch _index);
     void Open();
     void Close();
-    void rotate(int _index);
-    void fillIndex(int _index);
-    void emptyIndex(int _index);
-    bool checkIndex(int _index);
+    void rotate(uint16_t _index);
+    void fillIndex(uint16_t _index);
+    void emptyIndex(uint16_t _index);
+    bool checkIndex(uint16_t _index);
   private:
     Motor rotationMotor;
     Motor crankMotor;

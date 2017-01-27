@@ -98,14 +98,36 @@ void setJoint4Position(const std_msgs::Float32& cmd_msg){
 }
 ros::Subscriber<std_msgs::Float32> _setJoint4Position("setJoint4Position",setJoint4Position);
 
+void spinCarouselTo(const std_msgs::UInt16& cmd_msg){
+	carosel.rotate(cmd_msg);
+}
+ros::Subscriber _spinCarouselTo("spinCarouselTo",spinCarouselTo);
+
+void carouselDoor(const std_msgs::Bool& cmd_msg){
+	((cmd_msg==true)?carousel.open():carousel.close());
+}
+ros::Subscriber _carouselDoor("carouselDoor", carouselDoor);
+
 //Publishers
 std_msgs::UInt16 getJoint1Position;
 ros::Publisher _getJoint1Position("getJoint1Position", &getJoint1Position);
 
+std_msgs::UInt16 getJoint2Position;
+ros::Publisher _getJoint2Position("getJoint2Position", &getJoint2Position);
+
+std_msgs::UInt16 getJoint3Position;
+ros::Publisher _getJoint3Position("getJoint3Position", &getJoint3Position);
+
+std_msgs::UInt16 getJoint4Position;
+ros::Publisher _getJoint4Position("getJoint4Position", &getJoint4Position);
+
+std_msgs::UInt16 getCarouselPosition;
+ros::Publisher _getCarouselPosition("getCarouselPosition", &getCarouselPosition);
+
 void setup(){
 	nh.initNode();//initialize the node handle
-  initializePublishers();
-  initializeSubscribers();
+	initializePublishers();
+	initializeSubscribers();
 	//interrupt pins for encoders
 	attachInterrupt(digitalPinToInterrupt(encA), _doEncoderA, RISING);
 	attachInterrupt(digitalPinToInterrupt(encB), _doEncoderB, RISING);
@@ -117,6 +139,10 @@ void loop(){
 void initializePublishers(){
 	//publisher initialization
 	nh.advertise(_getJoint1Position);
+	nh.advertise(_getJoint2Position);
+	nh.advertise(_getJoint3Position);
+	nh.advertise(_getJoint4Position);
+	nh.advertise(_getCarouselPosition);
 }
 void initializeSubscribers(){
 	//subscriber initialization
@@ -124,12 +150,23 @@ void initializeSubscribers(){
 	nh.subscribe(_setJoint2Position);
 	nh.subscribe(_setJoint3Position);
 	nh.subscribe(_setJoint4Position);
+	nh.subscribe(_spinCarouselTo);
+	nh.subscribe(_carouselDoor);
+
 }
 void updatePublishers(){
 	//set data
 	getJoint1Position.data = joint1.getPosition();
+	getJoint2Position.data = joint2.getPosition();
+	getJoint3Position.data = joint3.getPosition();
+	getJoint4Position.data = joint4.getPosition();
+	getCarouselPosition.data = carousel.checkIndex();
 	//publish data
 	_getJoint1Position.publish(&getJoint1Position);
+	_getJoint2Position.publish(&getJoint2Position);
+	_getJoint3Position.publish(&getJoint3Position);
+	_getJoint4Position.publish(&getJoint4Position);
+	_getCarouselPosition.publish(&getCarouselPosition);
 }
 void _doEncoderA(){
   encoder.doEncoderA();
