@@ -1,7 +1,9 @@
 /*
 
 # This sample codes is for testing the pH meter V1.0.
-
+#USAGE  rostopic pub /recieve std_msgs/Float32 10  sends to subscriber
+rosrun rosserial_python serial_node.py /dev/ttyACM0  reads from the arduino port, you must do this to initaiate the port
+rostopic echo /probe shows the ph values
  # Editor : Adam Yang
 
  # Date   : 2013.10.12
@@ -11,6 +13,9 @@
  # Product: pH meter
 
  # SKU    : SEN0161
+ 
+ rostopic pub /recieve std_msgs/Float32 10
+rosrun rosserial_python serial_node.py /dev/ttyACM0
 
 */
 #include <ros.h> // include the ros library
