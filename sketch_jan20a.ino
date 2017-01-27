@@ -13,57 +13,40 @@
  # SKU    : SEN0161
 
 */
-#include <ros.h>
-#include <std_msgs/Float32.h>
+#include <ros.h> // include the ros library
+#include <std_msgs/Float32.h> 
 #include <std_msgs/String.h>
-
-  #include <std_msgs/Empty.h>
-
 ros::NodeHandle  nh;
 std_msgs::Float32 ph_msg;
 ros::Publisher phprobe("probe", &ph_msg);
-
 float check;
 void recieved(std_msgs::Float32 &msg) {
   check = msg.data;
   if (check > 5) {
   digitalWrite(13, HIGH);       
-
 delay(300);
   digitalWrite(13, LOW);       
-  }else{
-
-    
-    
   }
-  
-}
-
-
-ros::Subscriber<std_msgs::Float32> sub("recieve", &recieved);
-
+ }
+ros::Subscriber<std_msgs::Float32> sub("recieve", &recieved); // 
 #define SensorPin 0          //pH meter Analog output to Arduino Analog Input 0
-
 unsigned long int avgValue;  //Store the average value of the sensor feedback
-
 float b;
 String tempo;
 int buf[10],temp;
-char probedata[13];
-void setup()
 
-{
+
+//-------------------------------
+void setup(){
 nh.initNode();
 nh.advertise(phprobe);
 nh.subscribe(sub);
   pinMode(13,OUTPUT);  
-
   Serial.begin(9600);  
-
   Serial.println("Ready");    //Test the serial monitor
 
 }
-
+//-------------------------------------------------
 void loop()
 
 {
@@ -128,6 +111,5 @@ ph_msg.data=phValue;
 /*remember to run rosrun rosserial_python serial_node.py*/
  phprobe.publish( &ph_msg );
   nh.spinOnce();
-  delay(5);
 
 }
