@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+dan@ubuntu:~/catkin_ws/src/URC/r3ros/arm-urdf
+=======
 # Arm Basics
 
 This code is based on (and explained in detail) Chapter 8 (page 389) of the ROS book "[Programming Robots with ROS](https://drive.google.com/drive/folders/0B0R9maYs7LgsVWpIOThTR1pVcTQ)".
@@ -36,3 +39,4 @@ roslaunch r3ros arm.launch
 ```bash
 rostopic pub /arm_controller/command trajectory_msgs/JointTrajectory '{joint_names: ["hip", "shoulder", "elbow", "wrist"], points: [{positions: [0.1, -0.5, 0.5, 0.75], time_from_start: [1.0, 0.0]}]}'
 ```
+>>>>>>> origin
