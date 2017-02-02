@@ -39,26 +39,21 @@ Motor carouselCrank =  Motor(carouselCrankM, carouselCrankDir);
 Motor winchMotor = Motor(winchM, winchDir);
 
 //pot pins
-#define _j1Pos A0cd 	`
+#define _j1Pos A0	`
 #define _j2Pos A1
 #define _j3Pos A2
-#define pot3 A3
+#define _j4Pos A3
 //Potentiometer declaration
 Potentiometer j1Pos = Potentiometer(_j1Pos);
 Potentiometer j2Pos = Potentiometer(_j2Pos);
 Potentiometer j3Pos = Potentiometer(_j3Pos);
-
-//encoder pins
-#define encA 23
-#define encB 24
-//encoder declaration
-Encoder encoder = Encoder(encA, encB);
+Potentiometer j4Pos = Potentiometer(_j4Pos);
 
 //Joint Declaration
 Joint joint1 = Joint(j1M,j1Pos);
 Joint joint2 = Joint(j2M,j2Pos);
 Joint joint3 = Joint(j3M,j3Pos);
-Joint joint4 = Joint(j4M,encoder);
+Joint joint4 = Joint(j4M,j4Pos);
 
 //Limit Switches
 #define _closeSwitch 25
@@ -128,9 +123,6 @@ void setup(){
 	nh.initNode();//initialize the node handle
 	initializePublishers();
 	initializeSubscribers();
-	//interrupt pins for encoders
-	attachInterrupt(digitalPinToInterrupt(encA), _doEncoderA, RISING);
-	attachInterrupt(digitalPinToInterrupt(encB), _doEncoderB, RISING);
 }
 void loop(){
 	updatePublishers();
