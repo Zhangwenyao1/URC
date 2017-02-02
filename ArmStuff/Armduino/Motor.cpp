@@ -18,7 +18,7 @@ void Motor::doMotorsPWM(std_msgs::Float32 _input){
   digitalWrite(dirPin,_direction);
   analogWrite(pin, map((abs(input)*10),0,10,0,255));
 }
-void Motor::doMotor(uint16_t _drive){
+void Motor::doMotor(int _drive){
 	  bool _direction;
 	  _direction = ((_drive<0) ? false : true);
 

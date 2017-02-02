@@ -17,7 +17,7 @@ class Carousel{
     Motor crankMotor;
     Switch closedSwitch, openSwitch, indexSwitch;
     bool fullIndexes[6];
-    int index;
+    uint16_t index;
 
 };
 #endif
