@@ -69,10 +69,10 @@ Carousel carousel = Carousel(carouselRotate, carouselCrank, _close, _open, _inde
 //Winch declaration
 Winch winch = Winch(winchMotor);
 
-//ros declarations and methods
+//ros node handle
 ros::NodeHandle nh;
 
-//Subscribers
+//Ros Subscribers
 void setJoint1Position(const std_msgs::Float32& cmd_msg){
 	joint1.setPosition(cmd_msg);
 }
@@ -103,7 +103,7 @@ void carouselDoor(const std_msgs::Bool& cmd_msg){
 }
 ros::Subscriber _carouselDoor("carouselDoor", carouselDoor);
 
-//Publishers
+//Ros Publishers
 std_msgs::UInt16 getJoint1Position;
 ros::Publisher _getJoint1Position("getJoint1Position", &getJoint1Position);
 
@@ -126,7 +126,7 @@ void setup(){
 }
 void loop(){
 	updatePublishers();
-	nh.spinOnce();
+	nh.spinOnce();//required
 }
 void initializePublishers(){
 	//publisher initialization
@@ -160,9 +160,4 @@ void updatePublishers(){
 	_getJoint4Position.publish(&getJoint4Position);
 	_getCarouselPosition.publish(&getCarouselPosition);
 }
-void _doEncoderA(){
-  encoder.doEncoderA();
-}
-void _doEncoderB(){
-  encoder.doEncoderB();
-}
+
