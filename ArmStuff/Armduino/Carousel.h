@@ -4,6 +4,7 @@
 #include "Motor.h"
 #include "Switch.h"
 #include <std_msgs/UInt16.h>
+#include <std_msgs/Int16.h>
 class Carousel{
   public:
     Carousel(Motor _rotate, Motor _crank, Switch _open, Switch _close, Switch _index);

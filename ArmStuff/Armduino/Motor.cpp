@@ -1,12 +1,16 @@
 #include "Arduino.h"
 #include <Servo.h>
+#include <Stepper.h>
 #include "Motor.h"
 #include "Servo.h"
 #include "ros.h";
+#include <std_msgs/Int16.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
 
-Servo motor;
+Servo servo;
+Stepper stepper = Stepper(0,0,0);
+
 Motor::Motor(){ }
 Motor::Motor(int _pin, int _dirPin){
   pin = _pin;
@@ -15,22 +19,18 @@ Motor::Motor(int _pin, int _dirPin){
   pinMode(dirPin, OUTPUT);
 }
 Motor::Motor(int _pin){
-	pin = _pin;
-	motor.attach(pin);
+	pin =_pin;
+	servo.attach(pin);
 }
-void Motor::doMotorsPWM(std_msgs::Float32 _input){
-	
-	if(dirPin > 0){
-		float input = _input.data;
-		motor.write(map((input*10),-10,10,0,180));
-	}
-	else{
-		bool _direction;
-		float input = _input.data;
-		_direction = ((input<0) ? false : true);
-		digitalWrite(dirPin,_direction);
-		analogWrite(pin, map(abs(input*10),0,10,0,255));
-	}
+Motor::Motor(Stepper _Stepper){
+	stepper = _Stepper;
+}
+void Motor::doPWM(float _input){
+	float input = _input;
+	servo.write(map((input*10),-10,10,0,180));
+}
+void Motor::doStepper(int16_t _input){
+	stepper.step(_input);
 }
 void Motor::doMotor(int _drive){
 	  bool _direction;

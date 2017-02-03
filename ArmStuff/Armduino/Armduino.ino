@@ -1,8 +1,10 @@
 //Main Arm Code, Ryerson Rams Robotics, URC2017
 #include <Arduino.h>
 #include <Servo.h>
+#include <Stepper.h>
 #include "ros.h"
 #include <std_msgs/UInt16.h>
+#include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Bool.h>
 
@@ -13,30 +15,37 @@
 #include "Winch.h"
 #include "Carousel.h"
 
+#define nema17Steps 200
+
 //motor pins
 #define _j1M 0
 #define _j2M 1
 #define _j3M 2
 #define _gM 3
-#define carouselRotateM 4
-#define carouselCrankM 5
+#define carouselRotateA 4
+#define carouselRotateB 5
+#define carouselCrankA 6
+#define carouselCrankB 7
 #define winchM 6
+
 //direction pins
 #define _j1D 7
 #define _j2D 9
 #define _j3D 11
 #define _gD 13
-#define carouselRotateDir 17
-#define carouselCrankDir 19
 #define winchDir 21
 
+//Stepper declaration
+Stepper carouselCrankStepper = Stepper(nema17Steps, carouselRotateA,carouselRotateB);
+Stepper carouselRotateStepper = Stepper(nema17Steps, carouselCrankA,carouselCrankB);
+
 //Motor declaration
-Motor j1M = Motor(_j1M, _j1D);
-Motor j2M = Motor(_j2M, _j2D);
-Motor j3M = Motor(_j3M, _j3D);
-Motor j4M = Motor(_gM, _gD);
-Motor carouselRotate = Motor(carouselRotateM, carouselRotateDir);
-Motor carouselCrank =  Motor(carouselCrankM, carouselCrankDir);
+Motor j1M = Motor(_j1M, _j1D);//dc motor
+Motor j2M = Motor(_j2M, _j2D);//dc motor
+Motor j3M = Motor(_j3M, _j3D);//dc motor
+Motor j4M = Motor(_gM, _gD);//dc motor
+Motor carouselRotate = Motor(carouselRotateStepper);//Carousel rotate stepper
+Motor carouselCrank =  Motor(carouselCrankStepper);//carousel crank stepper
 Motor winchMotor = Motor(winchM, winchDir);
 
 //pot pins
@@ -126,6 +135,7 @@ void setup(){
 	initializeSubscribers();
 }
 void loop(){
+
 	updatePublishers();
 	nh.spinOnce();//required
 }

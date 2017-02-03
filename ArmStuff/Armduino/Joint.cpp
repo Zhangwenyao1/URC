@@ -16,5 +16,5 @@ uint16_t Joint::getJointPosition(){
 	return jointPot.getValue();
 }
 void Joint::setJointPosition(std_msgs::Float32 _pos){
-	jointMotor.doMotorsPWM(_pos);
+	jointMotor.doPWM(_pos.data);
 }
