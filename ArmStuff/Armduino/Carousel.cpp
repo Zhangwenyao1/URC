@@ -3,6 +3,8 @@
 #include "Switch.h"
 #include "Carousel.h"
 #include "ros.h"
+#include <std_msgs/UInt16.h>
+
 Motor rotationMotor;
 Motor crankMotor;
 Switch closedSwitch;
@@ -26,9 +28,10 @@ void Carousel::Close(){
 	_Direction = ((closedSwitch.getState() == false) ? -1 : 0);
 	crankMotor.doMotor(_Direction);
 }
-void Carousel::rotate(uint16_t _index){
-	int goTo = ((_index + index > 5)?index-_index:index+_index);
-	while(index < _index){
+void Carousel::rotate(std_msgs::UInt16 _index){
+	int hold = _index.data;
+	int goTo = ((hold + index > 5)?index-hold:index+hold);
+	while(index < hold){
 		index = ((indexSwitch.getState() == HIGH)? index++ : index);
 		rotationMotor.doMotor(1);
 	}

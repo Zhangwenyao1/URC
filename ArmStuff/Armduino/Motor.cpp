@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include <Servo.h>
 #include "Motor.h"
 #include "Servo.h"
 #include "ros.h";
@@ -18,6 +19,7 @@ Motor::Motor(int _pin){
 	motor.attach(pin);
 }
 void Motor::doMotorsPWM(std_msgs::Float32 _input){
+	
 	if(dirPin > 0){
 		float input = _input.data;
 		motor.write(map((input*10),-10,10,0,180));

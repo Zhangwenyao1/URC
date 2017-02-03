@@ -1,6 +1,7 @@
 //driveduino
 #include "Arduino.h"
 #include "ros.h"
+#include <Servo.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
 
@@ -10,12 +11,12 @@
 //Left Motor pins
 #define _leftFront 0
 #define _leftMid 1
-#define _lefRear 2
+#define _leftRear 2
 
 //Left Direction Pins
 #define _leftFrontD 3
 #define _leftMidD 4
-#define _leftReadD 5
+#define _leftRearD 5
 
 
 //Right Motor Pins
@@ -36,7 +37,7 @@ Motor rightFrontMotor = Motor(_rightFront);
 Motor rightMidMotor = Motor(_rightMid);
 Motor rightRearMotor = Motor(_rightRear);
 
-/*
+
 //left encoder pins
 #define _lfEncA 12
 #define _lfEncB 13
@@ -51,7 +52,7 @@ Motor rightRearMotor = Motor(_rightRear);
 #define _rmEncB 21
 #define _rrEncA 22
 #define _rrEncB 23
-*/
+
 
 //Encoder Declarations
 Encoder leftFrontEnc = Encoder(_lfEncA, _lfEncB);
@@ -68,7 +69,7 @@ ros::NodeHandle nh;
 void setLeftFrontSpeed(const std_msgs::Float32& cmd_msg){
 	leftFrontMotor.doMotorsPWM(cmd_msg);
 }
-ross::Subscriber<std_msgs::Float32> _setLeftFrontSpeed("setLeftFrontSpeed",setLeftFrontSpeed);
+ros::Subscriber<std_msgs::Float32> _setLeftFrontSpeed("setLeftFrontSpeed",setLeftFrontSpeed);
 //ros publishers
 std_msgs::UInt16 getLeftFrontPosition;
 ros::Publisher _getLeftFrontPosition("getLeftFrontPosition", &getLeftFrontPosition);

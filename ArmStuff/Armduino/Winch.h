@@ -7,6 +7,6 @@ class Winch{
     Winch(Motor _winchM);
     void doMotor(bool _drive);
   private:
-    Motor motor;
+    Motor _motor;
 };
 #endif

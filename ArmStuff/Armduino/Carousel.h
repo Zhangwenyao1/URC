@@ -3,12 +3,13 @@
 #include "Arduino.h"
 #include "Motor.h"
 #include "Switch.h"
+#include <std_msgs/UInt16.h>
 class Carousel{
   public:
     Carousel(Motor _rotate, Motor _crank, Switch _open, Switch _close, Switch _index);
     void Open();
     void Close();
-    void rotate(uint16_t _index);
+    void rotate(std_msgs::UInt16 _index);
     void fillIndex(uint16_t _index);
     void emptyIndex(uint16_t _index);
     bool checkIndex(uint16_t _index);

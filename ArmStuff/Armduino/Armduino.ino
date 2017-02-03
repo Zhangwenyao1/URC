@@ -1,16 +1,17 @@
 //Main Arm Code, Ryerson Rams Robotics, URC2017
 #include <Arduino.h>
-#include "ros.h";
+#include <Servo.h>
+#include "ros.h"
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
+#include <std_msgs/Bool.h>
 
-#include "Motor.h";
-#include "Encoder.h";
-#include "Potentiometer.h";
+#include "Motor.h"
+#include "Potentiometer.h"
 
 #include "Joint.h"
 #include "Winch.h"
-#include "Carousel.h";
+#include "Carousel.h"
 
 //motor pins
 #define _j1M 0
@@ -39,7 +40,7 @@ Motor carouselCrank =  Motor(carouselCrankM, carouselCrankDir);
 Motor winchMotor = Motor(winchM, winchDir);
 
 //pot pins
-#define _j1Pos A0	`
+#define _j1Pos A0	
 #define _j2Pos A1
 #define _j3Pos A2
 #define _j4Pos A3
@@ -74,34 +75,34 @@ ros::NodeHandle nh;
 
 //Ros Subscribers
 void setJoint1Position(const std_msgs::Float32& cmd_msg){
-	joint1.setPosition(cmd_msg);
+	joint1.setJointPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint1Position("setjoint1Position",setJoint1Position);
 
 void setJoint2Position(const std_msgs::Float32& cmd_msg){
-	joint2.setPosition(cmd_msg);
+	joint2.setJointPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint2Position("setjoint2Position",setJoint2Position);
 
 void setJoint3Position(const std_msgs::Float32& cmd_msg){
-	joint3.setPosition(cmd_msg);
+	joint3.setJointPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint3Position("setjoint3Position",setJoint3Position);
 
 void setJoint4Position(const std_msgs::Float32& cmd_msg){
-	joint4.setPosition(cmg_msg);
+	joint4.setJointPosition(cmd_msg);
 }
 ros::Subscriber<std_msgs::Float32> _setJoint4Position("setJoint4Position",setJoint4Position);
 
 void spinCarouselTo(const std_msgs::UInt16& cmd_msg){
-	carosel.rotate(cmd_msg);
+	carousel.rotate(cmd_msg);
 }
-ros::Subscriber _spinCarouselTo("spinCarouselTo",spinCarouselTo);
+ros::Subscriber<std_msgs::UInt16> _spinCarouselTo("spinCarouselTo",spinCarouselTo);
 
 void carouselDoor(const std_msgs::Bool& cmd_msg){
-	((cmd_msg==true)?carousel.open():carousel.close());
+	((cmd_msg.data==true)?carousel.Open():carousel.Close());
 }
-ros::Subscriber _carouselDoor("carouselDoor", carouselDoor);
+ros::Subscriber<std_msgs::Bool> _carouselDoor("carouselDoor", carouselDoor);
 
 //Ros Publishers
 std_msgs::UInt16 getJoint1Position;
@@ -148,11 +149,10 @@ void initializeSubscribers(){
 }
 void updatePublishers(){
 	//set data
-	getJoint1Position.data = joint1.getPosition();
-	getJoint2Position.data = joint2.getPosition();
-	getJoint3Position.data = joint3.getPosition();
-	getJoint4Position.data = joint4.getPosition();
-	getCarouselPosition.data = carousel.checkIndex();
+	getJoint1Position.data = joint1.getJointPosition();
+	getJoint2Position.data = joint2.getJointPosition();
+	getJoint3Position.data = joint3.getJointPosition();
+	getJoint4Position.data = joint4.getJointPosition();
 	//publish data
 	_getJoint1Position.publish(&getJoint1Position);
 	_getJoint2Position.publish(&getJoint2Position);

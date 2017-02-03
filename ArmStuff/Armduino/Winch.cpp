@@ -2,11 +2,11 @@
 #include "Winch.h"
 #include "Motor.h"
 
-Motor motor;
+Motor _motor;
 
 Winch::Winch(Motor _winchM){
-	motor = _winchM;
+	_motor = _winchM;
 }
 void Winch::doMotor(bool _drive){
-	motor.doMotor(_drive);
+	_motor.doMotor(_drive);
 }
