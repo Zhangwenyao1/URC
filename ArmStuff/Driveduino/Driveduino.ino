@@ -11,28 +11,32 @@
 #define _leftFront 0
 #define _leftMid 1
 #define _lefRear 2
+
 //Left Direction Pins
 #define _leftFrontD 3
 #define _leftMidD 4
 #define _leftReadD 5
 
+
 //Right Motor Pins
 #define _rightFront 6
 #define _rightMid 7
 #define _rightRear 8
+
 //Right Direction Pins
 #define _rightFrontD 9
 #define _rightMidD	10
 #define _rightReadD 11
 
 //Motor Declarations
-Motor leftFrontMotor = Motor(_leftFront, _leftFrontD);
-Motor leftMidMotor = Motor(_leftMid, _leftMidD);
-Motor leftRearMotor = Motor(_leftRear, _leftRearD);
-Motor rightFrontMotor = Motor(_rightFront, _rihgtFrontD);
-Motor rightMidMotor = Motor(_rightMid, _rightMidD);
-Motor rightRearMotor = Motor(_rightRear, _rightRearD);
+Motor leftFrontMotor = Motor(_leftFront);
+Motor leftMidMotor = Motor(_leftMid);
+Motor leftRearMotor = Motor(_leftRear);
+Motor rightFrontMotor = Motor(_rightFront);
+Motor rightMidMotor = Motor(_rightMid);
+Motor rightRearMotor = Motor(_rightRear);
 
+/*
 //left encoder pins
 #define _lfEncA 12
 #define _lfEncB 13
@@ -47,6 +51,7 @@ Motor rightRearMotor = Motor(_rightRear, _rightRearD);
 #define _rmEncB 21
 #define _rrEncA 22
 #define _rrEncB 23
+*/
 
 //Encoder Declarations
 Encoder leftFrontEnc = Encoder(_lfEncA, _lfEncB);
