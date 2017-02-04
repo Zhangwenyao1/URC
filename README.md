@@ -62,7 +62,7 @@ source ~/catkin_ws/devel/setup.bash
 roscore
 # in another terminal
 source ~/catkin_ws/devel/setup.bash
-rosrun r3ros talker.py
+rosrun urc talker.py
 ```
 
 # Editing robot model (URDF format)
