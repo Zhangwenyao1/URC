@@ -16,17 +16,17 @@ def overlay_telemetry(img, bearing_rotation, scale_text):
 
   img = cv2.imread(img)
   if img == None:
-    print "ERROR: img didn't load"
+    rospy.logerror("ERROR image file didn't load: %s" % img)
     exit(1)
 
   scale_img = cv2.imread(scale_filename, -1)
   if scale_img == None:
-    print "ERROR: scale_img didn't load"
+    rospy.logerror("ERROR image file didn't load: %s" % scale_img)
     exit(1)
 
   compass_img = cv2.imread(compass_filename, -1)
   if compass_img == None:
-    print "ERROR: compass_img didn't load"
+    rospy.logerror("ERROR image file didn't load: %s" % compass_img)
     exit(1)
 
   # cv2.imshow("Image", img)

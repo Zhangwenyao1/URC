@@ -5,27 +5,26 @@ import rospy
 from std_msgs.msg import Float32
 from datetime import datetime
 
-import os
 
-def save_temp():
-  rospy.init_node('save_temp', anonymous=True)
+def save_ph():
+  rospy.init_node('save_ph', anonymous=True)
   description = None
 
   if rospy.has_param('~description'):
     description = rospy.get_param('~description')
 
-  data = rospy.wait_for_message('temp', Float32)
-  temp = data.data
+  data = rospy.wait_for_message('ph', Float32)
+  ph = data.data
 
   time_now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-  filename = '%s_temperature.txt' % time_now
+  filename = '%s_pH.txt' % time_now
   if description:
     filename = '%s_%s' %(description, filename)
   f = open(filename, 'w')
-  f.write('temperature: %sC\n' % str(temp))
+  f.write('pherature: %sC\n' % str(ph))
   f.close()
 
-  rospy.loginfo("Saved temperature reading '%s' to file '%s'" % (temp, filename))
+  rospy.loginfo("Saved pH reading '%s' to file '%s'" % (ph, filename))
 
 if __name__ == '__main__':
-  save_temp()
+  save_ph()
