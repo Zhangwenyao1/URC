@@ -8,6 +8,20 @@
 - ROS Kinetic
 
 ## Installation
+### Software dependencies
+#### For Joystick
+```
+sudo apt-get install ros-indigo-joy
+# more info: http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
+```
+
+#### For Arduino Development
+```
+sudo apt-get install ros-indigo-rosserial-arduino
+sudo apt-get install ros-indigo-rosserial
+# more info: http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
+```
+
 ### Create a workspace
 Create your workspace by following the standard convention:
 
