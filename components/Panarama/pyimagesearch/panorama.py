@@ -1,12 +1,16 @@
 # import the necessary packages
 import numpy as np
-import imutils
 import cv2
+
+def is_cv3():
+    # if we are using OpenCV 3.X, then our cv2.__version__ will start
+    # with '3.'
+    return cv2.__version__.startswith("3.")
 
 class Stitcher:
 	def __init__(self):
 		# determine if we are using OpenCV v3.X
-		self.isv3 = imutils.is_cv3()
+		self.isv3 = is_cv3()
 
 	def stitch(self, images, ratio=0.75, reprojThresh=4.0,
 		showMatches=False):
