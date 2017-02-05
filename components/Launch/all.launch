@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find zed_wrapper)/launch/zed_camera.launch">
+    <include file="$(find urc)/components/USBCamera/usb_cameras.launch"/>
+</launch>
