@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="urc" type="usb_camera.py" name="rear_camera" output="screen">
+      <param name="~topic" value="rear_camera" />
+      <param name="~device_id" value="0" />
+    </node>
+    <node pkg="urc" type="usb_camera.py" name="arm_camera" output="screen">
+      <param name="~topic" value="arm_camera" />
+      <param name="~device_id" value="0" />
+    </node>
+</launch>
