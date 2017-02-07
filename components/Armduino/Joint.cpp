@@ -4,6 +4,7 @@
 #include "Potentiometer.h"
 #include "ros.h"
 #include <std_msgs/Float32.h>
+#include <std_msgs/UInt16.h>
 
 Motor jointMotor = Motor();
 Potentiometer jointPot = Potentiometer();
@@ -17,4 +18,7 @@ uint16_t Joint::getJointPosition(){
 }
 void Joint::setJointPosition(std_msgs::Float32 _pos){
 	jointMotor.doPWM(_pos.data);
+}
+void Joint::setJointPositionStepper(std_msgs::UInt16 _pos){
+	jointMotor.doStepper(_pos.data);
 }

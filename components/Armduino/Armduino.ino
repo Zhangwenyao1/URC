@@ -21,7 +21,8 @@
 #define _j1M 0
 #define _j2M 1
 #define _j3M 2
-#define _gM 3
+#define _j4MA 3
+#define _j4MB 4
 #define carouselRotateA 4
 #define carouselRotateB 5
 #define carouselCrankA 6
@@ -29,24 +30,25 @@
 #define winchM 6
 
 //direction pins
-#define _j1D 7
+/*#define _j1D 7
 #define _j2D 9
 #define _j3D 11
 #define _gD 13
-#define winchDir 21
+#define winchDir 21*/
 
 //Stepper declaration
+Stepper joint4Stepper= Stepper(nema17Steps, _j4MA, _j4MB);
 Stepper carouselCrankStepper = Stepper(nema17Steps, carouselRotateA,carouselRotateB);
 Stepper carouselRotateStepper = Stepper(nema17Steps, carouselCrankA,carouselCrankB);
 
 //Motor declaration
-Motor j1M = Motor(_j1M, _j1D);//dc motor
-Motor j2M = Motor(_j2M, _j2D);//dc motor
-Motor j3M = Motor(_j3M, _j3D);//dc motor
-Motor j4M = Motor(_gM, _gD);//dc motor
+Motor j1M = Motor(_j1M);//dc motor
+Motor j2M = Motor(_j2M);//dc motor
+Motor j3M = Motor(_j3M);//dc motor
+Motor j4M = Motor(joint4Stepper);//stepper motor
 Motor carouselRotate = Motor(carouselRotateStepper);//Carousel rotate stepper
 Motor carouselCrank =  Motor(carouselCrankStepper);//carousel crank stepper
-Motor winchMotor = Motor(winchM, winchDir);
+Motor _winchMotor = Motor(winchM);//dc motor
 
 //pot pins
 #define _j1Pos A0	
@@ -77,7 +79,7 @@ Switch _index = Switch(_indexSwitch);
 //Carousel declaration
 Carousel carousel = Carousel(carouselRotate, carouselCrank, _close, _open, _index);
 //Winch declaration
-Winch winch = Winch(winchMotor);
+Winch winch = Winch(_winchMotor);
 
 //ros node handle
 ros::NodeHandle nh;
@@ -98,10 +100,10 @@ void setJoint3Position(const std_msgs::Float32& cmd_msg){
 }
 ros::Subscriber<std_msgs::Float32> _setJoint3Position("setjoint3Position",setJoint3Position);
 
-void setJoint4Position(const std_msgs::Float32& cmd_msg){
-	joint4.setJointPosition(cmd_msg);
+void setJoint4Position(const std_msgs::UInt16& cmd_msg){
+	joint4.setJointPositionStepper(cmd_msg);
 }
-ros::Subscriber<std_msgs::Float32> _setJoint4Position("setJoint4Position",setJoint4Position);
+ros::Subscriber<std_msgs::UInt16> _setJoint4Position("setJoint4Position",setJoint4Position);
 
 void spinCarouselTo(const std_msgs::UInt16& cmd_msg){
 	carousel.rotate(cmd_msg);
@@ -112,6 +114,11 @@ void carouselDoor(const std_msgs::Bool& cmd_msg){
 	((cmd_msg.data==true)?carousel.Open():carousel.Close());
 }
 ros::Subscriber<std_msgs::Bool> _carouselDoor("carouselDoor", carouselDoor);
+
+void winchMotor(const std_msgs::Float32& cmg_msg){
+	winch.doMotor(cmg_msg);
+}
+ros::Subscriber<std_msgs::Float32> _winchMotor_("winchMotor", winchMotor);
 
 //Ros Publishers
 std_msgs::UInt16 getJoint1Position;
@@ -135,7 +142,6 @@ void setup(){
 	initializeSubscribers();
 }
 void loop(){
-
 	updatePublishers();
 	nh.spinOnce();//required
 }
@@ -155,6 +161,7 @@ void initializeSubscribers(){
 	nh.subscribe(_setJoint4Position);
 	nh.subscribe(_spinCarouselTo);
 	nh.subscribe(_carouselDoor);
+	nh.subscribe(_winchMotor_);
 
 }
 void updatePublishers(){
