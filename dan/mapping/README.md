@@ -1,5 +1,5 @@
 # MapViz Tile Map + Google Maps Satellite +  MapProxy
-This will walk you through using [MapProxy](https://mapproxy.org/) to proxy Google Maps satellite view into a [WMTS](https://en.wikipedia.org/wiki/Web_Map_Tile_Service) tile service so that it can be viewed by ROS's [MapViz Tile Map plugin](https://github.com/swri-robotics/mapviz#tile-map).
+This will walk you through using [MapProxy](https://mapproxy.org/) in a docker container to proxy Google Maps satellite view into a [WMTS](https://en.wikipedia.org/wiki/Web_Map_Tile_Service) tile service so that it can be viewed by ROS's [MapViz Tile Map plugin](https://github.com/swri-robotics/mapviz#tile-map).
 
 
 ## Dependencies
