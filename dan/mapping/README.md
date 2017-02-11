@@ -80,6 +80,8 @@ offset_y: -992564.2
 OR using ROS parameters:
 
 ```
+$ roscd mapviz
+$ vim launch/mapviz.launch
 <launch>
     <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /map /check 100"  />
     <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" >
