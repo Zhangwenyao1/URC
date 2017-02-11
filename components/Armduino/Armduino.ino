@@ -115,10 +115,10 @@ void carouselDoor(const std_msgs::Bool& cmd_msg){
 }
 ros::Subscriber<std_msgs::Bool> _carouselDoor("carouselDoor", carouselDoor);
 
-void winchMotor(const std_msgs::Float32& cmg_msg){
+void winchMotor(const std_msgs::Int16& cmg_msg){
 	winch.doMotor(cmg_msg);
 }
-ros::Subscriber<std_msgs::Float32> _winchMotor_("winchMotor", winchMotor);
+ros::Subscriber<std_msgs::Int16> _winchMotor_("winchMotor", winchMotor);
 
 //Ros Publishers
 std_msgs::UInt16 getJoint1Position;
