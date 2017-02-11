@@ -9,7 +9,7 @@ This will walk you through using [MapProxy](https://mapproxy.org/) in a docker c
 - MapViz and with following plugins: 
 
 ```
-sudo apt-get install ros-kinetic-mapviz ros-kinetic-mapviz-plugins ros-kinetic-tilemap ros-kinetic-multires-image
+sudo apt-get install ros-kinetic-mapviz ros-kinetic-mapviz-plugins ros-kinetic-tile-map
 ```
 
 ## Setup
