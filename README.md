@@ -1,76 +1,35 @@
-# URC
+# R3-URC!
 
-## Prerequisites
+This is the _main_ URC repo, with real URC code, not shared developer testing. For that use a personal repo. (We may have another repo specifically for that purpose, check back later)
 
-- Jetson TX1 mobile computing platform
--  ZED depth camera
-- Ubuntu 16.04 ARM 64-bit (preferably this version to closely match the Jetson TX1)
-- ROS Kinetic
+## Other repos and links of interest
 
-## Installation
-### Software dependencies
-#### For Joystick
-```
-sudo apt-get install ros-indigo-joy
-# more info: http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
-```
+None yet
 
-#### For Arduino Development
-```
-sudo apt-get install ros-indigo-rosserial-arduino
-sudo apt-get install ros-indigo-rosserial
-# more info: http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
-```
+## Usage and layout
 
-### Create a workspace
-Create your workspace by following the standard convention:
+### Layout
+The layout of this repo is like this:
+| Path | What it is |
+| --- | --: |
+`rosws/` | The main ros workspace
+`rosws/src` | All the catkin packages, NOT all the nodes
+`rosws/.gitignore` | A simple gitignore to keep per-system directories out of the repo
+`microcontroller/` | All of the microcontroller (arduino) related things, grouped by device.
+`scripts/` | Various useful scripts to use this repo for maximum productivity!
+`devstuff/` | General other stuff that you want to put on git. The original git repo is copied here as well.
 
-```bash
-source /opt/ros/kinetic/setup.bash
-mkdir -p ~/catkin_ws/src
-cd ~/catkin_ws/src
-catkin_init_workspace
-cd ~/catkin_ws
-catkin_make
-source ~/catkin_ws/devel/setup.bash
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-echo $ROS_PACKAGE_PATH # should contain your catkin_ws workspace
-```
+### First clone
+When you first clone this, you will want to run `scripts/setup_firsttime.sh` from the root directory. It will then setup everything.
 
-To make R3's URC code part of your workspace, follow these steps (assuming your workspace is setup following the standard conventions):
+### Arduino things
+If you want to update one arduino, go into its directory, and use the command `$ pio run --target upload`. On the TX1, however, we know where all the arduinos are plugged in and a script (coming soon) will auto-update all of them.
 
-```bash
-cd ~/catkin_ws/src
-git clone git@github.com:teamr3/URC.git
-cd ~/catkin_ws
-catkin_make
-```
+### Build everything
+Use the script `scripts/build.sh`. If a build fails, it will ask you if you want to continue.
 
-(Optional: Only set this when using the Jetson TX1.) Set environment variables for ros networking:
+## More documentation?
+If we need more, or you just want to say something, you can use slack, or put it in the wiki for this repo. I might put a page about what to put in a package soon.
 
-```bash
-export ROS_MASTER_URI=http://tegra-ubuntu.mshome.net:11311/
-export ROS_IP=`hostname -I`
-echo 'export ROS_MASTER_URI=http://tegra-ubuntu.mshome.net:11311/' >> ~/.bashrc
-echo 'export ROS_IP=`hostname -I`' >> ~/.bashrc
-```
-
-# Run
-
-```bash
-source ~/catkin_ws/devel/setup.bash
-roscore
-# in another terminal
-source ~/catkin_ws/devel/setup.bash
-rosrun urc talker.py
-```
-
-# Editing robot model (URDF format)
-
-To use our robot with many standard ROS tools, we need to write down a model of the robot’s kinematics. That is, we need to describe the physical configuration of the robot, such as how many wheels it has, where they are placed, and which directions they turn in. This information will be used by rviz to visualize the state of the robot, by gazebo to simulate it, and by systems like the navigation stack to make it drive around the world in a purposeful manner.
-In ROS, we represent robot models in an XML format called Unified Robot Description Format (URDF) This format is designed to represent a wide variety of robots, from a two wheeled toy to a walking humanoid.
-
-```bash
-cd ~/catkin_ws/src/URC/urdf
-./open_model.sh robot.urdf
-```
+## P.S
+Don't be a litterbug, keep general development... stuff in the `devstuff/` folder, and keep the structured code in a differnet

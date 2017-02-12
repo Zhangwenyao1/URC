@@ -1,0 +1,6 @@
+.pioenvs
+.piolibdeps
+
+# add ide things here:
+
+CMakeLists*.txt
