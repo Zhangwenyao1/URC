@@ -3,3 +3,7 @@
 usb_cam/
 zed_ros_wrapper/
 
+# Other system-dependant things
+
+.rosinsta*
+CMakeLists

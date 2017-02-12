@@ -17,23 +17,28 @@ echo Setting up device specific deps...
 echo You need to choose which set of dependencies you want to install.
 echo "You can install all of them, the bare ones required for running the robot, everything but the zed wrapper, and ones for simply remote controlling the robot."
 read -p "All/Robot/Zed/rEmote [arZe] " dep_set
-
+wstool init src
+cd src
 case "${dep_set,,}" in
- "a") deps/full.shs
+ "a") deps/robot.sh y
+      deps/base_station.sh
       ;;
- "r") deps/robot.sh
+ "r") deps/robot.sh y
       ;;
  "e") deps/base_station.sh
       ;;
  "z")
    *)
-      deps/full_no_zed.sh
+      deps/robot.sh n
+      deps/base_station.sh
       ;;
 esac
 wstool update
+cd ..
 
 echo "Doing a build to get all required libs and dirs"
 cd ..
+scripts/build.sh y
 echo "Done!"
 
 
