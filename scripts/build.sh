@@ -4,12 +4,34 @@
 
 success_count=0
 fail_count=0
+
+skip=0
+case "$1" in 
+ "y")
+   skip=1 ;;
+ "n")
+   skip=2 ;;
+esac
+
+function contbuild() {
+ local yn="u"
+ if [ $skip -eq 0 ]; then
+   read -p "Do you want to continue building? (y/n) " yn
+ else
+   case "$skip" in
+    1) yn="y" ;;
+    2) yn="n" ;;
+   esac
+ fi
+ echo $yn
+}
+
 echo Building ROS workspace...
 cd rosws
 catkin_make
 if [ $? -ne 0 ]; then
   echo -e "ROS \e[101m\e[93mFAILED\e[0m to build!"
-  read -p "Do you want to continue building? (y/n) " yn
+  local yn=$(contbuild)
   if [ "${yn,,}" = "n" ]; then
     exit 1
   fi
@@ -26,7 +48,7 @@ do
     pio run
     if [ $? -ne 0 ]; then
        echo -e "Platformio project \e[95m\e[1m$duino\e[0m \e[101m\e[93mFAILED\e[0m to build!"
-       read -p "Do you want to continue building? (y/n) " yn
+       local yn=$(contbuild)
        if [ "${yn,,}" = "n" ]; then
           exit 1
        fi
