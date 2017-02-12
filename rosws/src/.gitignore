@@ -1,0 +1,5 @@
+# Place all wstool packages here, so that we don't accidentally put them in git.
+
+usb_cam/
+zed_ros_wrapper/
+

@@ -1,0 +1,8 @@
+build/
+devel/
+
+# Ide stuff, add yours here!
+.idea/
+
+# Python stuff
+*.pyc

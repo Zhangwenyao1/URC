@@ -1,0 +1,11 @@
+<launch>
+    <!-- TODO: Find real dev ids, get camera resolution, etc. -->
+    <node pkg="usb_cam" name="rear_camera" type="usb_cam_node" output="screen">
+	<param name="video_device" value="/dev/video0" />
+ 	<param name="camera_name" value="rear_camera">
+    </node>
+    <node pkg="usb_cam" name="arm_camera" type="usb_cam_node" output="screen">
+	<param name="video_device" value="/dev/video1" />
+ 	<param name="camera_name" value="arm_camera">
+    </node>
+</launch>
