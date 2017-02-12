@@ -1,6 +1,9 @@
 build/
 devel/
 
+# symlink
+src/CMakeLists.txt
+
 # Ide stuff, add yours here!
 .idea/
 
