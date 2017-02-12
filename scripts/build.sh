@@ -2,7 +2,7 @@
 
 # Build ros and pio projects
 
-success_count=4
+success_count=0
 fail_count=0
 echo Building ROS workspace...
 cd rosws
@@ -13,8 +13,9 @@ if [ $? -ne 0 ]; then
   if [ "${yn,,}" = "n" ]; then
     exit 1
   fi
-  success_count=$((success_count - 1))
   fail_count=$((fail_count + 1))
+else
+  success_count=$((success_count + 1))
 fi
 cd ..
 true
@@ -30,8 +31,9 @@ do
           exit 1
        fi
        true
-       success_count=$((success_count - 1))
        fail_count=$((fail_count + 1))
+    else
+       success_count=$((success_count + 1))
     fi
     cd ../..
 done

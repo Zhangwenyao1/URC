@@ -74,6 +74,20 @@ ros::Subscriber<std_msgs::Float32> _setLeftFrontSpeed("setLeftFrontSpeed",setLef
 std_msgs::UInt16 getLeftFrontPosition;
 ros::Publisher _getLeftFrontPosition("getLeftFrontPosition", &getLeftFrontPosition);
 
+void initializeSubscribers(){
+
+}
+void initializePublishers(){
+	nh.advertise(_getLeftFrontPosition);
+}
+
+void updatePublishers(){
+	//set data
+	getLeftFrontPosition.data = leftFrontEnc.getEncoderValues();
+	//publish data
+	_getLeftFrontPosition.publish(&getLeftFrontPosition);
+}
+
 void setup() {
 	nh.initNode();//initialize the node handle
 	initializePublishers();
@@ -82,17 +96,5 @@ void setup() {
 void loop() {
 	updatePublishers();
 	nh.spinOnce();//required
-}
-void initializeSubscribers(){
-
-}
-void initializePublishers(){
-	nh.advertise(_getLeftFrontPosition);
-}
-void updatePublishers(){
-	//set data
-	getLeftFrontPosition.data = leftFrontEnc.getEncoderValues();
-	//publish data
-	_getLeftFrontPosition.publish(&getLeftFrontPosition);
 }
 

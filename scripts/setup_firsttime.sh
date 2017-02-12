@@ -2,6 +2,9 @@
 
 # Setup ros, anything else will be added later.
 
+echo Installing deps
+scripts/install_deps.sh
+
 echo Setting up ROS workspace, if this fails make sure you have ros sourced and are in the root directory!
 
 catkin_init_workspace rosws/src

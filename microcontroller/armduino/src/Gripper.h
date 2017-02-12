@@ -5,7 +5,7 @@
 #include "ros.h"
 #include <std_msgs/Float32.h>
 #include <std_msgs/UInt16.h>
-clas Gripper{
+class Gripper{
 	public:
 		Gripper(Motor _motor);
 		void move(std_msgs::UInt16 _point);
