@@ -1,20 +1,28 @@
 #!/bin/bash
 
-# Setup ros, anything else will be added later.
+# Exit on error
+set -e
 
-echo Installing deps
-scripts/install_deps.sh
+echo "Installing deps"
+./deps/common.sh
 
-echo Setting up ROS workspace, if this fails make sure you have ros sourced and are in the root directory!
-
+echo "Setting up ROS workspace, if this fails make sure you have ros sourced and are in the root directory!"
+source /opt/ros/kinetic/setup.bash
 catkin_init_workspace rosws/src
+cd rosws/src
 
-cd rosws
-echo Getting wstool deps
+echo "Getting wstool deps"
 wstool update
-echo Building ros workspace for the first time
-catkin_make
-cd ..
 
-echo Done!
+echo "Building ros workspace for the first time"
+cd ..
+catkin_make
+
+echo "source `pwd`/rosws/devel/setup.sh" >> ~/.bashrc
+source ./rosws/devel/setup.sh
+
+cd ..
+echo "Done!"
+
+
 
