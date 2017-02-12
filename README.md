@@ -1,6 +1,6 @@
 # R3-URC!
 
-This is the _main_ URC repo, with real URC code, not shared developer testing. For that use a personal repo. (We may have another repo specifically for that purpose, check back later)
+This is the _main_ URC repo!
 
 ## Other repos and links of interest
 
@@ -10,14 +10,15 @@ None yet
 
 ### Layout
 The layout of this repo is like this:
+
 | Path | What it is |
 | --- | --: |
-`rosws/` | The main ros workspace
-`rosws/src` | All the catkin packages, NOT all the nodes
-`rosws/.gitignore` | A simple gitignore to keep per-system directories out of the repo
-`microcontroller/` | All of the microcontroller (arduino) related things, grouped by device.
-`scripts/` | Various useful scripts to use this repo for maximum productivity!
-`devstuff/` | General other stuff that you want to put on git. The original git repo is copied here as well.
+| `rosws/` | The main ros workspace |
+| `rosws/src` | All the catkin packages, NOT all the nodes |
+| `rosws/.gitignore` | A simple gitignore to keep per-system directories out of the repo |
+| `microcontroller/` | All of the microcontroller (arduino) related things, grouped by device. |
+| `scripts/` | Various useful scripts to use this repo for maximum productivity! |
+| `devstuff/` | General other stuff that you want to put on git. The original git repo is copied here as well. |
 
 ### First clone
 When you first clone this, you will want to run `scripts/setup_firsttime.sh` from the root directory. It will then setup everything.
