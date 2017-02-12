@@ -6,7 +6,7 @@
 set -e
 
 echo "Installing deps"
-./deps/common.sh
+scripts/deps/common.sh
 
 echo "Setting up ROS workspace!"
 source /opt/ros/kinetic/setup.bash
@@ -20,17 +20,17 @@ read -p "All/Robot/Zed/rEmote [arZe] " dep_set
 wstool init src
 cd src
 case "${dep_set,,}" in
- "a") deps/robot.sh y
-      deps/base_station.sh
+ "a") ../../scripts/deps/robot.sh y
+      ../../scripts/deps/base_station.sh
       ;;
- "r") deps/robot.sh y
+ "r") ../../scripts/deps/robot.sh y
       ;;
- "e") deps/base_station.sh
+ "e") ../../scripts/deps/base_station.sh
       ;;
  "z")
    *)
-      deps/robot.sh n
-      deps/base_station.sh
+      ../../scripts/deps/robot.sh n
+      ../../scripts/deps/base_station.sh
       ;;
 esac
 wstool update
