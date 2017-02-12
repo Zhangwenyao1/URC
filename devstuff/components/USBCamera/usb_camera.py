@@ -16,17 +16,18 @@ def camera():
     rospy.logwarn("image topic not provided; using %s" % topic)
 
   camera_id = 0
-  if rospy.has_param('~camera_id'):
-    camera_id = rospy.get_param('~camera_id')
+  if rospy.has_param('~device_id'):
+    camera_id = rospy.get_param('~device_id') #changed from ~camera_id to ~device_id to match launch file
   else:
     rospy.logwarn("image camera_id not provided; using %s" % camera_id)
 
   camera_compressed = rospy.Publisher(topic, CompressedImage, queue_size=1)
   rospy.loginfo("Publishing to topic %s" % topic)
 
-  rate = rospy.Rate(10)
-  # cap = cv2.VideoCapture(camera_id)
-  cap = cv2.VideoCapture('/home/dan/output.avi')
+  rate = rospy.Rate(10) # increase or decrease to get higher or lower frame rate. This modifies how many samples are sent per second
+   cap = cv2.VideoCapture(camera_id) #the video capture refers to the video stream i believe. setting this to camera id should
+    #make the capture occur from the camera streams.
+  #cap = cv2.VideoCapture('/home/dan/output.avi')
 
   if not cap.isOpened():
     rospy.loginfo("capture is not open :(")
