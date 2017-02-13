@@ -31,7 +31,7 @@ cd rosws
 catkin_make
 if [ $? -ne 0 ]; then
   echo -e "ROS \e[101m\e[93mFAILED\e[0m to build!"
-  local yn=$(contbuild)
+  yn=$(contbuild)
   if [ "${yn,,}" = "n" ]; then
     exit 1
   fi
@@ -48,7 +48,7 @@ do
     pio run
     if [ $? -ne 0 ]; then
        echo -e "Platformio project \e[95m\e[1m$duino\e[0m \e[101m\e[93mFAILED\e[0m to build!"
-       local yn=$(contbuild)
+       yn=$(contbuild)
        if [ "${yn,,}" = "n" ]; then
           exit 1
        fi

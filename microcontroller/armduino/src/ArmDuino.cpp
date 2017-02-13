@@ -100,10 +100,10 @@ void setJoint3Position(const std_msgs::Float32& cmd_msg){
 }
 ros::Subscriber<std_msgs::Float32> _setJoint3Position("setjoint3Position",setJoint3Position);
 
-void setJoint4Position(const std_msgs::UInt16& cmd_msg){
+void setJoint4Position(const std_msgs::Int16& cmd_msg){
 	joint4.setJointPositionStepper(cmd_msg);
 }
-ros::Subscriber<std_msgs::UInt16> _setJoint4Position("setJoint4Position",setJoint4Position);
+ros::Subscriber<std_msgs::Int16> _setJoint4Position("setJoint4Position",setJoint4Position);
 
 void spinCarouselTo(const std_msgs::UInt16& cmd_msg){
 	carousel.rotate(cmd_msg);
@@ -136,15 +136,6 @@ ros::Publisher _getJoint4Position("getJoint4Position", &getJoint4Position);
 std_msgs::UInt16 getCarouselPosition;
 ros::Publisher _getCarouselPosition("getCarouselPosition", &getCarouselPosition);
 
-void setup(){
-	nh.initNode();//initialize the node handle
-	initializePublishers();
-	initializeSubscribers();
-}
-void loop(){
-	updatePublishers();
-	nh.spinOnce();//required
-}
 void initializePublishers(){
 	//publisher initialization
 	nh.advertise(_getJoint1Position);
@@ -178,3 +169,12 @@ void updatePublishers(){
 	_getCarouselPosition.publish(&getCarouselPosition);
 }
 
+void setup(){
+	nh.initNode();//initialize the node handle
+	initializePublishers();
+	initializeSubscribers();
+}
+void loop(){
+	updatePublishers();
+	nh.spinOnce();//required
+}
