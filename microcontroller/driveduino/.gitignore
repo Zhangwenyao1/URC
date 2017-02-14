@@ -4,5 +4,6 @@
 # Add ide things here:
 
 CMakeLists*.txt
-.cproject
-.project
+.cproject/
+.project/
+.settings/
