@@ -4,7 +4,10 @@
 # Add ide things here:
 
 CMakeLists*.txt
+
 .idea/
-.cproject/
-.project/
+
+.cproject
+.project
+
 .settings/
