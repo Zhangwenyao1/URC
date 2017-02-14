@@ -4,3 +4,5 @@
 # Add ide things here:
 
 CMakeLists*.txt
+.cproject
+.project

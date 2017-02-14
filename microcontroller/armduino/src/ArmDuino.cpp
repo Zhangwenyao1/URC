@@ -7,7 +7,6 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Bool.h>
-
 #include "Motor.h"
 #include "Potentiometer.h"
 
