@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Exit on error
-set -e
 
 # MISC
 sudo apt-get update

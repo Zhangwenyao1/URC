@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Joystick
-sudo apt-get install ros-kinetic-joy 
+sudo apt-get install ros-kinetic-joy
 
 # MapViz
 sudo apt-get install ros-kinetic-mapviz ros-kinetic-mapviz-plugins ros-kinetic-tilemap ros-kinet-multires-image

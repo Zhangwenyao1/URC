@@ -2,9 +2,6 @@
 
 # Setup ros, anything else will be added later.
 
-# Exit on error
-set -e
-
 echo "Installing deps"
 scripts/deps/common.sh
 
