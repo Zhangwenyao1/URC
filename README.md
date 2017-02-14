@@ -33,4 +33,4 @@ Use the script `scripts/build.sh`. If a build fails, it will ask you if you want
 If we need more, or you just want to say something, you can use slack, or put it in the wiki for this repo. I might put a page about what to put in a package soon.
 
 ## P.S
-Don't be a litterbug, keep general development... stuff in the `devstuff/` folder, and keep the structured code in a differnet
+Don't be a litterbug, keep general development... stuff in the `devstuff/` folder, and keep the structured code in the right directory!
