@@ -1,3 +1,4 @@
+<!-- http://wiki.ros.org/usb_cam -->
 <launch>
     <!-- TODO: Find real dev ids, get camera resolution, etc. -->
     <node pkg="usb_cam" name="rear_camera" type="usb_cam_node" output="screen">
