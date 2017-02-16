@@ -1,11 +1,19 @@
+<!-- http://wiki.ros.org/usb_cam -->
 <launch>
-    <!-- TODO: Find real dev ids, get camera resolution, etc. -->
-    <node pkg="usb_cam" name="rear_camera" type="usb_cam_node" output="screen">
-	<param name="video_device" value="/dev/video0" />
- 	<param name="camera_name" value="rear_camera">
-    </node>
-    <node pkg="usb_cam" name="arm_camera" type="usb_cam_node" output="screen">
-	<param name="video_device" value="/dev/video1" />
- 	<param name="camera_name" value="arm_camera">
-    </node>
+  <node name="usb_cam0" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam0" />
+    <param name="io_method" value="mmap"/>
+  </node>
+  <node name="usb_cam1" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video1" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam1" />
+    <param name="io_method" value="mmap"/>
+  </node>
 </launch>
