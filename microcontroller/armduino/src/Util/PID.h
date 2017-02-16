@@ -1,6 +1,5 @@
 #ifndef PID_h
 #define PID_h
-#include<math.h>
 class PID{
 	public:
 		PID(double _setPoint, double _Ki, double _Kd, double _kp, double _max, double _min);
