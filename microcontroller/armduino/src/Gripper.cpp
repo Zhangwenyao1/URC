@@ -6,9 +6,14 @@
 #include <std_msgs/UInt16.h>
 
 Motor gripperMotor;
-Gripper::Gripper(Motor _motor){
-	gripperMotor = _motor;
+Motor rotationMotor;
+Gripper::Gripper(Motor _rotationMotor, Motor _gripperMotor){
+	gripperMotor = _gripperMotor;
+	rotationMotor = _rotationMotor;
 }
-void Gripper::move(std_msgs::UInt16 _point){
-
+void Gripper::spin(int _vel){
+	rotationMotor.doStepper(_vel);
+}
+void Gripper::open(int _vel){
+	gripperMotor.doStepper(_vel);
 }

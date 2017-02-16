@@ -7,12 +7,15 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Bool.h>
+#include <control_msgs/Joint_Trajectories.h>
+#include <sensor_msgs/JointState.h>
 #include "Motor.h"
 #include "Potentiometer.h"
 
 #include "Joint.h"
 #include "Winch.h"
 #include "Carousel.h"
+#include "Gripper.h"
 
 #define nema17Steps 200
 
@@ -27,6 +30,10 @@
 #define carouselCrankA 6
 #define carouselCrankB 7
 #define winchM 6
+#define gripperRotateA 8
+#define gripperRotateB 9
+#define gripperOpenA 10
+#define gripperOpenB 11
 
 //direction pins
 /*#define _j1D 7
@@ -39,12 +46,16 @@
 Stepper joint4Stepper= Stepper(nema17Steps, _j4MA, _j4MB);
 Stepper carouselCrankStepper = Stepper(nema17Steps, carouselRotateA,carouselRotateB);
 Stepper carouselRotateStepper = Stepper(nema17Steps, carouselCrankA,carouselCrankB);
+Stepper gripperRotateStepper = Stepper(nema17Steps,gripperRotateA,gripperRotateB);
+Stepper gripperOpenStepper = Steper(nema17Steps,gripperOpenA,gripperRotateB);
 
 //Motor declaration
 Motor j1M = Motor(_j1M);//dc motor
 Motor j2M = Motor(_j2M);//dc motor
 Motor j3M = Motor(_j3M);//dc motor
 Motor j4M = Motor(joint4Stepper);//stepper motor
+Motor grM = Motor(gripperRotateStepper);
+Motor goM = Motor(gripperOpenStepper);
 Motor carouselRotate = Motor(carouselRotateStepper);//Carousel rotate stepper
 Motor carouselCrank =  Motor(carouselCrankStepper);//carousel crank stepper
 Motor _winchMotor = Motor(winchM);//dc motor
@@ -66,6 +77,8 @@ Joint joint2 = Joint(j2M,j2Pos);
 Joint joint3 = Joint(j3M,j3Pos);
 Joint joint4 = Joint(j4M,j4Pos);
 
+Gripper gripper = Gripper(grM,goM);
+
 //Limit Switches
 #define _closeSwitch 25
 #define _openSwitch 26
@@ -84,27 +97,37 @@ Winch winch = Winch(_winchMotor);
 ros::NodeHandle nh;
 
 //Ros Subscribers
-void setJoint1Position(const std_msgs::Float32& cmd_msg){
-	joint1.setJointPosition(cmd_msg);
+void JointPosition1(const std_msgs::Int32& cmd_msg){
+	joint1.setJointPosition(cmd_msg.data());
 }
-ros::Subscriber<std_msgs::Float32> _setJoint1Position("setjoint1Position",setJoint1Position);
+ros::Subscriber<std_msgs::Int32> _JointPosition1("JointPosition1",JointPosition1);
 
-void setJoint2Position(const std_msgs::Float32& cmd_msg){
-	joint2.setJointPosition(cmd_msg);
+void JointPosition2(const std_msgs::Int32& cmd_msg){
+	joint2.setJointPosition(cmd_msg.data());
 }
-ros::Subscriber<std_msgs::Float32> _setJoint2Position("setjoint2Position",setJoint2Position);
+ros::Subscriber<std_msgs::Int32> _JointPosition2("JointPosition2",JointPosition2);
 
-void setJoint3Position(const std_msgs::Float32& cmd_msg){
-	joint3.setJointPosition(cmd_msg);
+void JointPosition3(const std_msgs::Int32& cmd_msg){
+	joint3.setJointPosition(cmd_msg.data());
 }
-ros::Subscriber<std_msgs::Float32> _setJoint3Position("setjoint3Position",setJoint3Position);
+ros::Subscriber<std_msgs::Int32> _JointPosition3("JointPosition3",JointPosition3);
 
-void setJoint4Position(const std_msgs::Int16& cmd_msg){
-	joint4.setJointPositionStepper(cmd_msg);
+void JointPosition4(const std_msgs::Int32& cmd_msg){
+	joint4.setJointPositionStepper(cmd_msg.data());
 }
-ros::Subscriber<std_msgs::Int16> _setJoint4Position("setJoint4Position",setJoint4Position);
+ros::Subscriber<std_msgs::Int32> _JointPosition4("JointPosition4",JointPosition4);
 
-void spinCarouselTo(const std_msgs::UInt16& cmd_msg){
+void GripperOpen(const std_msgs::Int32& cmd_msg){
+	gripper.open(cmd_msg.data());
+}
+ros::Subscriber<std_msgs::Int32> _GripperOpen("GripperNode",GripperOpen);
+
+void GripperRotate(const std_msgs::Int32& cmd_msg){
+	gripper.spin(cmd_msg.data());
+}
+ros::Subscriber<std_msgs::Int32> _GripperRotate("GripperSpinNode",GripperRotate);
+
+/*void spinCarouselTo(const std_msgs::UInt16& cmd_msg){
 	carousel.rotate(cmd_msg);
 }
 ros::Subscriber<std_msgs::UInt16> _spinCarouselTo("spinCarouselTo",spinCarouselTo);
@@ -117,10 +140,9 @@ ros::Subscriber<std_msgs::Bool> _carouselDoor("carouselDoor", carouselDoor);
 void winchMotor(const std_msgs::Int16& cmg_msg){
 	winch.doMotor(cmg_msg);
 }
-ros::Subscriber<std_msgs::Int16> _winchMotor_("winchMotor", winchMotor);
-
+ros::Subscriber<std_msgs::Int16> _winchMotor_("winchMotor", winchMotor);*/
 //Ros Publishers
-std_msgs::UInt16 getJoint1Position;
+/*std_msgs::UInt16 getJoint1Position;
 ros::Publisher _getJoint1Position("getJoint1Position", &getJoint1Position);
 
 std_msgs::UInt16 getJoint2Position;
@@ -133,28 +155,30 @@ std_msgs::UInt16 getJoint4Position;
 ros::Publisher _getJoint4Position("getJoint4Position", &getJoint4Position);
 
 std_msgs::UInt16 getCarouselPosition;
-ros::Publisher _getCarouselPosition("getCarouselPosition", &getCarouselPosition);
+ros::Publisher _getCarouselPosition("getCarouselPosition", &getCarouselPosition);*/
 
-void initializePublishers(){
+/*void initializePublishers(){
 	//publisher initialization
-	nh.advertise(_getJoint1Position);
+	/*nh.advertise(_getJoint1Position);
 	nh.advertise(_getJoint2Position);
 	nh.advertise(_getJoint3Position);
 	nh.advertise(_getJoint4Position);
 	nh.advertise(_getCarouselPosition);
-}
+}*/
 void initializeSubscribers(){
 	//subscriber initialization
-	nh.subscribe(_setJoint1Position);
-	nh.subscribe(_setJoint2Position);
-	nh.subscribe(_setJoint3Position);
-	nh.subscribe(_setJoint4Position);
-	nh.subscribe(_spinCarouselTo);
+	nh.subscribe(_JointPosition1);
+	nh.subscribe(_JointPosition2);
+	nh.subscribe(_JointPosition3);
+	nh.subscribe(_JointPosition4);
+	nh.subscribe(_GripperRotate);
+	nh.subscribe(_GripperOpen);
+	/*nh.subscribe(_spinCarouselTo);
 	nh.subscribe(_carouselDoor);
-	nh.subscribe(_winchMotor_);
+	nh.subscribe(_winchMotor_);*/
 
 }
-void updatePublishers(){
+/*void updatePublishers(){
 	//set data
 	getJoint1Position.data = joint1.getJointPosition();
 	getJoint2Position.data = joint2.getJointPosition();
@@ -166,14 +190,13 @@ void updatePublishers(){
 	_getJoint3Position.publish(&getJoint3Position);
 	_getJoint4Position.publish(&getJoint4Position);
 	_getCarouselPosition.publish(&getCarouselPosition);
-}
+}*/
 
 void setup(){
 	nh.initNode();//initialize the node handle
-	initializePublishers();
 	initializeSubscribers();
 }
 void loop(){
-	updatePublishers();
+
 	nh.spinOnce();//required
 }

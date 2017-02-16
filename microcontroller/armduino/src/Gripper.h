@@ -2,15 +2,15 @@
 #define Gripper_h
 #include "Arduino.h"
 #include "Motor.h"
-#include "ros.h"
-#include <std_msgs/Float32.h>
-#include <std_msgs/UInt16.h>
+
 class Gripper{
 	public:
-		Gripper(Motor _motor);
-		void move(std_msgs::UInt16 _point);
+		Gripper(Motor _rotationMotor, Motor _gripperMotor);
+		void spin(int _vel);
+		void open(int _vel);
 	private:
+		Motor rotationMotor
 		Motor gripperMotor;
-		uint16_t postion;
+		int postion;
 };
 #endif

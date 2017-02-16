@@ -3,9 +3,6 @@
 #include "Motor.h"
 #include "Potentiometer.h"
 #include "ros.h"
-#include <std_msgs/Float32.h>
-#include <std_msgs/Int16.h>
-
 Motor jointMotor = Motor();
 Potentiometer jointPot = Potentiometer();
 
@@ -13,12 +10,12 @@ Joint::Joint(Motor _motor, Potentiometer _jointPot){
 	jointMotor = _motor;
 	jointPot = _jointPot;
 }
-uint16_t Joint::getJointPosition(){
+int Joint::getJointPosition(){
 	return jointPot.getValue();
 }
-void Joint::setJointPosition(std_msgs::Float32 _pos){
-	jointMotor.doPWM(_pos.data);
+void Joint::setJointPosition(int _pos){
+	jointMotor.doPWM(_pos);
 }
-void Joint::setJointPositionStepper(std_msgs::Int16 _pos){
-	jointMotor.doStepper(_pos.data);
+void Joint::setJointPositionStepper(int _pos){
+	jointMotor.doStepper(_pos);
 }
