@@ -8,7 +8,7 @@
 class Joint{
 	public:
 		Joint(Motor _motor, Potentiometer _jointPot);
-		int getJointPosition();
+		float getJointPosition();
 		void setJointPosition(int _pos);
 		void setJointPositionStepper(int _pos);
 	private:

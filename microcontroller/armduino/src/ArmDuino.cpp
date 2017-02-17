@@ -99,6 +99,13 @@ Carousel carousel = Carousel(carouselRotate, carouselCrank, _close, _open, _inde
 //Winch declaration
 Winch winch = Winch(_winchMotor);
 
+//PID declarations
+PID joint1PID;
+PID joint2PID;
+PID joint3PID;
+PID joint4PID;
+//indexing int
+int index=0;
 //ros node handle
 ros::NodeHandle nh;
 
@@ -203,17 +210,42 @@ void setup(){
 	initializeSubscribers();
 	initializePublishers();
 	updatePublishers();
+	joint1PID = PID(jointPID.Ki,jointPID.Kd,jointPID.Kp,-1,1);
+	joint2PID = PID(jointPID.Ki,jointPID.Kd,jointPID.Kp,-1,1);
+	joint3PID = PID(jointPID.Ki,jointPID.Kd,jointPID.Kp,-1,1);
+	joint4PID = PID(jointPID.Ki,jointPID.Kd,jointPID.Kp,-1,1);
 }
 void loop(){
+	int placeHolder =0;
 	nh.spinOnce();//required
 	moveArm();
+	if(index!=placeHolder)
+		newPoints();
+	placeHolder = index;
+}
+void newPoints(){
+	joint1PID.init(jointPositions.joint1[index]);
+	joint2PID.init(jointPositions.joint2[index]);
+	joint3PID.init(jointPositions.joint3[index]);
+	joint4PID.init(jointPositions.joint4[index]);
 }
 void moveArm(){
-	PID joint1PID = PID(jointPID.Ki,jointPID.Kd,jointPID.Kp,-1,1);
-	if(joint1.getJointPosition()!=jointPositions.joint1[0]){
+	if(!joint1PID.isDone()){
 		joint1PID.setError((joint1.getJointPosition()*(2*3.14)));
 		joint1.setJointPosition(map((joint1PID.compute()),-10,10,0,180));
 	}
+	if(!joint2PID.isDone()){
+		joint2PID.setError((joint2.getJointPosition()*(2*3.14)));
+		joint2.setJointPosition(map((joint2PID.compute()),-10,10,0,180));
+	}
+	if(!joint3PID.isDone()){
+		joint3PID.setError((joint3.getJointPosition()*(2*3.14)));
+		joint3.setJointPosition(map((joint3PID.compute()),-10,10,0,180));
+	}
+	if(!joint4PID.isDone()){
+		joint4PID.setError((joint4.getJointPosition()*(2*3.14)));
+		joint4.setJointPosition(map((joint4PID.compute()),-10,10,0,180));
+	}
 	else
-		updatePublishers();
+		index++;
 }
