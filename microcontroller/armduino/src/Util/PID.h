@@ -2,7 +2,7 @@
 #define PID_h
 class PID{
 	public:
-		PID(double _setPoint, double _Ki, double _Kd, double _kp, double _max, double _min);
+		PID(double _Ki, double _Kd, double _kp, double _max, double _min);
 		double compute();
 		void setError(double _input);
 		void setTunningValues(double _Kd, double _Ki, double _Kp);

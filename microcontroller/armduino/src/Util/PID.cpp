@@ -1,7 +1,6 @@
 #include "PID.h"
 
 PID::PID(double _setPoint, double _Ki, double _Kd, double _kp, double _max, double _min){
-	setPoint = _setPoint;
 	Ki = _Ki;
 	Kd = _Kd;
 	Kp = _kp;
@@ -21,6 +20,9 @@ void PID::setError(double _input){
 	lastInput = input;
 	input = _input;
 	error = setPoint - input;
+}
+void PID::setPoint(double _setPoint){
+	setPoint =_setPoint;
 }
 void PID::setTunningValues(double _Kd, double _Ki, double _Kp){
 	Kd = _Kd;

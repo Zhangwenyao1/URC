@@ -7,10 +7,10 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Bool.h>
-#include <control_msgs/Joint_Trajectories.h>
-#include <sensor_msgs/JointState.h>
+
 #include "Motor.h"
 #include "Potentiometer.h"
+#include "Switch.h"
 
 #include "Joint.h"
 #include "Winch.h"
@@ -35,19 +35,18 @@
 #define gripperOpenA 10
 #define gripperOpenB 11
 
-//direction pins
-/*#define _j1D 7
-#define _j2D 9
-#define _j3D 11
-#define _gD 13
-#define winchDir 21*/
+struct PIDCONSTANTS{
+	double Ki=1;
+	double Kd=1;
+	double Kp=1;
+}jointPID;
 
 //Stepper declaration
 Stepper joint4Stepper= Stepper(nema17Steps, _j4MA, _j4MB);
 Stepper carouselCrankStepper = Stepper(nema17Steps, carouselRotateA,carouselRotateB);
 Stepper carouselRotateStepper = Stepper(nema17Steps, carouselCrankA,carouselCrankB);
 Stepper gripperRotateStepper = Stepper(nema17Steps,gripperRotateA,gripperRotateB);
-Stepper gripperOpenStepper = Steper(nema17Steps,gripperOpenA,gripperRotateB);
+Stepper gripperOpenStepper = Stepper(nema17Steps,gripperOpenA,gripperRotateB);
 
 //Motor declaration
 Motor j1M = Motor(_j1M);//dc motor
@@ -76,8 +75,15 @@ Joint joint1 = Joint(j1M,j1Pos);
 Joint joint2 = Joint(j2M,j2Pos);
 Joint joint3 = Joint(j3M,j3Pos);
 Joint joint4 = Joint(j4M,j4Pos);
-
 Gripper gripper = Gripper(grM,goM);
+
+//Joint Positions Array
+struct JOINTPOSITIONS{
+	float joint1[];
+	float joint2[];
+	float joint3[];
+	float joint4[];
+}jointPositions;
 
 //Limit Switches
 #define _closeSwitch 25
@@ -97,25 +103,25 @@ Winch winch = Winch(_winchMotor);
 ros::NodeHandle nh;
 
 //Ros Subscribers
-void JointPosition1(const std_msgs::Int32& cmd_msg){
-	joint1.setJointPosition(cmd_msg.data());
+void JointPosition1(const std_msgs::Float32& cmd_msg){
+	jointPositions.joint1=cmd_msg.data();
 }
-ros::Subscriber<std_msgs::Int32> _JointPosition1("JointPosition1",JointPosition1);
+ros::Subscriber<std_msgs::Float32> _JointPosition1("JointPosition1",JointPosition1);
 
-void JointPosition2(const std_msgs::Int32& cmd_msg){
-	joint2.setJointPosition(cmd_msg.data());
+void JointPosition2(const std_msgs::Float32& cmd_msg){
+	jointPositions.joint2=cmd_msg.data();
 }
-ros::Subscriber<std_msgs::Int32> _JointPosition2("JointPosition2",JointPosition2);
+ros::Subscriber<std_msgs::Float32> _JointPosition2("JointPosition2",JointPosition2);
 
-void JointPosition3(const std_msgs::Int32& cmd_msg){
-	joint3.setJointPosition(cmd_msg.data());
+void JointPosition3(const std_msgs::Float32& cmd_msg){
+	jointPositions.joint3=cmd_msg.data();
 }
-ros::Subscriber<std_msgs::Int32> _JointPosition3("JointPosition3",JointPosition3);
+ros::Subscriber<std_msgs::Float32> _JointPosition3("JointPosition3",JointPosition3);
 
-void JointPosition4(const std_msgs::Int32& cmd_msg){
-	joint4.setJointPositionStepper(cmd_msg.data());
+void JointPosition4(const std_msgs::Float32& cmd_msg){
+	jointPositions.joint4=cmd_msg.data();
 }
-ros::Subscriber<std_msgs::Int32> _JointPosition4("JointPosition4",JointPosition4);
+ros::Subscriber<std_msgs::Float32> _JointPosition4("JointPosition4",JointPosition4);
 
 void GripperOpen(const std_msgs::Int32& cmd_msg){
 	gripper.open(cmd_msg.data());
@@ -142,7 +148,7 @@ void winchMotor(const std_msgs::Int16& cmg_msg){
 }
 ros::Subscriber<std_msgs::Int16> _winchMotor_("winchMotor", winchMotor);*/
 //Ros Publishers
-/*std_msgs::UInt16 getJoint1Position;
+std_msgs::UInt16 getJoint1Position;
 ros::Publisher _getJoint1Position("getJoint1Position", &getJoint1Position);
 
 std_msgs::UInt16 getJoint2Position;
@@ -154,17 +160,17 @@ ros::Publisher _getJoint3Position("getJoint3Position", &getJoint3Position);
 std_msgs::UInt16 getJoint4Position;
 ros::Publisher _getJoint4Position("getJoint4Position", &getJoint4Position);
 
-std_msgs::UInt16 getCarouselPosition;
+/*std_msgs::UInt16 getCarouselPosition;
 ros::Publisher _getCarouselPosition("getCarouselPosition", &getCarouselPosition);*/
 
-/*void initializePublishers(){
+void initializePublishers(){
 	//publisher initialization
-	/*nh.advertise(_getJoint1Position);
+	nh.advertise(_getJoint1Position);
 	nh.advertise(_getJoint2Position);
 	nh.advertise(_getJoint3Position);
 	nh.advertise(_getJoint4Position);
-	nh.advertise(_getCarouselPosition);
-}*/
+	//nh.advertise(_getCarouselPosition);
+}
 void initializeSubscribers(){
 	//subscriber initialization
 	nh.subscribe(_JointPosition1);
@@ -178,7 +184,7 @@ void initializeSubscribers(){
 	nh.subscribe(_winchMotor_);*/
 
 }
-/*void updatePublishers(){
+void updatePublishers(){
 	//set data
 	getJoint1Position.data = joint1.getJointPosition();
 	getJoint2Position.data = joint2.getJointPosition();
@@ -189,14 +195,25 @@ void initializeSubscribers(){
 	_getJoint2Position.publish(&getJoint2Position);
 	_getJoint3Position.publish(&getJoint3Position);
 	_getJoint4Position.publish(&getJoint4Position);
-	_getCarouselPosition.publish(&getCarouselPosition);
-}*/
+	/*_getCarouselPosition.publish(&getCarouselPosition);*/
+}
 
 void setup(){
 	nh.initNode();//initialize the node handle
 	initializeSubscribers();
+	initializePublishers();
+	updatePublishers();
 }
 void loop(){
-
 	nh.spinOnce();//required
+	moveArm();
+}
+void moveArm(){
+	PID joint1PID = PID(jointPID.Ki,jointPID.Kd,jointPID.Kp,-1,1);
+	if(joint1.getJointPosition()!=jointPositions.joint1[0]){
+		joint1PID.setError((joint1.getJointPosition()*(2*3.14)));
+		joint1.setJointPosition(map((joint1PID.compute()),-10,10,0,180));
+	}
+	else
+		updatePublishers();
 }

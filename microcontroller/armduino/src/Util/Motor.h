@@ -6,7 +6,6 @@
 
 class Motor{
   public:
-    Motor(int _pin, int _dirPin);
     Motor(int _pin);
     Motor(Stepper _Stepper);
     Motor();
@@ -15,7 +14,6 @@ class Motor{
     void doPWM(float _input);
   private:
     int pin;
-    int dirPin;
     Servo servo;
     Stepper stepper = Stepper(0,0,0);
 

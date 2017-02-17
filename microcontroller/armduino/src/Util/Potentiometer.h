@@ -5,7 +5,9 @@ class Potentiometer{
   public:
     Potentiometer();
     Potentiometer(int _pin);
-    uint16_t getValue();
+    int getValue();
+    int getDegrees();
+    float getRad();
   private:
     int pin;
 };
