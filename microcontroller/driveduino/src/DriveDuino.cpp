@@ -1,9 +1,7 @@
 //driveduino
 #include "Arduino.h"
-#include "ros.h"
-#include <Servo.h>
-#include <std_msgs/UInt16.h>
-#include <std_msgs/Float32.h>
+#include <Encoder.h>
+#include <PID.h>
 
 #include "Motor.h"
 #include "Encoder.h"
@@ -53,48 +51,10 @@ Motor rightRearMotor = Motor(_rightRear);
 #define _rrEncA 22
 #define _rrEncB 23
 
-
-//Encoder Declarations
-Encoder leftFrontEnc = Encoder(_lfEncA, _lfEncB);
-Encoder leftMidEnc = Encoder(_lmEncA, _lmEncB);
-Encoder leftReadEnc = Encoder(_lrEncA, _lrEncB);
-Encoder rightFrontEnc = Encoder(_rfEncA, _rfEncB);
-Encoder rightMidEnc = Encoder(_rmEncA, _rfEncB);
-Encoder rightReadEnc= Encoder(_rrEncA, _rrEncB);
-
-//ros node handle
-ros::NodeHandle nh;
-
-//ros subscribers
-void setLeftFrontSpeed(const std_msgs::Float32& cmd_msg){
-	leftFrontMotor.doMotorsPWM(cmd_msg);
-}
-ros::Subscriber<std_msgs::Float32> _setLeftFrontSpeed("setLeftFrontSpeed",setLeftFrontSpeed);
-//ros publishers
-std_msgs::UInt16 getLeftFrontPosition;
-ros::Publisher _getLeftFrontPosition("getLeftFrontPosition", &getLeftFrontPosition);
-
-void initializeSubscribers(){
-
-}
-void initializePublishers(){
-	nh.advertise(_getLeftFrontPosition);
-}
-
-void updatePublishers(){
-	//set data
-	getLeftFrontPosition.data = leftFrontEnc.getEncoderValues();
-	//publish data
-	_getLeftFrontPosition.publish(&getLeftFrontPosition);
-}
-
 void setup() {
-	nh.initNode();//initialize the node handle
-	initializePublishers();
-	initializeSubscribers();
+
 }
 void loop() {
-	updatePublishers();
-	nh.spinOnce();//required
+
 }
 
