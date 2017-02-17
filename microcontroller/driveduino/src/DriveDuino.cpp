@@ -1,10 +1,9 @@
 //driveduino
 #include "Arduino.h"
 #include <Encoder.h>
-#include <PID.h>
+#include <PID_v1.h>
 
-#include "Motor.h"
-#include "Encoder.h"
+#include "Util/Motor.h"
 
 //Left Motor pins
 #define _leftFront 0

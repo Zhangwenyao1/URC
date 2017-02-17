@@ -2,15 +2,15 @@
 #include <Arduino.h>
 #include <Servo.h>
 #include <Stepper.h>
-#include <PID.h>
-#include "Motor.h"
-#include "Potentiometer.h"
-#include "Switch.h"
+#include <PID_v1.h>
+#include "Util/Motor.h"
+#include "Util/Potentiometer.h"
+#include "Util/Switch.h"
 
-#include "Joint.h"
-#include "Winch.h"
-#include "Carousel.h"
-#include "Gripper.h"
+#include "Components/Joint.h"
+#include "Components/Winch.h"
+#include "Components/Carousel.h"
+#include "Components/Gripper.h"
 
 #define nema17Steps 200
 
