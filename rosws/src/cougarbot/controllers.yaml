@@ -1,0 +1,12 @@
+arm_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - hip
+    - shoulder
+    - elbow
+    - lower_elbow
+grip_controller:
+  type: "position_controllers/JointTrajectoryController"
+  joints:
+    - wrist
+    - grip

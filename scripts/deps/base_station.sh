@@ -13,3 +13,6 @@ sudo touch /etc/apt/sources.list.d/docker.list
 echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list
 sudo apt-get install linux-image-extra-$(uname -r)
 sudo apt-get install docker-engine
+
+# MoveIt (arm motion planning)
+sudo apt-get install ros-kinetic-moveit ros-kinetic-ros-control ros-kinetic-ros-controllers ros-kinetic-gazebo-ros-control
