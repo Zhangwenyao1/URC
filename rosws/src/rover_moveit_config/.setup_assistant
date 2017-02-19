@@ -1,8 +1,8 @@
 moveit_setup_assistant_config:
   URDF:
-    package: rover
-    relative_path: rover.urdf
+    package: rover_arm
+    relative_path: arm.urdf
   SRDF:
-    relative_path: config/rover.srdf
+    relative_path: config/arm.srdf
   CONFIG:
     generated_timestamp: 1435889692

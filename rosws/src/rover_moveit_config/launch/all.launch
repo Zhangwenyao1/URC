@@ -1,7 +1,0 @@
-<launch>
-<include  file="$(find rover)/rover.launch"/>
-<include  file="$(find rover_moveit_config)/launch/move_group.launch"/>
-<include  file="$(find rover_moveit_config)/launch/moveit_rviz.launch">
-<arg  name="config" value="True"/>
-</include>
-</launch>
