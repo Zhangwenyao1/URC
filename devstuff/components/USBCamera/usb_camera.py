@@ -25,7 +25,7 @@ def camera():
   rospy.loginfo("Publishing to topic %s" % topic)
 
   rate = rospy.Rate(10) # increase or decrease to get higher or lower frame rate. This modifies how many samples are sent per second
-   cap = cv2.VideoCapture(camera_id) #the video capture refers to the video stream i believe. setting this to camera id should
+  cap = cv2.VideoCapture(camera_id) #the video capture refers to the video stream i believe. setting this to camera id should
     #make the capture occur from the camera streams.
   #cap = cv2.VideoCapture('/home/dan/output.avi')
 
@@ -35,7 +35,11 @@ def camera():
 
   while not rospy.is_shutdown() and cap.isOpened():
     ret, frame = cap.read()
+
+
     rospy.loginfo("sending frame...")
+    height, width, channels = frame.shape
+    rospy.loginfo("frame size: %s %s %s" % (height, width, channels) )
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
       rospy.logwarn("breaking...")
