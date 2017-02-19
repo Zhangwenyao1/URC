@@ -4,56 +4,82 @@
 #include <PID_v1.h>
 
 #include "Util/Motor.h"
+#include "Constants.h"
 
-//Left Motor pins
-#define _leftFront 0
-#define _leftMid 1
-#define _leftRear 2
+#define serialBaud 9600
 
-//Left Direction Pins
-#define _leftFrontD 3
-#define _leftMidD 4
-#define _leftRearD 5
+struct MOTORS{
+	static const int leftFront = 1;
+	static const int leftMid = 2;
+	static const int leftRear = 3;
+	static const int rightFront = 4;
+	static const int rightMid = 5;
+	static const int rightRear = 6;
+}motors;
 
-
-//Right Motor Pins
-#define _rightFront 6
-#define _rightMid 7
-#define _rightRear 8
-
-//Right Direction Pins
-#define _rightFrontD 9
-#define _rightMidD	10
-#define _rightReadD 11
-
+Constants constant = Constants();
 //Motor Declarations
-Motor leftFrontMotor = Motor(_leftFront);
-Motor leftMidMotor = Motor(_leftMid);
-Motor leftRearMotor = Motor(_leftRear);
-Motor rightFrontMotor = Motor(_rightFront);
-Motor rightMidMotor = Motor(_rightMid);
-Motor rightRearMotor = Motor(_rightRear);
+Motor leftFrontMotor = Motor(constant.leftFront);
+Motor leftMidMotor = Motor(constant.leftMid);
+Motor leftRearMotor = Motor(constant.leftRear);
+Motor rightFrontMotor = Motor(constant.rightFront);
+Motor rightMidMotor = Motor(constant.rightMid);
+Motor rightRearMotor = Motor(constant.rightRear);
 
-
-//left encoder pins
-#define _lfEncA 12
-#define _lfEncB 13
-#define _lmEncA 14
-#define _lmEncB 15
-#define _lrEncA 16
-#define _lrEncB 17
-//right encoder pins
-#define _rfEncA 18
-#define _rfEncB 19
-#define _rmEncA 20
-#define _rmEncB 21
-#define _rrEncA 22
-#define _rrEncB 23
+//Encoder Declarations
+Encoder leftFrontEncoder = Encoder(constant.LFEncA,constant.LFEncB);
+Encoder leftMidEncoder = Encoder(constant.LMEncA,constant.LMEncB);
+Encoder leftRearEncoder = Encoder(constant.LREncA,constant.LREncB);
+Encoder rightFrontEncoder = Encoder(constant.RFEncA,constant.RFEncB);
+Encoder rightMidEncoder = Encoder(constant.RMEncA,constant.RMEncB);
+Encoder rightRearEncoder = Encoder(constant.RREncA,constant.RREncB);
 
 void setup() {
-
+	Serial.begin(serialBaud);
 }
 void loop() {
 
 }
+void recieveData(){
 
+}
+void setWheelVel(float _vel,int _motor){
+	switch(_motor){
+		default:
+		case motors.leftFront:
+			leftFrontMotor.doPWM(_vel);
+			break;
+		case motors.leftMid:
+			leftMidMotor.doPWM(_vel);
+			break;
+		case motors.leftRear:
+			leftRearMotor.doPWM(_vel);
+			break;
+		case motors.rightFront:
+			rightFrontMotor.doPWM(_vel);
+			break;
+		case motors.rightMid:
+			rightMidMotor.doPWM(_vel);
+			break;
+		case motors.rightRear:
+			rightRearMotor.doPWM(_vel);
+			break;
+	}
+}
+int getWheelPosition(int _motor){
+	switch(_motor){
+		default:
+		case motors.leftFront:
+			return leftFrontEncoder.read();
+		case motors.leftMid:
+			return leftMidEncoder.read();
+		case motors.leftRear:
+			return leftRearEncoder.read();
+		case motors.rightFront:
+			return rightFrontEncoder.read();
+		case motors.rightMid:
+			return rightMidEncoder.read();
+		case motors.rightRear:
+			return rightRearEncoder.read();
+	}
+}

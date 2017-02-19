@@ -1,14 +1,13 @@
-//Dependancies
+//Dependencies
 #include <Arduino.h>
 #include <Servo.h>
 #include <Stepper.h>
 #include <PID_v1.h>
-
 //Utilities
 #include "Util/Motor.h"
 #include "Util/Potentiometer.h"
 #include "Util/Switch.h"
-//Componentsw
+//Components
 #include "Components/Joint.h"
 #include "Components/Winch.h"
 #include "Components/Carousel.h"
@@ -36,17 +35,11 @@ Motor carouselRotate = Motor(carouselRotateStepper);//Carousel rotate stepper
 Motor carouselCrank =  Motor(carouselCrankStepper);//carousel crank stepper
 Motor winchMotor = Motor(constant.winchMotor);//dc motor
 
-//pot pins
-#define _j1Pos A0	
-#define _j2Pos A1
-#define _j3Pos A2
-#define _j4Pos A3
-
 //Potentiometer declaration
-Potentiometer j1Pos = Potentiometer(_j1Pos);
-Potentiometer j2Pos = Potentiometer(_j2Pos);
-Potentiometer j3Pos = Potentiometer(_j3Pos);
-Potentiometer j4Pos = Potentiometer(_j4Pos);
+Potentiometer j1Pos = Potentiometer(constant.joint1Pot);
+Potentiometer j2Pos = Potentiometer(constant.joint2Pot);
+Potentiometer j3Pos = Potentiometer(constant.joint3pot);
+Potentiometer j4Pos = Potentiometer(constant.joint4Pot);
 
 //Joint Declaration
 Joint joint1 = Joint(j1M,j1Pos);
@@ -55,15 +48,14 @@ Joint joint3 = Joint(j3M,j3Pos);
 Joint joint4 = Joint(j4M,j4Pos);
 Gripper gripper = Gripper(grM,goM);
 
-
-
 //Switch declaration
-Switch _close = Switch(constant.closeSwitch);
-Switch _open = Switch(constant.openSwitch);
-Switch _index = Switch(constant.indexSwitch);
+Switch close = Switch(constant.closeSwitch);
+Switch open = Switch(constant.openSwitch);
+Switch index = Switch(constant.indexSwitch);
 
 //Carousel declaration
-Carousel carousel = Carousel(carouselRotate, carouselCrank, _close, _open, _index);
+Carousel carousel = Carousel(carouselRotate, carouselCrank, close, open, index);
+
 //Winch declaration
 Winch winch = Winch(winchMotor);
 
@@ -73,4 +65,10 @@ void loop(){
 	moveArm();
 }
 void moveArm(){
+}
+void recieveData(){
+	char message[] = Serial.read();
+}
+void sendData(){
+
 }
