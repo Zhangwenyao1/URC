@@ -1,53 +1,40 @@
-//Main Arm Code, Ryerson Rams Robotics, URC2017
+//Dependancies
 #include <Arduino.h>
 #include <Servo.h>
 #include <Stepper.h>
 #include <PID_v1.h>
+
+//Utilities
 #include "Util/Motor.h"
 #include "Util/Potentiometer.h"
 #include "Util/Switch.h"
-
+//Componentsw
 #include "Components/Joint.h"
 #include "Components/Winch.h"
 #include "Components/Carousel.h"
 #include "Components/Gripper.h"
+#include "Constants.h"
 
 #define nema17Steps 200
-
-//motor pins
-#define _j1M 0
-#define _j2M 1
-#define _j3M 2
-#define _j4MA 3
-#define _j4MB 4
-#define carouselRotateA 4
-#define carouselRotateB 5
-#define carouselCrankA 6
-#define carouselCrankB 7
-#define winchM 6
-#define gripperRotateA 8
-#define gripperRotateB 9
-#define gripperOpenA 10
-#define gripperOpenB 11
-
+Constants constant = Constants();
 
 //Stepper declaration
-Stepper joint4Stepper= Stepper(nema17Steps, _j4MA, _j4MB);
-Stepper carouselCrankStepper = Stepper(nema17Steps, carouselRotateA,carouselRotateB);
-Stepper carouselRotateStepper = Stepper(nema17Steps, carouselCrankA,carouselCrankB);
-Stepper gripperRotateStepper = Stepper(nema17Steps,gripperRotateA,gripperRotateB);
-Stepper gripperOpenStepper = Stepper(nema17Steps,gripperOpenA,gripperRotateB);
+Stepper joint4Stepper= Stepper(nema17Steps, constant.jointMotor4A, constant.jointMotor4B);
+Stepper carouselCrankStepper = Stepper(nema17Steps, constant.carouselCrankA, constant.carouselCrankB);
+Stepper carouselRotateStepper = Stepper(nema17Steps, constant.carouselRotateA, constant.carouselRotateB);
+Stepper gripperRotateStepper = Stepper(nema17Steps,constant.gripperRotateA,constant.gripperRotateB);
+Stepper gripperOpenStepper = Stepper(nema17Steps,constant.gripperOpenA,constant.gripperOpenB);
 
 //Motor declaration
-Motor j1M = Motor(_j1M);//dc motor
-Motor j2M = Motor(_j2M);//dc motor
-Motor j3M = Motor(_j3M);//dc motor
+Motor j1M = Motor(constant.jointMotor1);//dc motor
+Motor j2M = Motor(constant.jointMotor2);//dc motor
+Motor j3M = Motor(constant.jointMotor3);//dc motor
 Motor j4M = Motor(joint4Stepper);//stepper motor
 Motor grM = Motor(gripperRotateStepper);
 Motor goM = Motor(gripperOpenStepper);
 Motor carouselRotate = Motor(carouselRotateStepper);//Carousel rotate stepper
 Motor carouselCrank =  Motor(carouselCrankStepper);//carousel crank stepper
-Motor _winchMotor = Motor(winchM);//dc motor
+Motor winchMotor = Motor(constant.winchMotor);//dc motor
 
 //pot pins
 #define _j1Pos A0	
@@ -68,20 +55,17 @@ Joint joint3 = Joint(j3M,j3Pos);
 Joint joint4 = Joint(j4M,j4Pos);
 Gripper gripper = Gripper(grM,goM);
 
-//Limit Switches
-#define _closeSwitch 25
-#define _openSwitch 26
-#define _indexSwitch 27
+
 
 //Switch declaration
-Switch _close = Switch(_closeSwitch);
-Switch _open = Switch(_openSwitch);
-Switch _index = Switch(_indexSwitch);
+Switch _close = Switch(constant.closeSwitch);
+Switch _open = Switch(constant.openSwitch);
+Switch _index = Switch(constant.indexSwitch);
 
 //Carousel declaration
 Carousel carousel = Carousel(carouselRotate, carouselCrank, _close, _open, _index);
 //Winch declaration
-Winch winch = Winch(_winchMotor);
+Winch winch = Winch(winchMotor);
 
 void setup(){
 }
