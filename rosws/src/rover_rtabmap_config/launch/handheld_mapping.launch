@@ -1,0 +1,13 @@
+<launch>
+    <arg name="rtabmap_args" default="" />
+
+    <include file="$(find rover)/launch/usb_cameras.launch">
+        <arg name="usb_cams" value="false" />
+    </include>
+
+    <include file="$(find rover_rtabmap_config)/launch/setup_mapping_transforms_handheld.launch" />
+    <include file="$(find rtabmap_ros/launch/rgbd_mapping.launch">
+        <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
+        <arg name="depth_topic" value="/zed/depth/depth_registered" />
+    </include>
+</launch>
