@@ -2,7 +2,7 @@
     <remap from="map" to="/rtabmap/proj_map"/>
     <remap from="move_base_simple/goal" to="/planner_goal"/>
 
-    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+    <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true">
         <rosparam file="$(find rover_rtabmap_config)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
         <rosparam file="$(find rover_rtabmap_config)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
         <rosparam file="$(find rover_rtabmap_config)/config/local_costmap_params.yaml" command="load"/>
