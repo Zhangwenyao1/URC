@@ -9,5 +9,7 @@
     <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
         <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
         <arg name="depth_topic" value="/zed/depth/depth_registered" />
+        <arg name="rgb_topic" value="/zed/rgb/image_rect_color" />
+        <arg name="camera_info_topic" value="/zed/rgb/camera_info" />
     </include>
 </launch>
