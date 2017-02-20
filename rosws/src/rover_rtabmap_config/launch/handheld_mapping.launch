@@ -1,5 +1,6 @@
 <launch>
-    <arg name="rtabmap_args" default="" />
+    <arg name="rtabmap_args" default="--delete_db_on_start" />
+    <!-- otherwise known as trolley mapping! -->
 
     <include file="$(find rover)/launch/usb_cameras.launch">
         <arg name="usb_cams" value="false" />
