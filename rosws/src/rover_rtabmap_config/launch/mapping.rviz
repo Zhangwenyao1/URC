@@ -94,7 +94,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /planner/move_base/global_costmap/costmap
+      Topic: /move_base/global_costmap/costmap
       Unreliable: false
       Value: true
     - Class: rviz/TF
