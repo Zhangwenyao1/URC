@@ -67,7 +67,7 @@ class SerialCommunicator(threading.Thread):
             got_response = False
             l = next_waypoint[0]
             while not got_response:
-                if self.serial_p.in_waiting > 0:
+                if self.serial_p.in_waiting > 0:  
                     time.sleep(0.5)
                     self._read_status()
                     got_response = True
@@ -76,7 +76,6 @@ class SerialCommunicator(threading.Thread):
                     self._send_abort()
                     got_response = True
                     self.is_aborting = False
-                    self.done_waypoint_cb(True, l)
 
     def _send_abort(self):
         self.serial_p.write('\x02\x00\x00')
@@ -103,9 +102,7 @@ class ArmActionServer:
         return self.as_arm if n == 4 else self.as_gripper
 
     def _next_waypoint(self, stopped, joints):
-        if stopped:
-            self._result_message.
-            self._get_as(len(joints)).set_aborted()
+
 
     def goal_callback(self, as_):
         pass
