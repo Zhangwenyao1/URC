@@ -2,6 +2,7 @@
 
 usb_cam/
 zed_ros_wrapper/
+i2c_imu/
 
 # Other system-dependant things
 
