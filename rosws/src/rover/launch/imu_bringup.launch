@@ -1,7 +1,8 @@
 <launch>
-
-<node pkg="i2c_imu" type="i2c_imu_node" name="imu_node" output="screen">
-<param name="i2c_bus" value="0" />
-</node>
+    <node pkg="tf" type="static_transform_publisher" name="imu_base_publisher" args="0 0 0.1 0 0 0 robot_base imu_link 100" />
+    <node pkg="i2c_imu" type="i2c_imu_node" name="imu_node" output="screen">
+        <param name="i2c_bus" value="0"/>
+        <param name="imu_frame" value="imu_link" />
+    </node>
 
 </launch>

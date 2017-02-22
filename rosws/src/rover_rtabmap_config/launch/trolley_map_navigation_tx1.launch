@@ -1,0 +1,10 @@
+<launch>
+
+    <include ns="/imu" file="$(find rover)/launch/imu_bringup.launch" />
+    <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" >
+        <arg name="use_gui" value="false" />
+    </include>
+
+    <include file="$(find rover_rtabmap_config)/launch/move_base_bringup.launch" />
+    <include file="$(find rover_rtabmap_config)/launch/robot_pose_ekf_bringup.launch"  />
+</launch>
