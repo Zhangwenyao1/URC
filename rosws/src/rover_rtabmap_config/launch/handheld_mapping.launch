@@ -15,5 +15,8 @@
         <arg name="rgb_topic" value="/zed/rgb/image_rect_color" />
         <arg name="camera_info_topic" value="/zed/rgb/camera_info" />
         <arg name="rtabmapviz" value="false" unless="$(arg use_gui)" />
+
+        <arg name="visual_odometry" value="false" />
+        <arg name="odom_topic" value="/robot_pose_ekf/odom_combined" />
     </include>
 </launch>

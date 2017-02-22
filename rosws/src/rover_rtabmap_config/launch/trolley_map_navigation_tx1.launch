@@ -1,6 +1,6 @@
 <launch>
 
-    <include ns="/imu" file="$(find rover)/launch/imu_bringup.launch" />
+    <include file="$(find rover)/launch/imu_bringup.launch" />
     <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" >
         <arg name="use_gui" value="false" />
     </include>
