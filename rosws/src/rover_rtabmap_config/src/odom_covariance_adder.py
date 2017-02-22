@@ -7,9 +7,7 @@ odom_out = Odometry()
 
 
 def callback(data):
-    odom_out.pose = data.pose
-    odom_out.child_frame_id = data.child_frame_id
-    odom_out.header.frame_id = data.header.frame_id
+    odom_out = data
     c_hack = list(odom_out.pose.covariance)
     c_hack[0] = -1
     c_hack[7] = -1
@@ -18,8 +16,6 @@ def callback(data):
     c_hack[28] = -1
     c_hack[35] = -1
     odom_out.pose.covariance = tuple(c_hack)
-    
-    odom_out.twist = data.twist
     c_hack = list(odom_out.twist.covariance)
     c_hack[0] = -1
     c_hack[7] = -1
