@@ -1,6 +1,6 @@
 <launch>
 
-    <node pkg="rover_rtabmap_config" type="odom_covariance_adder" name="odom_zed_fizer" />
+    <node pkg="rover_rtabmap_config" type="odom_covariance_adder.py" name="odom_zed_fizer" />
 
     <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
         <param name="output_frame" value="odom_combined"/>
