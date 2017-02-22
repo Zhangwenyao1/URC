@@ -17,6 +17,6 @@
         <arg name="rtabmapviz" value="false" unless="$(arg use_gui)" />
 
         <arg name="visual_odometry" value="false" />
-        <arg name="odom_topic" value="/robot_pose_ekf/odom_combined" />
+        <arg name="odom_frame_id" value="odom_combined" />
     </include>
 </launch>
