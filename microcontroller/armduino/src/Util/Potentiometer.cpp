@@ -1,18 +1,19 @@
 #include <Arduino.h>
 #include "Potentiometer.h"
+#include "mathFunc.h"
 
+mathFunc math = mathFunc();
 Potentiometer::Potentiometer(){}
 Potentiometer::Potentiometer(int _pin){
   pin = _pin;
 }
 int Potentiometer::getValue(){
-  return map(analogRead(pin),0,1024,0,100);
+	return analogRead(pin);
 }
 int Potentiometer::getDegrees(){
-	return map(analogRead(pin),0,1024,0,360);
+	return map(getValue(),0,1024,0,360);
 }
 float Potentiometer::getRad(){
-	int potVal = analogRead(pin);
-	return potVal/(2*3.14);
+	return math.degToRad(getDegrees());
 }
 

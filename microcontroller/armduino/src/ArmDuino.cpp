@@ -7,6 +7,7 @@
 #include "Util/Motor.h"
 #include "Util/Potentiometer.h"
 #include "Util/Switch.h"
+#include "Util/mathFunc.h"
 //Components
 #include "Components/Joint.h"
 #include "Components/Winch.h"
@@ -14,15 +15,15 @@
 #include "Components/Gripper.h"
 #include "Constants.h"
 
-#define nema17Steps 200
 Constants constant = Constants();
+mathFunc math = mathFunc();
 
 //Stepper declaration
-Stepper joint4Stepper= Stepper(nema17Steps, constant.jointMotor4A, constant.jointMotor4B);
-Stepper carouselCrankStepper = Stepper(nema17Steps, constant.carouselCrankA, constant.carouselCrankB);
-Stepper carouselRotateStepper = Stepper(nema17Steps, constant.carouselRotateA, constant.carouselRotateB);
-Stepper gripperRotateStepper = Stepper(nema17Steps,constant.gripperRotateA,constant.gripperRotateB);
-Stepper gripperOpenStepper = Stepper(nema17Steps,constant.gripperOpenA,constant.gripperOpenB);
+Stepper joint4Stepper= Stepper(constant.nema17Steps, constant.jointMotor4A, constant.jointMotor4B);
+Stepper carouselCrankStepper = Stepper(constant.nema17Steps, constant.carouselCrankA, constant.carouselCrankB);
+Stepper carouselRotateStepper = Stepper(constant.nema17Steps, constant.carouselRotateA, constant.carouselRotateB);
+Stepper gripperRotateStepper = Stepper(constant.nema17Steps,constant.gripperRotateA,constant.gripperRotateB);
+Stepper gripperOpenStepper = Stepper(constant.nema17Steps,constant.gripperOpenA,constant.gripperOpenB);
 
 //Motor declaration
 Motor j1M = Motor(constant.jointMotor1);//dc motor
@@ -59,16 +60,76 @@ Carousel carousel = Carousel(carouselRotate, carouselCrank, close, open, index);
 //Winch declaration
 Winch winch = Winch(winchMotor);
 
+struct RECIEVEJOINT{
+	float joint1;
+	float joint2;
+	float joint3;
+	float joint4;
+}jointData;
+
+struct RECIEVEGRIPPER{
+	float gripperRotate;
+	float gripperOpen;
+}gripperData;
+
 void setup(){
+	joint1.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
+	joint2.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
+	joint3.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
+	Serial.begin(constant.serialBaud);
 }
 void loop(){
-	moveArm();
+	moveComponents();
+	recieveData();
 }
-void moveArm(){
+void moveComponents(){
+	joint1.setJointPosition(jointData.joint1);
+	joint2.setJointPosition(jointData.joint2);
+	joint3.setJointPosition(jointData.joint3);
+	joint4.setJointPositionStepper(jointData.joint4);
+	gripper.open(gripperData.gripperOpen);
+	gripper.spin(gripperData.gripperRotate);
 }
 void recieveData(){
-	char message[] = Serial.read();
+	String input;
+	int commandByte;
+	float data[4];
+	if(Serial.available()){
+		Serial.readByte((char*)&commandByte,0);
+	}
+	switch(commandByte){
+		default:
+			break;
+		case 1:
+			if(Serial.avalable()>=sizeof(float)){
+				Serial.readBytes((char*)&jointData.joint1,sizeof(float));
+				Serial.readBytes((char*)&jointData.joint2,sizeof(float));
+				Serial.readBytes((char*)&jointData.joint3,sizeof(float));
+				Serial.readBytes((char*)&jointData.joint4,sizeof(float));
+			}
+			data[0] = joint1.getJointPosition();
+			data[1] = joint2.getJointPosition();
+			data[2] = joint3.getJointPosition();
+			data[3] = joint4.getJointPosition();
+			sendData(data, 4);
+			break;
+		case 2:
+			joint1.jointMotor.doPWM(0);
+			joint2.jointMotor.doPWM(0);
+			joint3.jointMotor.doPWM(0);
+			joint4.jointMotor.doStepper(0);
+			break;
+		case 3:
+			if(Serial.available()>=sizeof(float)){
+				Serial.readBytes((char*)&gripperData.gripperRotate,sizeof(float));
+				Serial.readBytes((char*)&gripperData.gripperOpen,sizeof(float));
+			}
+			break;
+		case 4:
+			break;
+		}
 }
-void sendData(){
-
+void sendData(float data[],int length){
+	for(int i = 0; i<length;i++)
+		Serial.print(data[i]+" ");
 }
