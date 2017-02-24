@@ -3,16 +3,22 @@
 #include "Arduino.h"
 #include "Motor.h"
 #include "Potentiometer.h"
-#include "ros.h"
+#include <PID_v1.h>
 
 class Joint{
 	public:
 		Joint(Motor _motor, Potentiometer _jointPot);
 		float getJointPosition();
-		void setJointPosition(int _pos);
-		void setJointPositionStepper(int _pos);
+		bool setJointPosition(float _pos);
+		void setJointPositionStepper(float _pos);
+		void initPID(int Kp, int Kd, int Ki, int degMax, int degMin);
+		void updateJoint();
 	private:
+		double pos;
+		double setPoint;
+		double currentPos;
 		Motor jointMotor;
 		Potentiometer jointPot;
+		PID jointPID;
 };
 #endif

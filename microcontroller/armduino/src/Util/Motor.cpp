@@ -14,10 +14,10 @@ Motor::Motor(int _pin){
 }
 Motor::Motor(Stepper _Stepper){
 	stepper = _Stepper;
+	stepper.setSpeed(200);
 }
 void Motor::doPWM(float _input){
-	float input = _input;
-	servo.write(map((input*10),-10,10,0,180));
+	servo.write(_input);
 }
 void Motor::doStepper(int _input){
 	stepper.step(_input);

@@ -11,8 +11,8 @@ rospy.init_node('PanoramaTestPublisher', anonymous=True)
 topic = 'camera/compressed'
 camera_compressed = rospy.Publisher(topic, CompressedImage, queue_size=20)
 
-frame1 = cv2.imread('scottsdale_left_01.png')
-frame2 = cv2.imread('scottsdale_right_01.png')
+frame1 = cv2.imread('IMG_2068.JPG')
+frame2 = cv2.imread('IMG_2069.JPG')
 
 frame1 = imutils.resize(frame1, width=400)
 frame2 = imutils.resize(frame2, width=400)
