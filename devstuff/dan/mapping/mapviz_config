@@ -7,11 +7,11 @@ enable_antialiasing: true
 show_displays: true
 show_status_bar: true
 show_capture_tools: true
-window_width: 766
-window_height: 747
+window_width: 1531
+window_height: 775
 view_scale: 0.3676011
-offset_x: 1181486
-offset_y: -992545.1
+offset_x: 1181506
+offset_y: -992564.2
 use_latest_transforms: true
 background: "#a0a0a4"
 displays:
@@ -47,3 +47,12 @@ displays:
       buffer_size: 0
       static_arrow_sizes: false
       arrow_size: 25
+  - type: mapviz_plugins/robot_image
+    name: new display
+    config:
+      visible: true
+      collapsed: false
+      frame: robot_base
+      image: /home/dan/logo_white_blank_d400.png
+      width: 20
+      height: 20
