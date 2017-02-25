@@ -26,9 +26,9 @@ def callback(data):
     odom_out.twist.covariance = tuple(c_hack)
     pub.publish(odom_out)
 
+rospy.init_node("odom_fixer_zed")
 pub = rospy.Publisher("/zed/odom_fixed", Odometry, queue_size=10)
 sub = rospy.Subscriber("/zed/odom", Odometry, callback=callback)
 
-rospy.init_node("odom_fixer_zed")
 while True:
     rospy.spin()
