@@ -2,15 +2,12 @@
     <arg name="rtabmap_args" default="--delete_db_on_start" />
     <!-- otherwise known as trolley mapping! -->
 
-    <include file="$(find rover)/launch/usb_cameras.launch">
-        <arg name="usb_cams" value="false" />
-    </include>
-
     <include file="$(find rover_rtabmap_config)/launch/setup_mapping_transforms_handheld.launch" />
     <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
         <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
         <arg name="depth_topic" value="/zed/depth/depth_registered" />
         <arg name="rgb_topic" value="/zed/rgb/image_rect_color" />
         <arg name="camera_info_topic" value="/zed/rgb/camera_info" />
+        <remap from="odom" to="/zed/odom"/>
     </include>
 </launch>
