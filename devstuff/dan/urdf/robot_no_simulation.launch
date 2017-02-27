@@ -1,0 +1,8 @@
+<launch>
+  <!-- Load the TortoiseBot URDF model into the parameter server -->
+  <param name="robot_description" textfile="robot.urdf" />
+  <!-- Start Gazebo with an empty world -->
+<node name="robot_state_publisher" pkg="robot_state_publisher"
+        type="robot_state_publisher"/>
+</launch>
+

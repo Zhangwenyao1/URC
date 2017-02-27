@@ -1,0 +1,13 @@
+<launch>
+        <param name="robot_description" textfile="robot.urdf" />
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen"/>
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="robot_base_broadcaster" args="0 0 0 0 0 0 map base_link 100" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="fl_wheel_broadcaster" args="0.3 0.5285 0 0 0 0 base_link fl_wheel 10" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="ml_wheel_broadcaster" args="0.3 -0.5285 0 0 0 0 base_link ml_wheel 10" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="bl_wheel_broadcaster" args="0.3 0 0 0 0 0 base_link bl_wheel 10" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="fr_wheel_broadcaster" args="-0.3 0.5285 0 0 0 0 base_link fr_wheel 10" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="mr_wheel_broadcaster" args="-0.3 -0.5285 0 0 0 0 base_link mr_wheel 10" output="screen"/>
+<node pkg="tf" type="static_transform_publisher" name="br_wheel_broadcaster" args="-0.3 0 0 0 0 0 base_link br_wheel 10" output="screen"/>
+</launch>
+
