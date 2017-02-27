@@ -28,3 +28,9 @@ TrajectoryPlannerROS:
 
   oscillation_reset_dist: 0.05
   meter_scoring: true
+
+#global planner
+NavfnROS:
+  allow_unknown: true
+  visualize_potential: false
+  default_tolerance: 10
