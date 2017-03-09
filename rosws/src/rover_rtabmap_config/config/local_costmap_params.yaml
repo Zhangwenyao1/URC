@@ -19,9 +19,9 @@ local_costmap:
     observation_sources: point_cloud_sensor
 
     point_cloud_sensor: {
-      sensor_frame: robot_base,
+      sensor_frame: zed_actual_frame,
       data_type: PointCloud2,
-      topic: "/zed/point_cloud/cloud_registered",
+      topic: "/points_fixed",
       expected_update_rate: 0.5,
       marking: true,
       clearing: true,

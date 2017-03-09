@@ -26,22 +26,9 @@
     </node> -->
 
     <include file="$(find zed_wrapper)/launch/zed.launch"/>
-
-    <node pkg="tf" type="static_transform_publisher" name="robot_base_broadcaster" args="0 0 0 -1.5707963267948966 0 0 map robot_base 100" />
-    <node pkg="tf" type="static_transform_publisher" name="zed_camera_broadcaster" args="0 0 1.5 0 0 -1.5707963267948966 camera_link zed_initial_frame 100" />
-
-
-    <arg name="rtabmap_args" default="--delete_db_on_start" />
-    <include file="$(find rtabmap_ros)/launch/rtabmap.launch" >
-        <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
-        <arg name="depth_topic" value="/zed/depth/depth_registered" />
-        <arg name="rgb_topic" value="/zed/rgb/image_rect_color" />
-        <arg name="camera_info_topic" value="/zed/rgb/camera_info" />
-        <remap from="odom" to="/zed/odom"/>
-    </include>
+    <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" />
 
     <remap from="map" to="/rtabmap/proj_map"/>
-    <remap from="move_base_simple/goal" to="/planner_goal"/>
 
     <node pkg="fake_localization" type="fake_localization" name="localization_proxy">
         <remap from="base_pose_ground_truth" to="/rtabmap/odom" />
@@ -49,6 +36,10 @@
         <param name="odom_frame_id" value="odom_rtab" />
         <param name="base_frame_id" value="robot_base" />
     </node>
+
+
+    <include file="$(find rover_rtabmap_config)/launch/mapping_rviz.launch" />
+    <node pkg="rover_rtabmap_config" type="pc_rotater.py" name="rotate_fixer" output="screen" />
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true" >
         <rosparam file="$(find rover_rtabmap_config)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>

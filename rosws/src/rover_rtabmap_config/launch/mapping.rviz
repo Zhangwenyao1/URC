@@ -8,7 +8,9 @@ Panels:
         - /Status1
         - /MapCloud1
         - /Map1
-        - /Map1/Status1
+        - /PointCloud1
+        - /PointCloud1/Status1
+        - /Path2
       Splitter Ratio: 0.5
     Tree Height: 565
   - Class: rviz/Selection
@@ -116,6 +118,8 @@ Visualization Manager:
           Value: true
         robot_base:
           Value: true
+        zed_actual_frame:
+          Value: true
         zed_current_frame:
           Value: true
         zed_initial_frame:
@@ -128,17 +132,93 @@ Visualization Manager:
       Tree:
         map:
           odom:
-            {}
-          robot_base:
             camera_link:
               zed_initial_frame:
+                zed_actual_frame:
+                  {}
                 zed_current_frame:
                   ZED_left_camera:
                     ZED_center:
                       {}
                     ZED_right_camera:
                       {}
+          robot_base:
+            {}
       Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 1.99999845
+        Min Value: 0
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 20
+      Size (m): 0.00999999978
+      Style: Points
+      Topic: /move_base/local_costmap/obstacles/clearing_endpoints
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 255; 85; 255
+      Enabled: true
+      Head Diameter: 0.300000012
+      Head Length: 0.200000003
+      Length: 0.300000012
+      Line Style: Lines
+      Line Width: 0.0299999993
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Style: None
+      Radius: 0.0299999993
+      Shaft Diameter: 0.100000001
+      Shaft Length: 0.100000001
+      Topic: /move_base/NavfnROS/plan
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 255; 85; 255
+      Enabled: true
+      Head Diameter: 0.300000012
+      Head Length: 0.200000003
+      Length: 0.300000012
+      Line Style: Lines
+      Line Width: 0.0299999993
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Style: None
+      Radius: 0.0299999993
+      Shaft Diameter: 0.100000001
+      Shaft Length: 0.100000001
+      Topic: /move_base/TrajectoryPlannerROS/local_plan
+      Unreliable: false
       Value: true
   Enabled: true
   Global Options:
@@ -164,7 +244,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.16329193
+      Distance: 6.84770012
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -178,10 +258,10 @@ Visualization Manager:
       Focal Shape Size: 0.0500000007
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.14039767
+      Pitch: 0.189797342
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.87539542
+      Yaw: 5.39544058
     Saved: ~
 Window Geometry:
   Displays:
