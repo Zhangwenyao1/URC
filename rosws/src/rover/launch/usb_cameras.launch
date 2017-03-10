@@ -1,19 +1,39 @@
-<!-- http://wiki.ros.org/usb_cam -->
 <launch>
-  <node name="usb_cam0" pkg="usb_cam" type="usb_cam_node" output="screen" >
-    <param name="video_device" value="/dev/video0" />
-    <param name="image_width" value="640" />
-    <param name="image_height" value="480" />
-    <param name="pixel_format" value="yuyv" />
-    <param name="camera_frame_id" value="usb_cam0" />
-    <param name="io_method" value="mmap"/>
-  </node>
-  <node name="usb_cam1" pkg="usb_cam" type="usb_cam_node" output="screen" >
-    <param name="video_device" value="/dev/video1" />
-    <param name="image_width" value="640" />
-    <param name="image_height" value="480" />
-    <param name="pixel_format" value="yuyv" />
-    <param name="camera_frame_id" value="usb_cam1" />
-    <param name="io_method" value="mmap"/>
-  </node>
+    <arg name="full_zed_node" default="true"/>
+    <arg name="zed" default="true"/>
+    <arg name="usb_cams" default="true"/>
+    <group if="$(arg zed)">
+        <node name="zed" pkg="usb_cam" type="usb_cam_node" output="screen" unless="$(arg full_zed_node)">
+            <param name="video_device" value="/dev/video3"/>
+            <param name="image_width" value="1344"/>
+            <param name="image_height" value="376"/>
+            <param name="pixel_format" value="yuyv"/>
+            <param name="camera_frame_id" value="zed"/>
+            <param name="io_method" value="mmap"/>
+            <param name="camera_name" value="zed"/>
+        </node>
+
+        <include file="$(find zed_wrapper)/launch/zed.launch" if="$(arg full_zed_node)"/>
+    </group>
+    <group if="$(arg usb_cams)">
+        <node name="usb_cam0" pkg="usb_cam" type="usb_cam_node" output="screen">
+            <param name="video_device" value="/dev/video0"/>
+            <param name="image_width" value="640"/>
+            <param name="image_height" value="480"/>
+            <param name="pixel_format" value="yuyv"/>
+            <param name="camera_frame_id" value="usb_cam0"/>
+            <param name="io_method" value="mmap"/>
+            <param name="camera_name" value="usb_cam0"/>
+        </node>
+        <node name="usb_cam1" pkg="usb_cam" type="usb_cam_node" output="screen">
+            <param name="video_device" value="/dev/video1"/>
+            <param name="image_width" value="640"/>
+            <param name="image_height" value="480"/>
+            <param name="pixel_format" value="yuyv"/>
+            <param name="camera_frame_id" value="usb_cam1"/>
+            <param name="io_method" value="mmap"/>
+            <param name="camera_name" value="usb_cam1"/>
+        </node>
+    </group>
 </launch>
+
