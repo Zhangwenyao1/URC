@@ -33,13 +33,14 @@
     <node pkg="fake_localization" type="fake_localization" name="localization_proxy">
         <remap from="base_pose_ground_truth" to="/rtabmap/odom" />
 
-        <param name="odom_frame_id" value="odom_rtab" />
+        <param name="odom_frame_id" value="odom" />
         <param name="base_frame_id" value="robot_base" />
     </node>
 
 
     <include file="$(find rover_rtabmap_config)/launch/mapping_rviz.launch" />
     <node pkg="rover_rtabmap_config" type="pc_rotater.py" name="rotate_fixer" output="screen" />
+    <node pkg="rover_rtabmap_config" type="odom_publisher.py" name="publisher_thing" output="screen" />
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true" >
         <rosparam file="$(find rover_rtabmap_config)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>

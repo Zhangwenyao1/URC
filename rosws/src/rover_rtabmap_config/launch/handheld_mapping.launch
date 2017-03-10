@@ -3,7 +3,7 @@
     <!-- otherwise known as trolley mapping! -->
 
     <include file="$(find rover_rtabmap_config)/launch/setup_mapping_transforms_handheld.launch" />
-    <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+    <include file="$(find rover_rtabmap_config)/launch/rtabmap.launch">
         <arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
         <arg name="depth_topic" value="/zed/depth/depth_registered" />
         <arg name="rgb_topic" value="/zed/rgb/image_rect_color" />
