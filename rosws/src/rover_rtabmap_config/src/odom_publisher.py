@@ -30,6 +30,7 @@ def publish_tf_message(data):
 
     broadcaster.sendTransform(tstamped)
 
+
 rospy.init_node("odom_publisher_rtabmap")
 sub = rospy.Subscriber("/rtabmap/odom", nav_msgs.msg.Odometry, callback=publish_tf_message, queue_size=10)
 rospy.spin()
