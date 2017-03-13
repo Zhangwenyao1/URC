@@ -4,7 +4,7 @@
 class Potentiometer{
   public:
     Potentiometer();
-    Potentiometer(int _pin);
+    Potentiometer(int pin);
     int getValue();
     int getDegrees();
     float getRad();

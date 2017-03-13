@@ -3,8 +3,8 @@
 #include <Servo.h>
 Servo motor;
 Motor::Motor(){ }
-Motor::Motor(int _pin){
-	pin = _pin;
+Motor::Motor(int pin){
+	this->pin = pin;
 	motor.attach(pin);
 }
 void Motor::doPWM(float vel){

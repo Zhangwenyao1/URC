@@ -5,9 +5,9 @@
 
 class Gripper{
 	public:
-		Gripper(Motor _rotationMotor, Motor _gripperMotor);
-		void spin(float _vel);
-		void open(float _dist);
+		Gripper(Motor rotationMotor, Motor gripperMotor);
+		void spin(float vel);
+		void open(float dist);
 	private:
 		Motor rotationMotor
 		Motor gripperMotor;

@@ -4,8 +4,8 @@
 
 mathFunc math = mathFunc();
 Potentiometer::Potentiometer(){}
-Potentiometer::Potentiometer(int _pin){
-  pin = _pin;
+Potentiometer::Potentiometer(int pin){
+  this->pin = pin;
 }
 int Potentiometer::getValue(){
 	return analogRead(pin);

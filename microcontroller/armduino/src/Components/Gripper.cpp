@@ -8,13 +8,13 @@ Constants constant = Constants();
 mathFunc math = mathFunc();
 Motor gripperMotor;
 Motor rotationMotor;
-Gripper::Gripper(Motor _rotationMotor, Motor _gripperMotor){
-	gripperMotor = _gripperMotor;
-	rotationMotor = _rotationMotor;
+Gripper::Gripper(Motor rotationMotor, Motor gripperMotor){
+	this->gripperMotor = gripperMotor;
+	this->rotationMotor = rotationMotor;
 }
-void Gripper::spin(float _vel){
-	rotationMotor.doPWM(map((_vel*10),-10,10,0,180));
+void Gripper::spin(float vel){
+	rotationMotor.doPWM(map((vel*10),-10,10,0,180));
 }
-void Gripper::open(float _dist){
-	gripperMotor.doStepper((int)math.calcGripperDistance(_dist,constant.stepsPerCm));
+void Gripper::open(float dist){
+	gripperMotor.doStepper((int)math.calcGripperDistance(dist,constant.stepsPerCm));
 }

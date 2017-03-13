@@ -77,18 +77,21 @@ void setup(){
 	joint2.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
 	joint3.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
 	Serial.begin(constant.serialBaud);
-}
-void loop(){
-	moveComponents();
 	recieveData();
 }
-void moveComponents(){
-	joint1.setJointPosition(jointData.joint1);
-	joint2.setJointPosition(jointData.joint2);
-	joint3.setJointPosition(jointData.joint3);
+void loop(){
+	moveComponents()
+	recieveData();
+}
+bool moveComponents(){
+	int temp;
+	temp += joint1.setJointPosition(jointData.joint1);
+	temp += joint2.setJointPosition(jointData.joint2);
+	temp += joint3.setJointPosition(jointData.joint3);
 	joint4.setJointPositionStepper(jointData.joint4);
 	gripper.open(gripperData.gripperOpen);
 	gripper.spin(gripperData.gripperRotate);
+	return ((temp==3)?true:false);
 }
 void recieveData(){
 	String input;

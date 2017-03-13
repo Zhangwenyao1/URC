@@ -3,7 +3,7 @@
 class mathFunc{
 	public:
 		mathFunc(){};
-		static const int PI = 3.14159;
+		static const float Pi = 3.14159;
 		float degToRad(float _val){
 			return ((_val*PI)/180);
 		};

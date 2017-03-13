@@ -5,7 +5,7 @@
 class Switch{
 	public:
     Switch();
-	  Switch(int _pin);
+	  Switch(int pin);
 	  bool getState();
 	private:
 	  int pin;

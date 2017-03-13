@@ -30,5 +30,7 @@ class Constants{
 		static const int Kp = 1;
 		static const int Ki = 0;
 		static const int Kd = 0;
+		//Misc.
+		static const int serialBaud = 9600;
 };
 #endif

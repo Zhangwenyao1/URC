@@ -4,7 +4,7 @@
 #include <Servo.h>
 class Motor{
   public:
-    Motor(int _pin);
+    Motor(int pin);
     Motor();
     void doPWM(float vel);
   private:
