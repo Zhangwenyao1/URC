@@ -1,0 +1,4 @@
+<launch>
+  <machine name="tx1" address="192.168.255.10" env-loader="/home/ubuntu/URC/scripts/tx1_env.sh" user="ubuntu" password="ubuntu"/>
+  <node machine="tx1" name="tx1_talker" pkg="rospy_tutorials" type="talker.py" />
+</launch>
