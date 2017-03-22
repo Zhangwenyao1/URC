@@ -13,7 +13,7 @@
             <param name="camera_name" value="zed"/>
         </node>
 
-        <include file="$(find zed_wrapper)/launch/zed.launch" if="$(arg full_zed_node)"/>
+        <include file="$(find rover)/launch/zed.launch" if="$(arg full_zed_node)"/>
     </group>
     <group if="$(arg usb_cams)">
         <node name="usb_cam0" pkg="usb_cam" type="usb_cam_node" output="screen">

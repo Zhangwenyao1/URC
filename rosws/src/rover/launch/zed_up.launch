@@ -1,0 +1,41 @@
+<launch>
+    <node pkg="tf" type="static_transform_publisher" name="zed_camera_broadcaster"
+          args="0 0 0 -1.5707963267948966 0 -1.5707963267948966 camera_link zed_initial_frame 100"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="left_frame_publisher" args="0 0 0 0 0 0 zed_current_frame ZED_left_camera 100" />
+
+    <group ns="camera">
+        <node respawn="true" output="screen" pkg="zed_wrapper" name="zed_node" type="zed_wrapper_node">
+
+            <param name="zed_id" value="0"/>
+
+            <param name="resolution" value="3"/>
+            <param name="quality" value="2"/>
+            <param name="sensing_mode" value="1"/>
+            <param name="frame_rate" value="60"/>
+            <param name="odometry_db" value=""/>
+            <param name="openni_depth_mode" value="0"/>
+            <param name="gpu_id" value="-1"/>
+
+            <!-- ROS topic names -->
+            <param name="rgb_topic" value="rgb/image_rect_color"/>
+            <param name="rgb_raw_topic" value="rgb/image_raw_color"/>
+            <param name="rgb_cam_info_topic" value="rgb/camera_info"/>
+
+            <param name="left_topic" value="left/image_rect_color"/>
+            <param name="left_raw_topic" value="left/image_raw_color"/>
+            <param name="left_cam_info_topic" value="left/camera_info"/>
+
+            <param name="right_topic" value="right/image_rect_color"/>
+            <param name="right_raw_topic" value="right/image_raw_color"/>
+            <param name="right_cam_info_topic" value="right/camera_info"/>
+
+            <param name="depth_topic" value="depth/depth_registered"/>
+            <param name="depth_cam_info_topic" value="depth/camera_info"/>
+
+            <param name="point_cloud_topic" value="point_cloud/cloud_registered"/>
+
+            <param name="odometry_topic" value="odom"/>
+        </node>
+    </group>
+</launch>

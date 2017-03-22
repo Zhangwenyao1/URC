@@ -25,6 +25,6 @@ if __name__ == "__main__":
     tfbuffer = tf2_ros.Buffer()
     tlisten = tf2_ros.TransformListener(tfbuffer)
 
-    better_pointcloud = rospy.Publisher('points_fixed', sensor_msgs.msg.PointCloud2)
-    bad_pointcloud = rospy.Subscriber('/zed/point_cloud/cloud_registered', sensor_msgs.msg.PointCloud2, callback=pc_fixer, queue_size=100)
+    better_pointcloud = rospy.Publisher('/camera/points_fixed', sensor_msgs.msg.PointCloud2)
+    bad_pointcloud = rospy.Subscriber('/camera/point_cloud/cloud_registered', sensor_msgs.msg.PointCloud2, callback=pc_fixer, queue_size=100)
     rospy.spin()

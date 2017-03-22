@@ -25,10 +25,10 @@
         <remap from="/vo" to="/zed/odom_fixed" />
     </node> -->
 
-    <include file="$(find zed_wrapper)/launch/zed.launch"/>
+    <include file="$(find rover)/launch/zed_up.launch"/>
     <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" />
 
-    <remap from="map" to="/rtabmap/proj_map"/>
+    <remap from="map" to="/rtabmap/grid_map"/>
 
     <node pkg="fake_localization" type="fake_localization" name="localization_proxy">
         <remap from="base_pose_ground_truth" to="/rtabmap/odom" />
@@ -40,7 +40,6 @@
 
     <include file="$(find rover_rtabmap_config)/launch/mapping_rviz.launch" />
     <node pkg="rover_rtabmap_config" type="pc_rotater.py" name="rotate_fixer" output="screen" />
-    <node pkg="rover_rtabmap_config" type="odom_publisher.py" name="publisher_thing" output="screen" />
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true" >
         <rosparam file="$(find rover_rtabmap_config)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
