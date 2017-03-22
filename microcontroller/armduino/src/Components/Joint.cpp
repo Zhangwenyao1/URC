@@ -2,7 +2,6 @@
 #include "Joint.h"
 #include "Motor.h"
 #include "Potentiometer.h"
-#include "ros.h"
 #include "mathFunc.h"
 #include "Constants.h"
 
@@ -14,28 +13,28 @@ double currentPos;
 double pos;
 double setPoint;
 
-Joint::Joint(Motor _motor, Potentiometer _jointPot){
-	jointMotor = _motor;
-	jointPot = _jointPot;
+Joint::Joint(Motor motor, Potentiometer jointPot){
+	this->jointMotor = motor;
+	this->jointPot = jointPot;
 }
 float Joint::getJointPosition(){
 	currentPos = jointPot.getRad();
 	return currentPos;
 }
 void initPID(int Kp, int Kd, int Ki,int degMax, int degMin){
-	PID jointPID(&currentPos,&pos,&setPoint,Kp,Ki,Kd,DIRECT);
-	jointPID.SetOutputLimits(math.degToRad(degMin),math.degToRad(degMax));
+	PID jointPID(&currentPos, &outPut, &setPoint, Kp, Ki, Kd, DIRECT);
+	jointPID.SetOutputLimits(math.degToRad(degMin), math.degToRad(degMax));
 }
-bool Joint::setJointPosition(float _setPoint){
-	setPoint = _setPoint;
+int Joint::setJointPosition(float setPoint){
+	this->setPoint = setPoint;
 	if(!jointPID.Compute()){
-		jointMotor.doPWM(map(((int)math.radToDegrees(setPoint)),-360,360,0,180));
-		return false;
+		jointMotor.doPWM(map(((int)math.radToDegrees(outPut)),-360,360,0,180));
+		return 0;
 	}
 	else
-		return true;
+		return 1;
 }
-void Joint::setJointPositionStepper(float _rads){
-	int steps = math.toSteps(math.radToDegrees(_rads),constant.nema17GearAngle51);
+void Joint::setJointPositionStepper(float rads){
+	int steps = math.toSteps(math.radToDegrees(rads),constant.nema17GearAngle51);
 	jointMotor.doStepper(steps);
 }

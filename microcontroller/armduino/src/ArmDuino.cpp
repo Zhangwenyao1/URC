@@ -26,9 +26,9 @@ Stepper gripperRotateStepper = Stepper(constant.nema17Steps,constant.gripperRota
 Stepper gripperOpenStepper = Stepper(constant.nema17Steps,constant.gripperOpenA,constant.gripperOpenB);
 
 //Motor declaration
-Motor j1M = Motor(constant.jointMotor1);//dc motor
-Motor j2M = Motor(constant.jointMotor2);//dc motor
-Motor j3M = Motor(constant.jointMotor3);//dc motor
+Motor j1M = Motor(constant.jointMotor1, constant.victor);//dc motor
+Motor j2M = Motor(constant.jointMotor2, constant.victor);//dc motor
+Motor j3M = Motor(constant.jointMotor3, constant.victor);//dc motor
 Motor j4M = Motor(joint4Stepper);//stepper motor
 Motor grM = Motor(gripperRotateStepper);
 Motor goM = Motor(gripperOpenStepper);
@@ -77,18 +77,21 @@ void setup(){
 	joint2.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
 	joint3.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
 	Serial.begin(constant.serialBaud);
-}
-void loop(){
-	moveComponents();
 	recieveData();
 }
-void moveComponents(){
-	joint1.setJointPosition(jointData.joint1);
-	joint2.setJointPosition(jointData.joint2);
-	joint3.setJointPosition(jointData.joint3);
+void loop(){
+	moveComponents()
+	recieveData();
+}
+bool moveComponents(){
+	int temp;
+	temp += joint1.setJointPosition(jointData.joint1);
+	temp += joint2.setJointPosition(jointData.joint2);
+	temp += joint3.setJointPosition(jointData.joint3);
 	joint4.setJointPositionStepper(jointData.joint4);
 	gripper.open(gripperData.gripperOpen);
 	gripper.spin(gripperData.gripperRotate);
+	return ((temp==3)?true:false);
 }
 void recieveData(){
 	String input;

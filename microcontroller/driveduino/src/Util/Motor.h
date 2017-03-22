@@ -2,13 +2,17 @@
 #define Motor_h
 #include "Arduino.h"
 #include <Servo.h>
+#include <Stepper.h>
+#include "MotorController.h"
 class Motor{
   public:
-    Motor(int _pin);
+    Motor(int pin, bool type);
+    Motor(Stepper _Stepper);
     Motor();
-    void doPWM(float vel);
+    void doStepper(int input);
+    void doPWM(int input);
   private:
-    int pin;
-    Servo motor;
+    MotorController driver;
+    Stepper stepper = Stepper(0,0,0);
 };
 #endif

@@ -1,13 +1,13 @@
 #ifndef Winch_h
 #define Winch_h
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Motor.h"
-#include <std_msgs/Int16.h>
 class Winch{
   public:
-    Winch(Motor _winchM);
-    void doMotor(std_msgs::Int16 _drive);
+    Winch(Motor winchMotor);
+    void doMotor(int direction);
   private:
-    Motor _motor;
+    Motor winchMotor;
+    int drive;
 };
 #endif

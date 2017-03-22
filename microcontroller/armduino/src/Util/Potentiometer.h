@@ -1,10 +1,10 @@
 #ifndef Potentiometer_h
 #define Potentiometer_h
-#include "Arduino.h"
+#include <Arduino.h>
 class Potentiometer{
   public:
     Potentiometer();
-    Potentiometer(int _pin);
+    Potentiometer(int pin);
     int getValue();
     int getDegrees();
     float getRad();

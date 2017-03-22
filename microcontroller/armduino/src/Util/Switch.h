@@ -1,11 +1,11 @@
 #ifndef Arm_h
 #define Arm_h
-#include "Arduino.h"
+#include <Arduino.h>
 
 class Switch{
 	public:
     Switch();
-	  Switch(int _pin);
+	  Switch(int pin);
 	  bool getState();
 	private:
 	  int pin;

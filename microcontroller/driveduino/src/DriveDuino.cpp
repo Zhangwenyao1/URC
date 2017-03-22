@@ -2,29 +2,20 @@
 #include "Arduino.h"
 #include <Encoder.h>
 #include <PID_v1.h>
-
 #include "Util/Motor.h"
 #include "Constants.h"
 
-#define serialBaud 9600
-
-struct MOTORS{
-	static const int leftFront = 1;
-	static const int leftMid = 2;
-	static const int leftRear = 3;
-	static const int rightFront = 4;
-	static const int rightMid = 5;
-	static const int rightRear = 6;
-}motors;
+#define vel 0
+#define enc 1
 
 Constants constant = Constants();
 //Motor Declarations
-Motor leftFrontMotor = Motor(constant.leftFront);
-Motor leftMidMotor = Motor(constant.leftMid);
-Motor leftRearMotor = Motor(constant.leftRear);
-Motor rightFrontMotor = Motor(constant.rightFront);
-Motor rightMidMotor = Motor(constant.rightMid);
-Motor rightRearMotor = Motor(constant.rightRear);
+Motor leftFrontMotor = Motor(constant.leftFront, constant.spark);
+Motor leftMidMotor = Motor(constant.leftMid, constant.spark);
+Motor leftRearMotor = Motor(constant.leftRear, constant.spark);
+Motor rightFrontMotor = Motor(constant.rightFront, constant.spark);
+Motor rightMidMotor = Motor(constant.rightMid, constant.spark);
+Motor rightRearMotor = Motor(constant.rightRear, constant.spark);
 
 //Encoder Declarations
 Encoder leftFrontEncoder = Encoder(constant.LFEncA,constant.LFEncB);
@@ -34,52 +25,46 @@ Encoder rightFrontEncoder = Encoder(constant.RFEncA,constant.RFEncB);
 Encoder rightMidEncoder = Encoder(constant.RMEncA,constant.RMEncB);
 Encoder rightRearEncoder = Encoder(constant.RREncA,constant.RREncB);
 
+struct MOTORDATA{
+	float leftFront[2];
+	float leftMid[2];
+	float leftRear[2];
+	float rightFront[2];
+	float rightMid[2];
+	float rightRear[2];
+}motorData;
 void setup() {
-	Serial.begin(serialBaud);
-}
-void loop() {
+	//Zeroing the Encoders
+	leftFrontEncoder.write(0);
+	leftMidEncoder.write(0);
+	leftRearEncoder.write(0);
+	rightFrontEncoder.write(0);
+	rightMidEncoder.write(0);
+	rightRearEncoder.write(0);
 
+	Serial.begin(constant.serialBaud);
 }
+
 void recieveData(){
 
 }
-void setWheelVel(float _vel,int _motor){
-	switch(_motor){
-		default:
-		case motors.leftFront:
-			leftFrontMotor.doPWM(_vel);
-			break;
-		case motors.leftMid:
-			leftMidMotor.doPWM(_vel);
-			break;
-		case motors.leftRear:
-			leftRearMotor.doPWM(_vel);
-			break;
-		case motors.rightFront:
-			rightFrontMotor.doPWM(_vel);
-			break;
-		case motors.rightMid:
-			rightMidMotor.doPWM(_vel);
-			break;
-		case motors.rightRear:
-			rightRearMotor.doPWM(_vel);
-			break;
-	}
+void setWheelVel(){
+	leftFrontMotor.doPWM(motorData.leftFront[vel]);
+	leftMidMotor.doPWM(motorData.leftMid[vel]);
+	leftRearMotor.doPWM(motorData.leftRear[vel]);
+	rightFrontMotor.doPWM(motorData.rightFront[vel]);
+	rightMidMotor.doPWM(motorData.rightMid[vel]);
+	rightRearMotor.doPWM(motorData.rightRear[vel]);
 }
-int getWheelPosition(int _motor){
-	switch(_motor){
-		default:
-		case motors.leftFront:
-			return leftFrontEncoder.read();
-		case motors.leftMid:
-			return leftMidEncoder.read();
-		case motors.leftRear:
-			return leftRearEncoder.read();
-		case motors.rightFront:
-			return rightFrontEncoder.read();
-		case motors.rightMid:
-			return rightMidEncoder.read();
-		case motors.rightRear:
-			return rightRearEncoder.read();
-	}
+void getWheelPosition(){
+	motorData.leftFront[enc] = leftFrontEncoder.read();
+	motorData.leftMid[enc] = leftMidEncoder.read();
+	motorData.leftRear[enc] = leftRearEncoder.read();
+	motorData.rightFront[enc] = rightFrontEncoder.read();
+	motorData.rightMid[enc] = rightMidEncoder.read();
+	motorData.rightRear[enc] = rightRearEncoder.read();
+}
+void loop() {
+	setWheelVel();
+	getWheelPosition();
 }

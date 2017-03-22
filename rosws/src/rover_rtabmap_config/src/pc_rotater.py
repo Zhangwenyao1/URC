@@ -5,10 +5,10 @@ import tf2_sensor_msgs
 import sensor_msgs.msg, sensor_msgs
 import geometry_msgs.msg
 
-quat = geometry_msgs.msg.TransformStamped()
-quat.transform.rotation.z = quat.transform.rotation.x = 0.70711
-quat.child_frame_id = "zed_actual_frame"
-quat.header.frame_id = "zed_actual_frame"
+quat_static = geometry_msgs.msg.TransformStamped()
+quat_static.transform.rotation.z = quat_static.transform.rotation.x = 0.70711
+quat_static.child_frame_id = "zed_actual_frame"
+quat_static.header.frame_id = "zed_actual_frame"
 
 
 def pc_fixer(data):

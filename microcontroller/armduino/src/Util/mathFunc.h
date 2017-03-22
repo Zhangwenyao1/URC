@@ -1,9 +1,10 @@
 #ifndef mathFunc_h
 #define mathFunc_h
+#include <Arduino.h>
 class mathFunc{
 	public:
 		mathFunc(){};
-		static const int PI = 3.14159;
+		static const float Pi = 3.14159;
 		float degToRad(float _val){
 			return ((_val*PI)/180);
 		};
@@ -18,5 +19,8 @@ class mathFunc{
 		};
 		float calcGripperDistance(float distance, float stepsPer){
 			return (distance*stepsPer);
+		};
+		int dutyCycletoMicroSeconds(int maxSeconds, int minSeconds, int dutyCycle){
+			return map(dutyCycle,-100,100,maxSeconds,minSeconds);
 		};
 };
