@@ -1,5 +1,6 @@
 #ifndef mathFunc_h
 #define mathFunc_h
+#include <Arduino.h>
 class mathFunc{
 	public:
 		mathFunc(){};
@@ -18,5 +19,8 @@ class mathFunc{
 		};
 		float calcGripperDistance(float distance, float stepsPer){
 			return (distance*stepsPer);
+		};
+		int dutyCycletoMicroSeconds(int maxSeconds, int minSeconds, int dutyCycle){
+			return map(dutyCycle,-100,100,maxSeconds,minSeconds);
 		};
 };

@@ -3,6 +3,9 @@
 class Constants{
 	public:
 		Constants(){};
+		//Motor Controllers
+		static const bool victor = true;
+		static const bool spark = false;
 		//Left Motor pins
 		static const int leftFront = 0;
 		static const int leftMid = 1;

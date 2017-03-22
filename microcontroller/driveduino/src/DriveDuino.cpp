@@ -2,7 +2,6 @@
 #include "Arduino.h"
 #include <Encoder.h>
 #include <PID_v1.h>
-
 #include "Util/Motor.h"
 #include "Constants.h"
 
@@ -11,12 +10,12 @@
 
 Constants constant = Constants();
 //Motor Declarations
-Motor leftFrontMotor = Motor(constant.leftFront);
-Motor leftMidMotor = Motor(constant.leftMid);
-Motor leftRearMotor = Motor(constant.leftRear);
-Motor rightFrontMotor = Motor(constant.rightFront);
-Motor rightMidMotor = Motor(constant.rightMid);
-Motor rightRearMotor = Motor(constant.rightRear);
+Motor leftFrontMotor = Motor(constant.leftFront, constant.spark);
+Motor leftMidMotor = Motor(constant.leftMid, constant.spark);
+Motor leftRearMotor = Motor(constant.leftRear, constant.spark);
+Motor rightFrontMotor = Motor(constant.rightFront, constant.spark);
+Motor rightMidMotor = Motor(constant.rightMid, constant.spark);
+Motor rightRearMotor = Motor(constant.rightRear, constant.spark);
 
 //Encoder Declarations
 Encoder leftFrontEncoder = Encoder(constant.LFEncA,constant.LFEncB);

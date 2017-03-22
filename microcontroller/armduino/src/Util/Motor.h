@@ -3,19 +3,16 @@
 #include "Arduino.h"
 #include <Servo.h>
 #include <Stepper.h>
-
+#include "MotorController.h"
 class Motor{
   public:
-    Motor(int _pin);
+    Motor(int pin, bool type);
     Motor(Stepper _Stepper);
     Motor();
-    void doMotor(int _drive);
-    void doStepper(int _input);
-    void doPWM(float _input);
+    void doStepper(int input);
+    void doPWM(int input);
   private:
-    int pin;
-    Servo servo;
+    MotorController driver;
     Stepper stepper = Stepper(0,0,0);
-
 };
 #endif

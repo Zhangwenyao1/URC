@@ -1,12 +1,17 @@
-#include "Arduino.h"
+#include <Arduino.h>
 #include "Winch.h"
 #include "Motor.h"
-#include <std_msgs/Int16.h>
 Motor _motor;
 
-Winch::Winch(Motor _winchM){
-	_motor = _winchM;
+Winch::Winch(Motor winchMotor){
+	this->winchMotor = winchMotor;
 }
-void Winch::doMotor(std_msgs::Int16 _drive){
-	_motor.doPWM(_drive.data);
+void Winch::doMotor(int direction){
+	if(direction==1)
+		drive == 180;
+	else if(direction == -1)
+		drive == 0;
+	else
+		drive = 90;
+	winchMotor.doPWM(drive);
 }

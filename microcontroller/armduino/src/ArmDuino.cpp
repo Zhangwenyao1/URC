@@ -26,9 +26,9 @@ Stepper gripperRotateStepper = Stepper(constant.nema17Steps,constant.gripperRota
 Stepper gripperOpenStepper = Stepper(constant.nema17Steps,constant.gripperOpenA,constant.gripperOpenB);
 
 //Motor declaration
-Motor j1M = Motor(constant.jointMotor1);//dc motor
-Motor j2M = Motor(constant.jointMotor2);//dc motor
-Motor j3M = Motor(constant.jointMotor3);//dc motor
+Motor j1M = Motor(constant.jointMotor1, constant.victor);//dc motor
+Motor j2M = Motor(constant.jointMotor2, constant.victor);//dc motor
+Motor j3M = Motor(constant.jointMotor3, constant.victor);//dc motor
 Motor j4M = Motor(joint4Stepper);//stepper motor
 Motor grM = Motor(gripperRotateStepper);
 Motor goM = Motor(gripperOpenStepper);

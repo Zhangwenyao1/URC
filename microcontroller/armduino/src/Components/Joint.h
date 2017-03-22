@@ -4,19 +4,16 @@
 #include "Motor.h"
 #include "Potentiometer.h"
 #include <PID_v1.h>
-
 class Joint{
 	public:
 		Joint(Motor motor, Potentiometer jointPot);
 		float getJointPosition();
-		bool setJointPosition(float pos);
+		int setJointPosition(float pos);
 		void setJointPositionStepper(float pos);
 		void initPID(int Kp, int Kd, int Ki, int degMax, int degMin);
 		void updateJoint();
 	private:
-		double pos;
-		double setPoint;
-		double currentPos;
+		float outPut, setPoint, currentPos;
 		Motor jointMotor;
 		Potentiometer jointPot;
 		PID jointPID;

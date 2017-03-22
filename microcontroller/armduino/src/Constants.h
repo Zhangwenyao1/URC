@@ -5,6 +5,9 @@
 class Constants{
 	public:
 		Constants() {};
+		//Motor Controllers
+		static const bool victor = true;
+		static const bool spark = false;
 		//Arm Motors
 		static const int jointMotor1 = 0;
 		static const int jointMotor2 = 1;

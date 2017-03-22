@@ -1,6 +1,6 @@
 #ifndef Potentiometer_h
 #define Potentiometer_h
-#include "Arduino.h"
+#include <Arduino.h>
 class Potentiometer{
   public:
     Potentiometer();
