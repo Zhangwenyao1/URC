@@ -14,8 +14,7 @@ class Constants{
 		static const int jointMotor3 = 2;
 		static const int jointMotor4A = 3;
 		static const int jointMotor4B = 4;
-		static const int gripperRotateA = 10;
-		static const int gripperRotateB = 11;
+		static const int gripperRotateMotor = 10;
 		static const int gripperOpenA = 12;
 		static const int gripperOpenB = 13;
 		//Arm Sensors
@@ -47,8 +46,8 @@ class Constants{
 		static const int Kp = 0;
 		static const int Ki = 0;
 		static const int Kd = 0;
-		static const int maxOut = 360;
-		static const int minOut = 360;
+		static const int maxOut = 1;
+		static const int minOut = -1;
 
 };
 #endif

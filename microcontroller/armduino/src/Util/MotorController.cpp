@@ -19,5 +19,5 @@ void MotorController::setDutyCycle(int dutyCycle){
 		hold[0] = spark.min;
 		hold[1] = spark.max;
 	}
-	driver.writeMicroseconds(math.dutyCycletoMicroSeconds(hold[0],hold[1],dutyCycle));
+	driver.writeMicroseconds(math.dutyCycletoMicroSeconds(hold[0],hold[1],dutyCycle*100));
 }

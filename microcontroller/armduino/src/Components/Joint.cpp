@@ -21,11 +21,11 @@ float Joint::getJointPosition(){
 	currentPos = jointPot.getRad();
 	return currentPos;
 }
-void initPID(int Kp, int Kd, int Ki,int degMax, int degMin){
+void initPID(double Kp, double Kd, double Ki, double maxOut, double minOut){
 	PID jointPID(&currentPos, &outPut, &setPoint, Kp, Ki, Kd, DIRECT);
-	jointPID.SetOutputLimits(math.degToRad(degMin), math.degToRad(degMax));
+	jointPID.SetOutputLimits(maxOut, minOut);
 }
-int Joint::setJointPosition(float setPoint){
+int Joint::setJointPosition(double setPoint){
 	this->setPoint = setPoint;
 	if(!jointPID.Compute()){
 		jointMotor.doPWM(map(((int)math.radToDegrees(outPut)),-360,360,0,180));

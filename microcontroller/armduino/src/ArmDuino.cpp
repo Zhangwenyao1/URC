@@ -22,7 +22,6 @@ mathFunc math = mathFunc();
 Stepper joint4Stepper= Stepper(constant.nema17Steps, constant.jointMotor4A, constant.jointMotor4B);
 Stepper carouselCrankStepper = Stepper(constant.nema17Steps, constant.carouselCrankA, constant.carouselCrankB);
 Stepper carouselRotateStepper = Stepper(constant.nema17Steps, constant.carouselRotateA, constant.carouselRotateB);
-Stepper gripperRotateStepper = Stepper(constant.nema17Steps,constant.gripperRotateA,constant.gripperRotateB);
 Stepper gripperOpenStepper = Stepper(constant.nema17Steps,constant.gripperOpenA,constant.gripperOpenB);
 
 //Motor declaration
@@ -30,11 +29,11 @@ Motor j1M = Motor(constant.jointMotor1, constant.victor);//dc motor
 Motor j2M = Motor(constant.jointMotor2, constant.victor);//dc motor
 Motor j3M = Motor(constant.jointMotor3, constant.victor);//dc motor
 Motor j4M = Motor(joint4Stepper);//stepper motor
-Motor grM = Motor(gripperRotateStepper);
-Motor goM = Motor(gripperOpenStepper);
+Motor grM = Motor(constant.gripperRotateMotor, constant.victor);//dc motor
+Motor goM = Motor(gripperOpenStepper);//stepper
 Motor carouselRotate = Motor(carouselRotateStepper);//Carousel rotate stepper
 Motor carouselCrank =  Motor(carouselCrankStepper);//carousel crank stepper
-Motor winchMotor = Motor(constant.winchMotor);//dc motor
+Motor winchMotor = Motor(constant.winchMotor, constant.victor);//dc motor
 
 //Potentiometer declaration
 Potentiometer j1Pos = Potentiometer(constant.joint1Pot);
@@ -80,8 +79,8 @@ void setup(){
 	recieveData();
 }
 void loop(){
-	moveComponents()
-	recieveData();
+	if(moveComponents()>=3)
+		recieveData();
 }
 bool moveComponents(){
 	int temp;
@@ -98,7 +97,7 @@ void recieveData(){
 	int commandByte;
 	float data[4];
 	if(Serial.available()){
-		Serial.readByte((char*)&commandByte,0);
+		Serial.readBytes((char*)&commandByte,sizeof(int));
 	}
 	switch(commandByte){
 		default:
