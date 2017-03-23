@@ -3,6 +3,8 @@
 usb_cam/
 zed_ros_wrapper/
 i2c_imu/
+rtimulib_ros/
+robot_localization/
 
 # Other system-dependant things
 
