@@ -8,12 +8,12 @@ class Joint{
 	public:
 		Joint(Motor motor, Potentiometer jointPot);
 		float getJointPosition();
-		int setJointPosition(float pos);
+		int setJointPosition(double pos);
 		void setJointPositionStepper(float pos);
-		void initPID(int Kp, int Kd, int Ki, int degMax, int degMin);
+		void initPID(double Kp, double Kd, double Ki, double maxOut, double minOut);
 		void updateJoint();
 	private:
-		float outPut, setPoint, currentPos;
+		double outPut, setPoint, currentPos;
 		Motor jointMotor;
 		Potentiometer jointPot;
 		PID jointPID;
