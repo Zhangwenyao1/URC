@@ -1,6 +1,6 @@
 # R3 ROS Workspace
 
-## Launch ALL components
+## Launch ALL components (empty for now, someone could write this)
 ```bash
 roslaunch rover robot.launch
 ```
