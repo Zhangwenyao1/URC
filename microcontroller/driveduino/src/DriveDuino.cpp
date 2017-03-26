@@ -44,10 +44,6 @@ void setup() {
 
 	Serial.begin(constant.serialBaud);
 }
-
-void recieveData(){
-
-}
 void setWheelVel(){
 	leftFrontMotor.doPWM(motorData.leftFront[vel]);
 	leftMidMotor.doPWM(motorData.leftMid[vel]);
