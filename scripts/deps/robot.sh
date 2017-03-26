@@ -18,21 +18,6 @@ sudo apt-get install ros-kinetic-rosserial-arduino \
                      nethogs \
                      v4l-utils # find out which /dev/video* is which using v4l2-ctl --list-devices
 
-# TODO: Add Installing RTIMULib section from  http://www.jetsonhacks.com/2015/07/01/bosch-imu-under-ros-on-nvidia-jetson-tk1/
-sudo apt-get install cmake-curses-gui
-git clone https://github.com/jetsonhacks/RTIMULib.git
-cd RTIMULib
-#Switch to the Linux directory
-cd Linux
-mkdir build
-cd build
-cmake .. 
-ccmake ..
-cmake .. 
-make -j4
-sudo make install
-sudo ldconfig
-
 sudo c_rehash /etc/ssl/certs # https://github.com/ros/rosdistro/issues/12894
 sudo rosdept init
 rosdep update
@@ -45,3 +30,18 @@ wstool set robot_localization -y --git https://github.com/cra-ros-pkg/robot_loca
 wstool set rtimulib_ros -y --git https://github.com/romainreignier/rtimulib_ros
 
 grep "source /opt/ros/kinetic/setup.bash"  ~/.bashrc || echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+
+# Installing RTIMULib
+# from http://www.jetsonhacks.com/2015/07/01/bosch-imu-under-ros-on-nvidia-jetson-tk1/
+pushd .
+cd ~
+git clone https://github.com/jetsonhacks/RTIMULib.git
+cd RTIMULib
+cd Linux
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+sudo ldconfig
+popd
