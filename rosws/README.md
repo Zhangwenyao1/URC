@@ -9,7 +9,7 @@ roslaunch rover robot.launch
 
 #### GPS
 ```bash
-rosrun nmea_navsat_driver nmea_navsat_serial _port:=/dev/ttyACM0 _baud:=9600
+rosrun nmea_navsat_driver nmea_serial_driver _port:=/dev/ttyTHS2 _baud:=9600
 ```
 
 #### IMU
