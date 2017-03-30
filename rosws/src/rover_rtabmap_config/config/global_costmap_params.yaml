@@ -10,4 +10,4 @@ global_costmap:
   static_map: true
 
   inflation:
-    inflation_radius: 0.25
+    inflation_radius: 0.06
