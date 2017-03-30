@@ -4,7 +4,7 @@
     <arg name="usb_cams" default="true"/>
     <group if="$(arg zed)">
         <node name="zed" pkg="usb_cam" type="usb_cam_node" output="screen" unless="$(arg full_zed_node)">
-            <param name="video_device" value="/dev/video1"/>
+            <param name="video_device" value="/dev/video0"/>
             <param name="image_width" value="640"/>
             <param name="image_height" value="480"/>
             <param name="pixel_format" value="yuyv"/>
@@ -17,7 +17,7 @@
     </group>
     <group if="$(arg usb_cams)">
         <node name="usb_cam0" pkg="usb_cam" type="usb_cam_node" output="screen">
-            <param name="video_device" value="/dev/video0"/>
+            <param name="video_device" value="/dev/video1"/>
             <param name="image_width" value="640"/>
             <param name="image_height" value="480"/>
             <param name="pixel_format" value="yuyv"/>
@@ -26,7 +26,7 @@
             <param name="camera_name" value="usb_cam0"/>
         </node>
         <node name="usb_cam1" pkg="usb_cam" type="usb_cam_node" output="screen">
-            <param name="video_device" value="/dev/video1"/>
+            <param name="video_device" value="/dev/video2"/>
             <param name="image_width" value="640"/>
             <param name="image_height" value="480"/>
             <param name="pixel_format" value="yuyv"/>
