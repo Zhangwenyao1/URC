@@ -21,18 +21,22 @@ float Joint::getJointPosition(){
 	currentPos = jointPot.getRad();
 	return currentPos;
 }
-void initPID(int Kp, int Kd, int Ki,int degMax, int degMin){
+void initPID(double Kp, double Kd, double Ki, double maxOut, double minOut){
 	PID jointPID(&currentPos, &outPut, &setPoint, Kp, Ki, Kd, DIRECT);
-	jointPID.SetOutputLimits(math.degToRad(degMin), math.degToRad(degMax));
+	jointPID.SetOutputLimits(minOut, maxOut);
+	jointPID.SetMode(MANUAL);
 }
-int Joint::setJointPosition(float setPoint){
+int Joint::setJointPosition(double setPoint){
 	this->setPoint = setPoint;
 	if(!jointPID.Compute()){
+		jointPID.SetMode(AUTOMATIC);
 		jointMotor.doPWM(map(((int)math.radToDegrees(outPut)),-360,360,0,180));
 		return 0;
 	}
-	else
+	else{
+		jointPID.SetMode(MANUAL);
 		return 1;
+	}
 }
 void Joint::setJointPositionStepper(float rads){
 	int steps = math.toSteps(math.radToDegrees(rads),constant.nema17GearAngle51);

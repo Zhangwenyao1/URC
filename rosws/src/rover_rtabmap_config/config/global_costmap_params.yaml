@@ -5,9 +5,11 @@ global_costmap:
 
   robot_base_frame: robot_base
   global_frame: map
-  update_frequency: 0.5
+  update_frequency: 1
   publish_frequency: 0.5
   static_map: true
 
   inflation:
-    inflation_radius: 0.06
+  inflation_radius: 0.06
+
+

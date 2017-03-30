@@ -1,4 +1,0 @@
-<launch>
-    <node pkg="urc" type="save_temp.py" name="save_temp" output="screen" cwd="node"/>
-    <node pkg="urc" type="save_ph.py" name="save_ph" output="screen" cwd="node"/>
-</launch>

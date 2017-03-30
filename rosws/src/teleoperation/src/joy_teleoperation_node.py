@@ -11,7 +11,7 @@ def on_joy_data(data):
     """
     msg = Twist()
     msg.linear.x = data.axes[1]
-    msg.angular.z = data.axes[2]
+    msg.angular.z = data.axes[0]
     pub.publish(msg)
 
 rospy.init_node("joystick_teleoperation")
