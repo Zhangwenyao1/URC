@@ -14,7 +14,7 @@ def on_auto_data(data):
     global auto_timeout, dt
     dtt = rospy.Time(0) - dt
     dt = rospy.Time(0)
-    auto_timeout -= dtt
+    auto_timeout -= dtt.to_sec().real
     if auto_timeout <= 0:
         auto_timeout = 0
         pub.publish(data)
