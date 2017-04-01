@@ -1,7 +1,9 @@
 # R3 ROS Workspace
 
-## Launch ALL components (empty for now, someone could write this)
+## Launch ALL components (not actually working, someone could write this)
 ```bash
+$ tmuxinator ...
+# Less preferred method (everything runs in one terminal, harder to debug)
 $ roslaunch rover robot.launch
 ```
 
