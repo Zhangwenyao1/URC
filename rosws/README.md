@@ -43,6 +43,8 @@ $ rqt_image_view /science/overlay/compressed
 ```bash
 $ roslaunch teleoperation joy_teleoperation.launch
 $ roslaunch rover_drive ramsbot_test.launch
+# View output
+$ rostopic echo cmd_vel
 ```
 
 #### Temperature Sensor
