@@ -25,7 +25,7 @@
         <remap from="/vo" to="/zed/odom_fixed" />
     </node> -->
 
-    <include file="$(find rover)/launch/zed_up.launch"/>
+    <!--include file="$(find rover)/launch/zed_up.launch"/-->
     <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" />
 
     <remap from="map" to="/rtabmap/grid_map"/>
@@ -38,7 +38,7 @@
     </node>
 
 
-    <include file="$(find rover_rtabmap_config)/launch/mapping_rviz.launch" />
+    <!--include file="$(find rover_rtabmap_config)/launch/mapping_rviz.launch" /-->
     <node pkg="rover_rtabmap_config" type="pc_rotater.py" name="rotate_fixer" output="screen" />
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true" >
@@ -47,6 +47,8 @@
         <rosparam file="$(find rover_rtabmap_config)/config/local_costmap_params.yaml" command="load"/>
         <rosparam file="$(find rover_rtabmap_config)/config/global_costmap_params.yaml" command="load"/>
         <rosparam file="$(find rover_rtabmap_config)/config/base_local_planner_params.yaml" command="load"/>
+
+        <remap from="/cmd_vel" to="/cmd_vel_mux/move_base" />
     </node>
 
 </launch>

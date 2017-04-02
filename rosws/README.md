@@ -1,60 +1,83 @@
 # R3 ROS Workspace
 
-## Launch ALL components (empty for now, someone could write this)
+## Launch ALL components (not actually working, someone could write this)
 ```bash
-roslaunch rover robot.launch
+$ tmuxinator ...
+# Less preferred method (everything runs in one terminal, harder to debug)
+$ roslaunch rover robot.launch
 ```
 
 ## Launch individual components
 
 #### GPS
 ```bash
-rosrun nmea_navsat_driver nmea_navsat_serial _port:=/dev/ttyACM0 _baud:=9600
+$ rosrun nmea_navsat_driver nmea_serial_driver _port:=/dev/ttyTHS2 _baud:=9600
+# Output topic
+$ rostopic echo fix
 ```
 
 #### IMU
 ```bash
-roslaunch rtimulib_ros rtimulib_ros.launch
+$ roslaunch rtimulib_ros rtimulib_ros.launch
+# View output
+rostopic echo imu/data
+$ ~/RTIMULib/Linux/build-RTIMULibDemoGL-Desktop-Debug/Output/RTIMULibDemoGL # Graphical vizualization
 ```
 
 
 #### rtabmap
 ```bash
-roslaunch rover_rtabmap_config navigation.launch
+$ roslaunch rover_rtabmap_config navigation.launch
+# View output
+$ roslaunch rover_rtabmap_config mapping_rviz.launch
 ```
 
 #### Overlay scale and bearing
 ```bash
-python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
+$ python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
+# View output
+$ rqt_image_view /science/overlay/compressed
 ```
 
 #### RAMSBOT
 ```bash
-roslaunch teleoperation joy_teleoperation.launch
-roslaunch rover_drive ramsbot_test.launch
+$ roslaunch teleoperation joy_teleoperation.launch
+$ roslaunch rover_drive ramsbot_test.launch
+# View output
+$ rostopic echo cmd_vel
 ```
 
 #### Temperature Sensor
 ```bash
-rosrun rover_science save_temp.py _description:=site1
+$ rosrun rover_science save_temp.py _description:=site1
+# View output
+$ cat *_temperature.txt
 ```
 #### pH Sensor
 ```bash
-rosrun rover_science save_ph.py _description:=site1
+$ rosrun rover_science save_ph.py _description:=site1
+# View output
+$ cat *_ph.txt
 ```
 
 #### All USB Cameras
 ```bash
-roslaunch rover usb_cameras.launch
+$ roslaunch rover usb_cameras.launch
+# View output
+rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective
 ```
 
 #### ZED Camera
 ```bash
-roslaunch rover zed_up.launch
+$ roslaunch rover zed_up.launch
+# View output: there are many ways...
+1) video stream: usq rqt or rviz
+2) point cloud: use rviz
+3) odometry: use rviz
 ```
 
 #### Don't forget to source setup.bash
 ```
-source ~/URC/rosws/devel/setup.bash
+$ source ~/URC/rosws/devel/setup.bash
 ```
 

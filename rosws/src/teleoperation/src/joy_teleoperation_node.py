@@ -16,5 +16,5 @@ def on_joy_data(data):
 
 rospy.init_node("joystick_teleoperation")
 sub = rospy.Subscriber("joy", Joy, on_joy_data)
-pub = rospy.Publisher("cmd_vel", Twist, queue_size=1)
+pub = rospy.Publisher("cmd_vel_mux/teleoperation", Twist, queue_size=1)
 rospy.spin()
