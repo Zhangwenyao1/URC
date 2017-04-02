@@ -37,5 +37,6 @@
 
             <param name="odometry_topic" value="odom"/>
         </node>
+        <node pkg="image_transport" type="republish" name="zed_camera_feed_fixer" params="raw in:=rgb/image_rect_color out:=rgb_fixed" />
     </group>
 </launch>

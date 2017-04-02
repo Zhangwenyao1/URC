@@ -2,14 +2,14 @@
     <group ns="odom_source">
         <group ns="zed">
             <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros">
-                <param name="frame_id" value="robot_base" />
-		<param name="publish_tf" value="false" />
+                <param name="frame_id" value="robot_base"/>
+                <param name="publish_tf" value="false"/>
 
-                <remap from="rgb/image" to="/camera/rgb/image_rect_color" />
-                <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
-                <remap from="depth/image" to="/camera/depth/depth_registered" />
+                <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
+                <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
+                <remap from="depth/image" to="/camera/depth/depth_registered"/>
 
-                <param name="Odom/ResetCountdown"              value="1" />
+                <param name="Odom/ResetCountdown" value="1"/>
             </node>
         </group>
     </group>
