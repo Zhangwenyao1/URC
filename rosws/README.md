@@ -40,6 +40,11 @@ $ rqt_image_view /science/overlay/compressed
 ```
 
 #### RAMSBOT
+1. You'll need to plug in the joystick to your computer
+2. ./URC/scripts/set_robot_as_ROS_master.sh
+3. Roslaunch the joy_teleoperation node where you have the joystick connected by USB
+4. Roslaunch the ramsbot_test.launch on the TX1 where the arduino connects to the motors
+
 ```bash
 $ roslaunch teleoperation joy_teleoperation.launch
 $ roslaunch rover_drive ramsbot_test.launch
