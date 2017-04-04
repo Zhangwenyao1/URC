@@ -2,9 +2,20 @@
 
 This is the _main_ URC repo!
 
-## Other repos and links of interest
+## Network IP Addresses
 
-None yet
+**Device**|**IP**|**Username**|**Password**
+:-----:|:-----:|:-----:|:-----:
+Rocket M2 UBNT-ROBOT|192.168.137.2|ubnt|robotrobot
+Rocket M2 UBNT-BASESTATION|192.168.137.3|ubnt|robotrobot
+Jetson TX1 (old)|192.168.137.212|ubuntu|ubuntu
+Jetson TX1 (old) VPN|192.168.255.10 |ubuntu|ubuntu
+Jetson TX1 (new)|192.168.137.213|ubuntu|ubuntu
+Jeston TX1 (new) VPN|192.168.255.18|ubuntu|ubuntu
+TP-link 1|192.168.0.254|admin|admin
+TP-link 2|192.168.0.253|admin|admin
+Daniel's Laptop|192.167.137.10| | 
+Gab's laptop|192.167.137.22| | 
 
 ## Usage and layout
 
