@@ -6,5 +6,5 @@ if [ $exit_status -eq 1 ]; then
     return 1
 fi
 
-export ROS_MASTER_URI=http://192.168.137.212:11311/
-export ROS_IP=`hostname -I|cut -f1 -d' '`
+export ROS_IP=`hostname -I`
+export ROS_MASTER_URI=http://192.168.137.213:11311/
