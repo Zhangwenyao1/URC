@@ -2,22 +2,10 @@
 
 This is the _main_ URC repo!
 
-## Network IP Addresses
-
-**Device**|**IP**|**Username**|**Password**
-:-----:|:-----:|:-----:|:-----:
-Rocket M2 UBNT-ROBOT|192.168.137.2|ubnt|robotrobot
-Rocket M2 UBNT-BASESTATION|192.168.137.3|ubnt|robotrobot
-Jetson TX1 (old)|192.168.137.212|ubuntu|ubuntu
-Jetson TX1 (old) VPN|192.168.255.10 |ubuntu|ubuntu
-Jetson TX1 (new)|192.168.137.213|ubuntu|ubuntu
-Jeston TX1 (new) VPN|192.168.255.18|ubuntu|ubuntu
-TP-link 1|192.168.0.254|admin|admin
-TP-link 2|192.168.0.253|admin|admin
-Daniel's Laptop|192.167.137.10| | 
-Gab's laptop|192.167.137.22| | 
-
 ## Usage and layout
+
+### The wiki
+The wiki contains a lot more information than this file. Go check it out!
 
 ### Layout
 The layout of this repo is like this:
@@ -45,3 +33,18 @@ If we need more, or you just want to say something, you can use slack, or put it
 
 ## P.S
 Don't be a litterbug, keep general development... stuff in the `devstuff/` folder, and keep the structured code in the right directory!
+
+## Network IP Addresses
+
+**Device**|**IP**|**Username**|**Password**
+:-----:|:-----:|:-----:|:-----:
+Rocket M2 UBNT-ROBOT|192.168.137.2|ubnt|robotrobot
+Rocket M2 UBNT-BASESTATION|192.168.137.3|ubnt|robotrobot
+Jetson TX1 (old)|192.168.137.212|ubuntu|ubuntu
+Jetson TX1 (old) VPN|192.168.255.10 |ubuntu|ubuntu
+Jetson TX1 (new)|192.168.137.213|ubuntu|ubuntu
+Jeston TX1 (new) VPN|192.168.255.18|ubuntu|ubuntu
+TP-link 1|192.168.0.254|admin|admin
+TP-link 2|192.168.0.253|admin|admin
+Daniel's Laptop|192.167.137.10| | 
+Gab's laptop|192.167.137.22| | 
