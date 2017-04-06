@@ -2,5 +2,5 @@
     <node pkg="teleoperation" type="joy_teleoperation_node.py" name="teleoperation_ros" />
     <node pkg="joy" type="joy_node" name="joy_node" />
 
-    <param name="joy_node/dev" value="/dev/input/js3" />
+    <param name="joy_node/dev" value="/dev/input/js1" />
 </launch>

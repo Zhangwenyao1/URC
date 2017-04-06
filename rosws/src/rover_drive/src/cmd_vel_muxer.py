@@ -1,20 +1,21 @@
 #!/usr/bin/python
 import rospy
 import geometry_msgs.msg
+import time
 
 auto_timeout = 0
-dt = rospy.Time(0)
+dt = time.time()
 
 rospy.init_node("cmd_vel_mux")
 pub = rospy.Publisher("cmd_vel", geometry_msgs.msg.Twist, queue_size=10)
 
 
 def on_auto_data(data):
-    data =  data # type: geometry_msgs.msg.Twist
+    data = data # type: geometry_msgs.msg.Twist
     global auto_timeout, dt
-    dtt = rospy.Time(0) - dt
-    dt = rospy.Time(0)
-    auto_timeout -= dtt.to_sec().real
+    dtt = time.time() - dt
+    dt = time.time()
+    auto_timeout -= dtt
     if auto_timeout <= 0:
         auto_timeout = 0
         pub.publish(data)
@@ -22,7 +23,7 @@ def on_auto_data(data):
 
 def on_human_data(data):
     global auto_timeout, dt
-    dt = rospy.Time(0)
+    dt = time.time()
     auto_timeout = 5
     pub.publish(data)
 
