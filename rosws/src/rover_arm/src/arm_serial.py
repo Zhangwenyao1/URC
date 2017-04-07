@@ -86,26 +86,21 @@ class ArmActionServer:
         self.as_arm = actionlib.SimpleActionServer("arm_controller/follow_joint_trajectory",
                                                    control_msgs.msg.FollowJointTrajectoryAction,
                                                    auto_start=False)
-        self.as_gripper = actionlib.SimpleActionServer("grip_controller/follow_joint_trajectory",
-                                                       control_msgs.msg.FollowJointTrajectoryAction,
-                                                       auto_start=False)
         self._feedback_message = control_msgs.msg.FollowJointTrajectoryActionFeedback()
         self._result_message = control_msgs.msg.FollowJointTrajectoryActionResult()
         self.serial_thread = SerialCommunicator(serial_, self._next_waypoint)
 
-        self.as_arm.register_goal_callback(lambda: self.goal_callback(4))
-        self.as_arm.register_preempt_callback(lambda: self.preempt_callback(4))
-        self.as_gripper.register_goal_callback(lambda: self.goal_callback(2))
-        self.as_gripper.register_preempt_callback(lambda: self.preempt_callback(2))
-
-    def _get_as(self, n):
-        return self.as_arm if n == 4 else self.as_gripper
+        self.as_arm.register_goal_callback(lambda: self.goal_callback())
+        self.as_arm.register_preempt_callback(lambda: self.preempt_callback())
 
     def _next_waypoint(self, stopped, joints):
-
-
-    def goal_callback(self, as_):
         pass
 
-    def preempt_callback(self, as_):
+    def goal_callback(self):
         pass
+
+    def preempt_callback(self):
+        self.serial_thread.abort()
+
+
+

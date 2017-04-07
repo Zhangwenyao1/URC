@@ -5,7 +5,7 @@ global_costmap:
 
   robot_base_frame: robot_base
   global_frame: map
-  update_frequency: 1
+  update_frequency: 4
   publish_frequency: 0.5
   static_map: true
 
