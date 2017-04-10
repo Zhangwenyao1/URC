@@ -14,10 +14,10 @@ TX1=192.168.137.212
 TX2=192.168.137.213
 
 # Ping robots
-ping -c1 -W1 -q TX1 > /dev/null 2>&1
+ping -c1 -W1 -q $TX1 > /dev/null 2>&1
 TX1_UP=$?
 echo -n "." # progress indication
-ping -c1 -W1 -q TX2 > /dev/null 2>&1
+ping -c1 -W1 -q $TX2 > /dev/null 2>&1
 TX2_UP=$?
 echo -n "." # progress indication
 
@@ -36,9 +36,9 @@ elif [ $TX1_UP -eq 0 ]; then
 elif [ $TX2_UP -eq 0 ]; then
   MASTER_PICK=$TX2
 else
-  MASTER_PICK=127.0.0.1
+  MASTER_PICK=$MY_IP
 fi
 
 echo "Setting your ROS_IP to $MY_IP and ROS_MASTER to $MASTER_PICK!"
 export ROS_IP=$MY_IP
-export ROS_MASTER_URI=http://MASTER_PICK:11311/
+export ROS_MASTER_URI=http://$MASTER_PICK:11311/
