@@ -82,8 +82,11 @@ $ roslaunch rover zed_up.launch
 3) odometry: use rviz
 ```
 
-#### Don't forget to source setup.bash
-```
-$ source ~/URC/rosws/devel/setup.bash
-```
+
+Welcome to
+_______ _______ _______  ______ _______ ______ 
+|______ |       |_____| |_____/ |_____| |_____]
+______| |_____  |     | |    \_ |     | |_____]
+
+Scarab Canada Advanced Robotics And Bionics
 

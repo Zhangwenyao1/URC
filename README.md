@@ -1,5 +1,14 @@
 # R3-URC!
 
+```
+_______ _______ _______  ______ _______ ______ 
+|______ |       |_____| |_____/ |_____| |_____]
+______| |_____  |     | |    \_ |     | |_____]
+```
+
+Scarab Canada Advanced Robotics And Bionics
+
+
 This is the _main_ URC repo!
 
 ## Usage and layout
