@@ -1,0 +1,16 @@
+<robot>
+    <link name="base_link">
+        <inertial>
+            <mass value="1" />
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://rover_description/urdf/frame.stl" />
+            </geometry>
+            <material name="white" />
+        </visual>
+    </link>
+    <material name="white">
+        <color rgba="1.0,1.0,1.0,1.0" />
+    </material>
+</robot>
