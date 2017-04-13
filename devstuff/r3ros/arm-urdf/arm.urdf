@@ -5,7 +5,7 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <cylinder length="0.05" radius="0.1"/>
+        <cylinder length="0.0" radius="0.05"/>
       </geometry>
       <material name="silver">
         <color rgba="0.75 0.75 0.75 1"/>
@@ -57,7 +57,8 @@
     <axis xyz="0 0 1"/>
     <parent link="base_link"/>
     <child link="torso"/>
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    
   </joint>
 
   <link name="middle_arm">
@@ -81,11 +82,12 @@
     </inertial>
   </link>
 
-  <joint name="elbow_lower" type="continuous">
+  <joint name="elbow_lower" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="torso"/>
     <child link="middle_arm"/>
     <origin rpy="0 1.5708 0" xyz="0.0 0 0.084"/>
+    <limit effort="30" velocity="1.0" lower="0.698" upper="-1.396" />
   </joint>
 
   <link name="lower_arm">
@@ -109,11 +111,12 @@
     </inertial>
   </link>
 
-  <joint name="elbow_middle" type="continuous">
+  <joint name="elbow_middle" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="middle_arm"/>
     <child link="lower_arm"/>
     <origin rpy="0 0 0" xyz="0.0 0 0.5584"/>
+    <limit effort="1000.0" lower="2.96706" upper="1.31" velocity="0.5"/>
   </joint>
 
   <link name="upper_arm">
@@ -136,11 +139,12 @@
     </inertial>
   </link>
 
-  <joint name="elbow_upper" type="continuous">
+  <joint name="elbow_upper" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="lower_arm"/>
     <child link="upper_arm"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.3673"/>
+    <limit effort="1000.0" lower="-2.00713" upper="2.00713" velocity="0.5"/>
   </joint>
 
   <link name="grip_base">
@@ -167,13 +171,13 @@
   <link name="grip_fixed">
     <visual>
       <geometry>
-        <box size="0.1 0.22 0.02"/>
+        <box size="0.03 0.1 0.08"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.1 0.22 0.02"/>
+        <box size="0.22 0.1 0.22"/>
       </geometry>
     </collision>
   </link>
@@ -181,13 +185,13 @@
   <joint name="grip_base_to_fixed" type="fixed">
     <parent link="grip_base"/>
     <child link="grip_fixed"/>
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.01525"/>
+    <origin rpy="0 0 1.57075" xyz="0.0 0.096 0.09125"/>
   </joint>
 
   <link name="grip_finger">
     <visual>
       <geometry>
-        <box size="0.03 0.12 0.12"/>
+        <box size="0.03 0.1 0.08"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -201,8 +205,8 @@
   <joint name="grip" type="prismatic">
     <parent link="grip_base"/>
     <child link="grip_finger"/>
-    <limit effort="1000.0" lower="-0.38" upper="0" velocity="0.5"/>
-    <origin rpy="0 0 1.57075" xyz="0.0 0.0 0.2525"/>
+    <limit effort="1000.0" lower="-0.175" upper="0" velocity="0.5"/>
+    <origin rpy="0 0 1.57075" xyz="0.0 0.075 0.09125"/>
   </joint>
 
   <transmission name="tran0">
@@ -254,6 +258,7 @@
     </plugin>
   </gazebo>
 </robot>
+
 
 
 

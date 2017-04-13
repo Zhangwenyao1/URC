@@ -1,0 +1,54 @@
+name: ROVER
+root: ~/URC
+windows:
+  -  TX1: cat README.md; cat rosws/README.md
+  -  TOP: 
+      layout: tiled
+      panes:
+        - sudo nethogs `nmcli dev status | grep ens38 | cut -f1 -d' '`
+        - htop
+        - dmesg -w
+        - "#any ideas for what should go here?"
+  - CORE: 
+      layout: even-horizontal
+      panes:
+        - bash
+        - roscore
+  - GPS:
+      layout: even-horizontal
+      panes:
+        - sleep 3; rosrun nmea_navsat_driver nmea_serial_driver _port:=/dev/ttyTHS2 _baud:=9600
+        - sleep 3; rostopic echo fix
+  - IMU:
+      layout: even-horizontal
+      panes:
+        - sleep 3; roslaunch rtimulib_ros rtimulib_ros.launch
+        - sleep 3; rostopic echo imu/data
+  - RTAB:
+      layout: even-horizontal
+      panes:
+        - "#roslaunch rover_rtabmap_config navigation.launch"
+        - "#roslaunch rover_rtabmap_config mapping_rviz.launch"
+  - SCI:
+      layout: tiled
+      panes:
+        - bash
+        - python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
+        - sleep 3; rosrun rover_science save_temp.py _description:=site1
+        - sleep 3; rosrun rover_science save_ph.py _description:=site1
+        - watch cat *_temperature.txt
+        - watch cat *_ph.txt
+  - USB:
+      layout: main-horizontal
+      panes:
+        - sleep 3; roslaunch rover usb_cameras.launch
+        - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective"
+  - ZED:
+      layout: even-horizontal
+      panes:
+        - sleep 3; roslaunch rover zed_up.launch
+        - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective"
+  - D:
+  - M:
+  - A:
+  - H:
