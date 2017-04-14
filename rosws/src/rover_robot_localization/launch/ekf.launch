@@ -25,7 +25,6 @@
     <remap from="/odometry/filtered" to="/odometry/filtered_global"/>
     <param name="frequency" value="30"/>
     <param name="sensor_timeout" value="1"/>
-    <param name="two_d_mode" value="true"/>
 
     <param name="world_frame" value="map"/>
     <param name="map_frame" value="map"/>
@@ -68,7 +67,6 @@
     <remap from="/odometry/filtered" to="/odometry/filtered_local"/>
     <param name="frequency" value="30"/>
     <param name="sensor_timeout" value="1"/>
-    <param name="two_d_mode" value="true"/>
 
     <param name="world_frame" value="odom"/>
     <param name="map_frame" value="map"/>
