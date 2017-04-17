@@ -1,5 +1,5 @@
 capture_directory: ~
-fixed_frame: far_field
+fixed_frame: world
 target_frame: odom
 fix_orientation: false
 rotate_90: false
@@ -7,11 +7,11 @@ enable_antialiasing: true
 show_displays: true
 show_status_bar: true
 show_capture_tools: true
-window_width: 848
-window_height: 727
-view_scale: 0.01189159
-offset_x: -4.033147
-offset_y: -1.400305
+window_width: 1531
+window_height: 755
+view_scale: 0.01826027
+offset_x: -1.789421
+offset_y: -0.9898726
 use_latest_transforms: true
 background: "#a0a0a4"
 displays:

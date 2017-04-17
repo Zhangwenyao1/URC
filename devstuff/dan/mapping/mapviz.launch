@@ -5,14 +5,14 @@
   <node pkg="mapviz" type="mapviz" name="$(anon mapviz)" required="true"/>
 
   <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" >
-    <param name="local_xy_frame" value="/far_field"/>
+    <param name="local_xy_frame" value="/world"/>
     <param name="local_xy_origin" value="jackal"/>
     <rosparam param="local_xy_origins">
       [{ name: jackal,
          latitude: 49.9000002583,
          longitude: 8.90000135593,
          altitude: 33.719,
-         heading: 0.0},
+         heading: 0},
 
        { name: ryerson,
          latitude: 43.65871322509997,
@@ -28,8 +28,7 @@
     </rosparam>
   </node>
 
-  <!-- <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /far_field /origin 100"  /> -->
-  <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 0 0 0 /far_field /map 100"  />
+  <node pkg="tf" type="static_transform_publisher" name="swri_transform" args="0 0 0 1.5708 0 0 /world /map 100"  />
 
   <!-- Needed only for searching for services -->
   <node pkg="rosapi" type="rosapi_node" name="rosapi"/>
