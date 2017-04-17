@@ -15,7 +15,10 @@ sudo apt-get install ros-kinetic-rosserial-arduino \
                      ros-kinetic-perception \
                      ros-kinetic-desktop \
                      python-rosdep \
-                     nethogs \
+                     htop \ # used to monitor processes
+                     setserial \ # used to debug serial devices
+                     cmatrix \ # useful
+                     nethogs \ # used to monitor network traffic
                      v4l-utils # find out which /dev/video* is which using v4l2-ctl --list-devices
 
 sudo c_rehash /etc/ssl/certs # https://github.com/ros/rosdistro/issues/12894

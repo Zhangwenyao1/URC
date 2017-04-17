@@ -5,10 +5,10 @@ windows:
   -  TOP: 
       layout: tiled
       panes:
-        - sudo nethogs `nmcli dev status | grep ens38 | cut -f1 -d' '`
+        - "# sudo nethogs `nmcli dev status | grep ens38 | cut -f1 -d' '`" 
         - htop
         - dmesg -w
-        - "#any ideas for what should go here?"
+        - cmatrix
   - CORE: 
       layout: even-horizontal
       panes:
