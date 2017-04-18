@@ -48,6 +48,11 @@ windows:
       panes:
         - sleep 3; roslaunch rover zed_up.launch
         - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective"
+  - EKF:
+      layout: even-horizontal
+      panes:
+        - sleep 3; rostopic echo odometry/filtered
+        - sleep 3; roslaunch ./rosws/src/rover_robot_localization/launch/ekf.launch
   - D:
   - M:
   - A:

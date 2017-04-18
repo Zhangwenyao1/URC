@@ -11,9 +11,9 @@ $ roslaunch rover robot.launch
 
 #### GPS
 ```bash
-$ rosrun nmea_navsat_driver nmea_serial_driver _port:=/dev/ttyTHS2 _baud:=9600
+$ roslaunch rover gps.launch
 # Output topic
-$ rostopic echo fix
+$ rostopic echo gps/fix
 ```
 
 #### IMU

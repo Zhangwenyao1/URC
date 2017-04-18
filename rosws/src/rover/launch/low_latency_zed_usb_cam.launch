@@ -1,0 +1,13 @@
+<launch>
+        <node name="zed" pkg="usb_cam" type="usb_cam_node" output="screen">
+            <param name="video_device" value="/dev/video0"/>
+            <param name="image_width" value="1344"/>
+            <param name="image_height" value="376"/>
+            <param name="framerate" value="16"/>
+            <param name="pixel_format" value="yuyv"/>
+            <param name="camera_frame_id" value="zed"/>
+            <param name="io_method" value="userptr"/>
+            <param name="camera_name" value="zed"/>
+        </node>
+</launch>
+
