@@ -1,0 +1,11 @@
+<launch>
+  <group ns="gps">
+    <node pkg="nmea_navsat_driver" type="nmea_serial_driver" name="nmea_navsat_driver" output="screen">
+      <param name="baud" value="9600"/>
+      <param name="port" value="/dev/ttyTHS2"/>
+      <param name="port" value="/dev/ttyTHS2"/>
+      <param name="frame_id" value="gps_link"/>
+    </node>
+  </group>
+</launch>
+
