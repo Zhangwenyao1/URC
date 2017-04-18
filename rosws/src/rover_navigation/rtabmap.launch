@@ -1,0 +1,20 @@
+<launch>
+    <!-- RTABMAP -->
+    <arg name="rtabmap_args" default="--delete_db_on_start"/>
+    <remap from="map" to="/rtabmap/grid_map"/>
+    <group ns="rtabmap">
+        <node output="screen" pkg="rtabmap_ros" name="rtabmap" type="rtabmap">
+            <param name="frame_id" value="robot_base" />
+            <param name="subscribe_depth" value="true" />
+            <param name="subscribe_scan_cloud" value="false" />
+            <remap from="odom" to="/odom_source/zed/odom" />
+            <remap from="rgb/image" to="/camera/rgb/image_rect_color" />
+            <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
+            <remap from="scan_cloud" to="/camera/point_cloud/cloud_registered" />
+            <remap from="depth/image" to="/camera/depth/depth_registered" />
+        </node>
+    </group>
+
+
+</launch>
+
