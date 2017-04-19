@@ -1,19 +1,14 @@
 name: BASE
 root: ~/URC
 windows:
-  -  TX1: cat README.md; cat rosws/README.md
+  -  R3: cat README.md; cat rosws/README.md
   -  TOP: 
       layout: tiled
       panes:
-        - sudo nethogs `nmcli dev status | grep ens38 | cut -f1 -d' '`
+        - top
         - htop
         - dmesg -w
-        - watch -n 3 ps -ef
-  - RTAB:
-      layout: even-horizontal
-      panes:
-        - "#roslaunch rover_rtabmap_config mapping_rviz.launch"
-        - "#roslaunch rover_rtabmap_config navigation.launch"
+        - cmatrix
   - SCI:
       layout: tiled
       panes:
@@ -23,18 +18,25 @@ windows:
         - sleep 3; rosrun rover_science save_ph.py _description:=site1
         - watch cat *_temperature.txt
         - watch cat *_ph.txt
-  - USB:
+  - CAMERAS:
       layout: main-horizontal
       panes:
-        - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective"
-  - ZED:
-      layout: even-horizontal
-      panes:
-        - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective"
+        - "#rqt_image_view /camera/rgb_fixed/compressed" # Zed Left Camera
+        - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective" # USB Cameras
   - RQT:
       layout: tiled
       panes:
         - rqt_graph
         - rosrun rqt_tf_tree rqt_tf_tree
-        - 
+  - RVIZ:
+      layout: tiled
+      panes:
+        - "#rviz"
+        #- "#roslaunch rover_rtabmap_config mapping_rviz.launch"
+        #- "#roslaunch rover_robot_localization odom_debug_rviz.launch"
+  - MAPVIZ:
+      layout: tiled
+      panes:
+        - "#roslaunch ./devstuff/dan/mapping/mapviz.launch"
+        - sudo docker run -p 8080:8080 -d -t -v ~/mapproxy:/mapproxy danielsnider/mapproxy
 
