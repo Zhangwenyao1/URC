@@ -24,6 +24,7 @@ windows:
       panes:
         - sleep 3; roslaunch rtimulib_ros rtimulib_ros.launch
         - sleep 3; rostopic echo imu/data
+        - sleep 3; python ./rosws/src/rover_robot_localization/src/imu_fixer.py
   - RTAB:
       layout: even-horizontal
       panes:
