@@ -1,13 +1,14 @@
-    <node pkg="tf2_ros" type="static_transform_publisher" name="robot_base_to_camera_link"
-        args="0.7 0 0.6 0 0 0 robot_base camera_link"/>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_to_zed_actual_frame"
-          args="0 0 0 0 0 0 camera_link zed_actual_frame"/>
+<launch>
+    <!--
+    <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1 map odom" /> --> <!-- this is just for isolated testing -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="robot_base_to_camera_link" args="0.7 0 0.6 0 0 0 robot_base camera_link"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_to_zed_actual_frame" args="0 0 0 0 0 0 camera_link zed_actual_frame"/>
 
     <!-- RGBD_ODOMETRY -->
     <group ns="rgbd_odometry">
             <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros">
                 <param name="frame_id" value="robot_base"/>
-                <param name="publish_tf" value="true"/>
+                <param name="publish_tf" value="false"/>
                 <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
                 <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
                 <remap from="depth/image" to="/camera/depth/depth_registered"/>
