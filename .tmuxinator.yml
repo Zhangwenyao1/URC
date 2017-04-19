@@ -48,8 +48,8 @@ windows:
       layout: even-horizontal
       panes:
         - sleep 3; roslaunch rover zed_up.launch
-        - "#rqt --perspective-file URC/devstuff/dan/gui_configs/rqt_all_cameras.perspective"
-  - EKF:
+        - sleep 3; roslaunch rover_navigation rgbd_odometry.launch
+  
       layout: even-horizontal
       panes:
         - sleep 3; rostopic echo odometry/filtered
