@@ -17,7 +17,7 @@ windows:
   - GPS:
       layout: even-horizontal
       panes:
-        - sleep 3; rosrun nmea_navsat_driver nmea_serial_driver _port:=/dev/ttyTHS2 _baud:=9600
+        - sleep 3; roslaunch rover gps.launch
         - sleep 3; rostopic echo fix
   - IMU:
       layout: even-horizontal
