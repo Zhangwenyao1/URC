@@ -5,10 +5,10 @@ windows:
   -  TOP: 
       layout: tiled
       panes:
-        - top
+        - "#top"
         - htop
         - dmesg -w
-        - cmatrix
+        - "#cmatrix"
   - SCI:
       layout: tiled
       panes:
@@ -26,8 +26,8 @@ windows:
   - RQT:
       layout: tiled
       panes:
-        - rqt_graph
         - rosrun rqt_tf_tree rqt_tf_tree
+        - rqt_graph
   - RVIZ:
       layout: tiled
       panes:

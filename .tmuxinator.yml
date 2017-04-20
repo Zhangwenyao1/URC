@@ -17,12 +17,12 @@ windows:
   - GPS:
       layout: even-horizontal
       panes:
-        - sleep 3; roslaunch rover gps.launch
-        - sleep 3; rostopic echo fix
+        - sleep 5; roslaunch rover gps.launch
+        - sleep 3; rostopic echo /gps/fix
   - IMU:
       layout: even-horizontal
       panes:
-        - sleep 3; roslaunch rtimulib_ros rtimulib_ros.launch
+        - sleep 5; roslaunch rtimulib_ros rtimulib_ros.launch
         - sleep 3; rostopic echo imu/data_fixed
         - sleep 3; python ./rosws/src/rover_robot_localization/src/imu_fixer.py
   - RTAB:
@@ -47,13 +47,13 @@ windows:
   - ZED:
       layout: even-horizontal
       panes:
-        - sleep 3; roslaunch rover zed_up.launch
+        - sleep 5; roslaunch rover zed_up.launch
         - sleep 3; roslaunch rover_navigation rgbd_odometry.launch
   - EKF:
       layout: even-horizontal
       panes:
-        - sleep 3; rostopic echo odometry/filtered
         - sleep 3; roslaunch ./rosws/src/rover_robot_localization/launch/dual_ekf.launch
+        - sleep 3; rostopic echo /odometry/filtered_local
   - D:
   - M:
   - A:
