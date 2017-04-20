@@ -13,9 +13,9 @@ def imu_fixer(data):
     """
 
     # Convert linear acceleration units from magnitude of G's to m/s squared
-    data.linear_acceleration.x = data.linear_acceleration.x * 1
-    data.linear_acceleration.y = data.linear_acceleration.y * 1
-    data.linear_acceleration.z = data.linear_acceleration.z * -10 
+    #data.linear_acceleration.x = data.linear_acceleration.x * 10 # doesn't seem like this is needed
+    #data.linear_acceleration.y = data.linear_acceleration.y * 10
+    data.linear_acceleration.z = data.linear_acceleration.z * 10 # 10 seems to get an end result closer to 9.8m/s
 
     ## SET COVARIANCES
     # Convert tuples to mutable arrays
@@ -29,7 +29,7 @@ def imu_fixer(data):
     angular_velocity_covariance[0] = 0.0025
     angular_velocity_covariance[4] = 0.0025
     angular_velocity_covariance[8] = 0.0025
-    orientation_covariance[0] = 0.0026
+    orientation_covariance[0] = 0.000026
     orientation_covariance[4] = 0.0026
     orientation_covariance[8] = 0.0026
     data.linear_acceleration_covariance = linear_acceleration_covariance
