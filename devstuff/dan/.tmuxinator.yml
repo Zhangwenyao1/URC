@@ -10,6 +10,7 @@ windows:
         - dmesg -w
         - "#cmatrix"
   - SCI:
+      root: ~/URC/rosws/src/rover_science/
       layout: tiled
       panes:
         - bash
@@ -35,6 +36,7 @@ windows:
         #- "#roslaunch rover_rtabmap_config mapping_rviz.launch"
         #- "#roslaunch rover_robot_localization odom_debug_rviz.launch"
   - MAPVIZ:
+      root: ~/URC/devstuff/dan/mapping/
       layout: tiled
       panes:
         - "#roslaunch ./devstuff/dan/mapping/mapviz.launch"

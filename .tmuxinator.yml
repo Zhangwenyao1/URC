@@ -15,22 +15,26 @@ windows:
         - bash
         - roscore
   - GPS:
+      root: ~/URC/rosws/src/rover/
       layout: even-horizontal
       panes:
         - sleep 5; roslaunch rover gps.launch
         - sleep 3; rostopic echo /gps/fix
   - IMU:
+      root: ~/URC/rosws/src/rtimulib_ros/
       layout: even-horizontal
       panes:
         - sleep 5; roslaunch rtimulib_ros rtimulib_ros.launch
         - sleep 3; rostopic echo imu/data_fixed
         - sleep 3; python ./rosws/src/rover_robot_localization/src/imu_fixer.py
   - RTAB:
+      root: ~/URC/rosws/src/rover_navigation/
       layout: even-horizontal
       panes:
         - "#roslaunch rover_navigation rtabmap.launch"
         - "#roslaunch rover_navigation move_base.launch"
   - SCI:
+      root: ~/URC/rosws/src/rover_science/
       layout: tiled
       panes:
         - bash
@@ -40,16 +44,19 @@ windows:
         - watch cat *_temperature.txt
         - watch cat *_ph.txt
   - USB:
+      root: ~/URC/rosws/src/rover/
       layout: main-horizontal
       panes:
         - sleep 3; roslaunch rover usb_cameras.launch
         - bash
   - ZED:
+      root: ~/URC/rosws/src/rover/
       layout: even-horizontal
       panes:
         - sleep 5; roslaunch rover zed_up.launch
         - sleep 3; roslaunch rover_navigation rgbd_odometry.launch
   - EKF:
+      root: ~/URC/rosws/src/rover_robot_localization/
       layout: even-horizontal
       panes:
         - sleep 3; roslaunch ./rosws/src/rover_robot_localization/launch/dual_ekf.launch
