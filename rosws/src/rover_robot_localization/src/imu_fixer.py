@@ -31,6 +31,7 @@ def imu_fixer(data):
     angular_velocity_covariance[8] = 0.000025
     orientation_covariance[0] = 0.00000026
     orientation_covariance[4] = 0.00000026
+    orientation_covariance[8] = 0.00000026
     data.linear_acceleration_covariance = linear_acceleration_covariance
     data.angular_velocity_covariance = angular_velocity_covariance
     data.orientation_covariance = orientation_covariance
