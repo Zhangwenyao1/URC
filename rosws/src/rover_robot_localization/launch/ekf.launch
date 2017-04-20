@@ -7,7 +7,7 @@
   <!-- LOCAL_EKF_LOCALIZATION -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true">
     <remap from="/odometry/filtered" to="/odometry/filtered_local"/>
-    <param name="frequency" value="10"/>
+    <param name="frequency" value="5"/>
 
     <param name="world_frame" value="odom"/>
     <param name="map_frame" value="map"/>
@@ -19,8 +19,9 @@
     <rosparam param="imu0_config">[false, false, false,
                                    true,  true,  true,
                                    false, false, false,
-                                   true,true,true,
-                                   false, false, false,]</rosparam>
+                                   false, false, false,
+                                   false,  false,  false]</rosparam>
+    <param name="imu0_nodelay" value="true"/>
 
     <!-- VISUAL ODOMETRY -->
     <param name="odom0" value="/rgbd_odometry/odom"/>
