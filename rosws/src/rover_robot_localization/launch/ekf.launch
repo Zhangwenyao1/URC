@@ -1,6 +1,6 @@
 <launch>
   <!-- STATIC_TRANSFORM_PUBLISHER -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="world_to_map" args="0 0 0 0 0 0 1 world map" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 1 map odom" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_imu" args="0 0 0 0 0 0 1 robot_base imu_link" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_gps" args="0 0 0 0 0 0 1 robot_base gps_link" />
 
@@ -20,9 +20,7 @@
                                    true,  true,  true,
                                    false, false, false,
                                    false, false, false,
-                                   <!-- true,  true,  true]</rosparam> -->
                                    false,  false,  false]</rosparam>
-    <!-- <param name="imu0_remove_gravitational_acceleration" value="true"/> -->
     <param name="imu0_nodelay" value="true"/>
 
     <!-- VISUAL ODOMETRY -->
@@ -32,7 +30,6 @@
                                     false, false, false,
                                     false, false, true,
                                     false, false, false]</rosparam>
-    <!-- <param name="odom0_nodelay" value="true"/> -->
   </node>
 
 </launch>
