@@ -4,7 +4,7 @@
         <remap from="cloud" to="/camera/point_cloud/cloud_registered"/>
 
         <param name="frame_id" type="string" value="camera_link"/>
-        <param name="map_frame_id" type="string" value="map"/>
+        <param name="map_frame_id" type="string" value="robot_base"/>
         <param name="min_cluster_size" type="int" value="20"/>
         <param name="max_obstacles_height" type="double" value="0.0"/>
     </node>
