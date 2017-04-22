@@ -187,4 +187,4 @@ class RosNMEADriver(object):
                     prefix = "/%s" % prefix
             return "%s/%s" % (prefix, frame_id)
         else:
-            return frame_id
+            return frame_id[1:]
