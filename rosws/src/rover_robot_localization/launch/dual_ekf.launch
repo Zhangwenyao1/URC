@@ -1,4 +1,6 @@
 <launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
   <!-- STATIC_TRANSFORM_PUBLISHER -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_imu" args="0 0 0 0 0 0 1 robot_base imu_link" />
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_gps" args="0 0 0 0 0 0 1 robot_base gps_link" />
@@ -8,9 +10,8 @@
       name="navsat_transform_node"  respawn="true" output="screen">
     <param name="magnetic_declination_radians" value="-0.18238691"/> <!-- Toronto -0.18238691 --> <!-- Hanksville 0.18645934 -->
     <!-- <param name="zero_altitude" value="true" /> maybe try this -->
-    <!-- <param name="yaw_offset" value="1.570796327"/> --> <!-- IMU reads 0 facing magnetic north, not east -->
+    <!-- <param name="yaw_offset" value="1.570796327"/> --> <!-- IMU reads 0 facing magnetic north, not east? -->
     <param name="publish_filtered_gps" value="true" />
-    <param name="broadcast_utm_transform" value="true" />
     <!-- OUTPUT TOPICS -->
     <remap from="/odometry/gps" to="/odometry/filtered_gps"/>
     <remap from="/gps/filtered" to="/gps/filtered"/>
@@ -23,7 +24,7 @@
   <!-- GLOBAL_EKF_LOCALIZATION -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_global" clear_params="true">
     <remap from="/odometry/filtered" to="/odometry/filtered_global"/>
-    <param name="frequency" value="10"/>
+    <param name="frequency" value="5"/>
 
     <param name="world_frame" value="map"/>
     <param name="map_frame" value="map"/>
@@ -35,8 +36,9 @@
     <rosparam param="imu0_config">[false, false, false,
                                    true,  true,  true,
                                    false, false, false,
+                                   <!-- true,  true,  true, -->
                                    false, false, false,
-                                   false,  false,  false]</rosparam>
+                                   false, false, false]</rosparam>
 
     <!-- VISUAL ODOMETRY -->
     <param name="odom0" value="/rgbd_odometry/odom"/>
@@ -58,7 +60,7 @@
   <!-- LOCAL_EKF_LOCALIZATION -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true">
     <remap from="/odometry/filtered" to="/odometry/filtered_local"/>
-    <param name="frequency" value="10"/>
+    <param name="frequency" value="5"/>
 
     <param name="world_frame" value="odom"/>
     <param name="map_frame" value="map"/>
@@ -72,6 +74,7 @@
                                    false, false, false,
                                    false, false, false,
                                    false,  false,  false]</rosparam>
+    <param name="imu0_nodelay" value="true"/>
 
     <!-- VISUAL ODOMETRY -->
     <param name="odom0" value="/rgbd_odometry/odom"/>
@@ -83,5 +86,6 @@
   </node>
 
 </launch>
+
 
 
