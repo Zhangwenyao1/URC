@@ -1,4 +1,0 @@
-<launch>
-  <include file="$(find rtimulib_ros)/launch/rtimulib_ros.launch" />
-  <param name="/rtimulib_node/frame_id" value="odom"/>
-</launch>
