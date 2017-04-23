@@ -1,4 +1,6 @@
 <launch>
+    <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
     <node pkg="tf" type="static_transform_publisher" name="zed_camera_broadcaster"
           args="0 0 0 -1.5707963267948966 0 -1.5707963267948966 camera_link zed_initial_frame 100"/>
 

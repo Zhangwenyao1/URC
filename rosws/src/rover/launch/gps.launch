@@ -1,4 +1,6 @@
 <launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
   <group ns="gps">
     <node pkg="nmea_navsat_driver" type="nmea_serial_driver" name="nmea_navsat_driver" output="screen">
       <param name="baud" value="9600"/>

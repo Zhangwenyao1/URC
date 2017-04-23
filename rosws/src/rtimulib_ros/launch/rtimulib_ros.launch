@@ -1,5 +1,6 @@
-<?xml version="1.0"?>
 <launch>
+    <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
     <!-- declare arg to be passed in -->
     <arg name="frame_id" default="imu_link" /> 
 

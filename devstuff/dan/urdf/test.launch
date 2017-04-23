@@ -1,4 +1,6 @@
 <launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
         <param name="robot_description" textfile="robot.urdf" />
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen"/>
         <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" output="screen"/>

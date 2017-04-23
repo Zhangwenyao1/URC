@@ -1,4 +1,6 @@
 <launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+  
   <!-- LOCAL_EKF_LOCALIZATION -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true">
     <remap from="/odometry/filtered" to="/odometry/filtered"/>
