@@ -8,12 +8,12 @@ windows:
         - top
         - htop
         - dmesg -w
-        - cmatrix
+        - ./scripts/print_cpu_temp.sh
   - CORE: 
       layout: even-horizontal
       panes:
         - bash
-        - roscore
+        - roscore || sleep 4; roscore # try twice
   - GPS:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal

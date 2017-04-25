@@ -1,4 +1,5 @@
 <launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
     <arg name="full_zed_node" default="true"/>
     <arg name="zed" default="false"/>
     <arg name="usb_cams" default="true"/>

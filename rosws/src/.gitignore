@@ -5,7 +5,6 @@ zed_ros_wrapper/
 i2c_imu/
 ROSIMU/
 robot_localization/
-nmea_navsat_driver
 
 # Other system-dependant things
 

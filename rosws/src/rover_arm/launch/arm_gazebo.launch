@@ -1,4 +1,6 @@
 <launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
   <!-- Load the CougarBot URDF model into the parameter server -->
   <param name="robot_description" textfile="$(find rover_arm)/arm.urdf" />
   <!-- Start Gazebo with an empty world -->
