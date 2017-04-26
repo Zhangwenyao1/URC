@@ -185,6 +185,7 @@ class RosNMEADriver(object):
                 prefix = rospy.get_param(prefix_param)
                 if prefix[0] != "/":
                     prefix = "/%s" % prefix
-            return "%s/%s" % (prefix, frame_id)
+            frame_id = "%s/%s" % (prefix, frame_id)
+            return frame_id[1:]
         else:
             return frame_id[1:]
