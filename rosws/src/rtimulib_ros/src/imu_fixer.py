@@ -51,6 +51,6 @@ if __name__ == "__main__":
     imu_fixed_publisher = rospy.Publisher('/imu/data_fixed', Imu, queue_size=1)
     roll_pitch_yaw_publisher = rospy.Publisher('/imu/roll_pitch_yaw', Vector3, queue_size=1)
 
-    imu_subscriber = rospy.Subscriber('/imu/data', Imu, callback=imu_fixer, queue_size=1)
+    imu_subscriber = rospy.Subscriber('/imu/data_raw', Imu, callback=imu_fixer, queue_size=1)
 
     rospy.spin()

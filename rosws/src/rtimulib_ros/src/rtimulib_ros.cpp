@@ -91,6 +91,8 @@ int main(int argc, char **argv)
 
             imu_pub.publish(imu_msg);
 
+            mag_msg.header.stamp = ros::Time::now();
+            mag_msg.header.frame_id = frame_id;
             mag_msg.magnetic_field.x = imu_data.compass.x();
             mag_msg.magnetic_field.y = imu_data.compass.y();
             mag_msg.magnetic_field.z = imu_data.compass.z();
