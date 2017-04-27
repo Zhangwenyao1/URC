@@ -1,0 +1,19 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+  <include file="$(find rover)/launch/zed_up.launch"/>
+  <group ns="camera">
+    <node pkg="nodelet" type="nodelet" name="data_throttle" args="load rtabmap_ros/data_throttle camera_nodelet_manager" output="screen"> <!-- check name of nodelet? 
+      http://answers.ros.org/question/9839/is-there-a-command-line-utility-to-list-available-nodelets-within-the-package-path/
+     -->
+      <param name="rate" type="double" value="5.0"/>
+
+      <remap from="rgb/image_in"       to="rgb/image_rect_color"/>
+      <remap from="depth/image_in"     to="depth_registered/image_raw"/>  <!-- what is the compressed depth map? -->
+      <remap from="rgb/camera_info_in" to="rgb/camera_info"/>
+
+      <remap from="rgb/image_out"       to="throttled_image"/>
+      <remap from="depth/image_out"     to="throttled_image_depth"/>
+      <remap from="rgb/camera_info_out" to="throttled_camera_info"/>
+    </node>
+  </group>
+</launch>
