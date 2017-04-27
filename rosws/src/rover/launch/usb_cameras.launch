@@ -18,22 +18,24 @@
     </group>
     <group if="$(arg usb_cams)">
         <node name="usb_cam2" pkg="usb_cam" type="usb_cam_node" output="screen">
+            <param name="camera_frame_id" value="usb_cam2"/>
+            <param name="camera_name" value="usb_cam2"/>
             <param name="video_device" value="/dev/video2"/>
             <param name="image_width" value="640"/>
             <param name="image_height" value="480"/>
+            <param name="framerate" value="30"/>
             <param name="pixel_format" value="yuyv"/>
-            <param name="camera_frame_id" value="usb_cam2"/>
             <param name="io_method" value="mmap"/>
-            <param name="camera_name" value="usb_cam2"/>
         </node>
         <node name="usb_cam1" pkg="usb_cam" type="usb_cam_node" output="screen">
+            <param name="camera_frame_id" value="usb_cam1"/>
+            <param name="camera_name" value="usb_cam1"/>
             <param name="video_device" value="/dev/video1"/>
             <param name="image_width" value="640"/>
             <param name="image_height" value="480"/>
+            <param name="framerate" value="30"/>
             <param name="pixel_format" value="yuyv"/>
-            <param name="camera_frame_id" value="usb_cam1"/>
             <param name="io_method" value="mmap"/>
-            <param name="camera_name" value="usb_cam1"/>
         </node>
     </group>
 </launch>
