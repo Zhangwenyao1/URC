@@ -1,0 +1,8 @@
+<launch>
+  <!-- check if lazy republishing is the default -->
+  <node name="relay_rgb" type="republish" pkg="image_transport" args="theora in:=/camera/throttled_image raw out:=/camera/throttled_image_relay" />
+  <node name="relay_depth" type="republish" pkg="image_transport" args="compressedDepth in:=/camera/throttled_image_depth raw out:=/camera/throttled_image_depth_relay" />
+  <node name="relay_usb_cam1" type="republish" pkg="image_transport" args="theora in:=/usb_cam1 raw out:=/usb_cam1_relay" />
+  <node name="relay_usb_cam2" type="republish" pkg="image_transport" args="theora in:=/usb_cam2 raw out:=/usb_cam2_relay" />
+  <node name="relay_camera_info" type="relay" pkg="topic_tools" args="/camera/throttled_camera_info /camera/throttled_camera_info_relay" />
+</launch>
