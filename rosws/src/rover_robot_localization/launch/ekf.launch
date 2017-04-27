@@ -7,7 +7,7 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_gps" args="0 0 0 0 0 0 robot_base gps_link" />
 
   <!-- LOCAL_EKF_LOCALIZATION -->
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true">
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true" respawn="true">
     <remap from="/odometry/filtered" to="/odometry/filtered_local"/>
     <param name="frequency" value="5"/>
 
