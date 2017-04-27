@@ -8,12 +8,12 @@ windows:
         - top
         - htop
         - dmesg -w
-        - ./scripts/print_cpu_temp.sh
+        - watch "./scripts/print_cpu_temp.sh; df -h"
   - CORE: 
       layout: even-horizontal
       panes:
-        - bash
-        - roscore || sleep 4; roscore # try twice
+        - 
+        - roscore
   - GPS:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal
@@ -37,7 +37,7 @@ windows:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
       panes:
-        - bash
+        - 
         - python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
         - sleep 3; rosrun rover_science save_temp.py _description:=site1
         - sleep 3; rosrun rover_science save_ph.py _description:=site1
@@ -48,7 +48,7 @@ windows:
       layout: main-horizontal
       panes:
         - sleep 3; roslaunch rover usb_cameras.launch
-        - bash
+        - 
   - ZED:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal
@@ -60,7 +60,7 @@ windows:
       layout: tiled
       panes:
         - sleep 3; roslaunch rover_robot_localization ekf.launch
-        - bash
+        - 
         - sleep 3; rostopic echo /odometry/filtered_local
         - sleep 3; rosrun tf tf_echo odom robot_base
   - D:
