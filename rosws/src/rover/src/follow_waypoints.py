@@ -59,6 +59,7 @@ class GetPath(State):
         # Wait for published waypoints
         topic = "/initialpose"
         rospy.loginfo("Waiting to recieve waypoints via Pose msg on topic %s" % topic)
+        rospy.loginfo("To start following waypoints: 'rostopic pub /path_ready std_msgs/Empty -1'")
         while not self.path_ready:
             try:
                 pose = rospy.wait_for_message(topic, PoseWithCovarianceStamped, timeout=1)
