@@ -9,7 +9,7 @@
 
     <!-- RGBD_ODOMETRY -->
     <group ns="rgbd_odometry">
-            <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros">
+            <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros" respawn="true">
                 <param name="frame_id" value="robot_base"/>
                 <param name="publish_tf" value="false"/>
                 <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>

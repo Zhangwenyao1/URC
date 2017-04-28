@@ -4,7 +4,7 @@
     <!-- declare arg to be passed in -->
     <arg name="frame_id" default="imu_link" /> 
 
-    <node pkg="rtimulib_ros" type="rtimulib_ros" name="rtimulib_node" output="screen">
+    <node pkg="rtimulib_ros" type="rtimulib_ros" name="rtimulib_node" output="screen" respawn="true">
         <param name="calibration_file_path" value="$(find rtimulib_ros)/config"/>
         <param name="update_rate" value="10"/>
         <param name="frame_id" value="$(arg frame_id)"/>

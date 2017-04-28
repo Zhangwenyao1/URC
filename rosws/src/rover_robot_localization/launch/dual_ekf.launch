@@ -22,7 +22,7 @@
   </node>
 
   <!-- GLOBAL_EKF_LOCALIZATION -->
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_global" clear_params="true">
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_global" clear_params="true" respawn="true">
     <remap from="/odometry/filtered" to="/odometry/filtered_global"/>
     <param name="frequency" value="5"/>
 
@@ -58,7 +58,7 @@
   </node>
 
   <!-- LOCAL_EKF_LOCALIZATION -->
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true">
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local" clear_params="true" respawn="true">
     <remap from="/odometry/filtered" to="/odometry/filtered_local"/>
     <param name="frequency" value="5"/>
 
