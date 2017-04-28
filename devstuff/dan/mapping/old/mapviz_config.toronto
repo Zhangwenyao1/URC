@@ -1,0 +1,177 @@
+capture_directory: ~
+fixed_frame: world
+target_frame: odom
+fix_orientation: false
+rotate_90: false
+enable_antialiasing: true
+show_displays: true
+show_status_bar: true
+show_capture_tools: true
+window_width: 1531
+window_height: 755
+view_scale: 0.01826027
+offset_x: 694130.1
+offset_y: -6342394
+use_latest_transforms: true
+background: "#a0a0a4"
+displays:
+  - type: mapviz_plugins/tile_map
+    name: new display
+    config:
+      visible: true
+      collapsed: false
+      custom_sources:
+        - base_url: http://localhost:8080/wmts/gm_layer/gm_grid/{level}/{x}/{y}.png
+          max_zoom: 14
+          name: Google1
+          type: wmts
+        - base_url: http://localhost:8080/wmts/gm_layer/gm_grid/{level}/{x}/{y}.png
+          max_zoom: 19
+          name: Google19
+          type: wmts
+        - base_url: http://localhost:8080/wmts/osm/webmercator/{level}/{x}/{y}.png
+          max_zoom: 14
+          name: local1
+          type: wmts
+      bing_api_key: ""
+      source: Google19
+  - type: mapviz_plugins/pointcloud2
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /move_base/TrajectoryPlannerROS/cost_cloud
+      size: 16
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#00ff00"
+      max_color: "#ff0000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+      use_automaxmin: false
+  - type: mapviz_plugins/navsat
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /navsat/fix
+      color: "#00ff00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/navsat
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /gps/filtered
+      color: "#007f00"
+      draw_style: points
+      position_tolerance: 0
+      buffer_size: 0
+      static_arrow_sizes: false
+      arrow_size: 25
+  - type: mapviz_plugins/grid
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      color: "#8d8d8d"
+      alpha: 0.5
+      frame: map
+      x: -500
+      y: -500
+      size: 1
+      rows: 1000
+      columns: 1000
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /odometry/filtered_global
+      color: "#0000ff"
+      draw_style: arrows
+      position_tolerance: 0
+      buffer_size: 15
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 3
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /odometry/filtered
+      color: "#8a0000"
+      draw_style: arrows
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: true
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 4
+  - type: mapviz_plugins/odometry
+    name: new display
+    config:
+      visible: false
+      collapsed: true
+      topic: /jackal_velocity_controller/odom
+      color: "#aa5500"
+      draw_style: arrows
+      position_tolerance: 0
+      buffer_size: 0
+      show_laps: false
+      show_covariance: false
+      static_arrow_sizes: false
+      arrow_size: 4
+  - type: mapviz_plugins/path
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /move_base/TrajectoryPlannerROS/global_plan
+      color: "#0000ff"
+  - type: mapviz_plugins/path
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /move_base/TrajectoryPlannerROS/local_plan
+      color: "#ff0000"
+  - type: mapviz_plugins/point_click_publisher
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: test
+      output_frame: odom
+  - type: mapviz_plugins/laserscan
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      topic: /front/scan
+      size: 3
+      buffer_size: 1
+      alpha: 1
+      color_transformer: Flat Color
+      min_color: "#ffffff"
+      max_color: "#000000"
+      value_min: 0
+      value_max: 100
+      use_rainbow: false
+  - type: mapviz_plugins/robot_image
+    name: new display
+    config:
+      visible: true
+      collapsed: true
+      frame: base_link
+      image: /home/dan/logo_white_blank_d400.png
+      width: 0.5
+      height: 0.5
