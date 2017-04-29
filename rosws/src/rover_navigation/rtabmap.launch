@@ -14,6 +14,15 @@
             <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
             <remap from="scan_cloud" to="/camera/point_cloud/cloud_registered" />
             <remap from="depth/image" to="/camera/depth/depth_registered" />
+
+            <param name="proj_max_ground_angle" value="45"/> <!-- Maximum angle between point's normal to ground's normal to label it as ground. Points with higher angle difference are considered as obstacles. (default=45) -->
+
+            <!-- Reduce Point Cloud Noise -->
+            <!-- Explaination: http://docs.pointclouds.org/1.7.0/classpcl_1_1_radius_outlier_removal.html#details -->
+            <param name="cloud_noise_filtering_radius" value="0.05"/> <!-- Noise filtering radius (default=0 disabled) -->
+            <param name="cloud_noise_filtering_min_neighbors" value="5"/> <!-- Noise filtering minimum neighbors (default=5) -->
+
+
         </node>
     </group>
 </launch>
