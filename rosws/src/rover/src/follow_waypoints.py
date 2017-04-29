@@ -26,6 +26,8 @@ class FollowPath(State):
             goal.target_pose.pose.orientation = waypoint.pose.pose.orientation
             rospy.loginfo('Executing move_base goal to position (x,y): %s, %s' %
                     (waypoint.pose.pose.position.x, waypoint.pose.pose.position.y))
+            rospy.loginfo("To cancel the goal: 'rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}'")
+            rospy.loginfo(goal)
             self.client.send_goal(goal)
             self.client.wait_for_result()
         return 'success'
