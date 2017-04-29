@@ -16,6 +16,9 @@
                 <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
                 <remap from="depth/image" to="/camera/depth/depth_registered"/>
                 <param name="Odom/ResetCountdown" value="1"/>
+                <param name="inital_pose" value="0 0 0 0 0.523599 0"/> <!-- ZED camera is tilted downwards by 30 degrees -->
+
+
             </node>
     </group>
 
