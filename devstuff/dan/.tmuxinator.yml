@@ -41,4 +41,17 @@ windows:
       panes:
         - "#roslaunch ./mapviz.launch"
         - sudo docker run -p 8080:8080 -d -t -v ~/mapproxy:/mapproxy danielsnider/mapproxy
+  - WAYPOINT:
+      root: ~/URC/rosws/src/rover/src/
+      layout: tiled
+      panes:
+        - "python follow_waypoints.py"
+        - "#rostopic pub /path_ready std_msgs/Empty -1"
+        - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
+  - GO2GPS:
+      root: ~/URC/rosws/src/rover/src/
+      layout: tiled
+      panes:
+        - "#python gps_goal.py --lat 49.9 --long 8.8"
+        - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
 
