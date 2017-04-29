@@ -34,6 +34,7 @@ import math
 
 import rospy
 
+from std_msgs.msg import Float32
 from sensor_msgs.msg import NavSatFix, NavSatStatus, TimeReference
 from geometry_msgs.msg import TwistStamped
 
@@ -45,6 +46,7 @@ class RosNMEADriver(object):
     def __init__(self):
         self.fix_pub = rospy.Publisher('fix', NavSatFix, queue_size=1)
         self.vel_pub = rospy.Publisher('vel', TwistStamped, queue_size=1)
+        self.heading_pub = rospy.Publisher('heading', Float32, queue_size=1)
         self.time_ref_pub = rospy.Publisher('time_reference', TimeReference, queue_size=1)
 
         self.time_ref_source = rospy.get_param('~time_ref_source', None)
@@ -169,6 +171,12 @@ class RosNMEADriver(object):
                 current_vel.twist.linear.y = data['speed'] * \
                     math.cos(data['true_course'])
                 self.vel_pub.publish(current_vel)
+
+        elif 'VTG' in parsed_sentence:
+            data = parsed_sentence['VTG']
+            if data['heading'] or data['heading'] == 0.0:
+                self.heading_pub.publish(Float32(data['heading']))
+
         else:
             return False
 
@@ -189,3 +197,5 @@ class RosNMEADriver(object):
             return frame_id[1:]
         else:
             return frame_id[1:]
+
+
