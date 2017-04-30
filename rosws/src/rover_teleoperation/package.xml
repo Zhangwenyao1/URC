@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>teleoperation</name>
+  <name>rover_teleoperation</name>
   <version>0.1.0</version>
-  <description>The teleoperation package, contains various methods of teleoperating the robot, generally ran on the controllers machine, not the robot</description>
+  <description>The rover_teleoperation package, contains various methods of teleoperating the robot, generally ran on the controllers machine, not the robot</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/teleoperation</url> -->
+  <!-- <url type="website">http://wiki.ros.org/rover_teleoperation</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->

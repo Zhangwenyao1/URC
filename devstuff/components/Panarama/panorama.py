@@ -20,7 +20,7 @@ def panorama():
   else:
     rospy.logwarn("input image topic not provided on param 'input_image_topic'; using %s" % input_image_topic)
 
-  output_image_topic = "panarama/compressed"
+  output_image_topic = "panorama/compressed"
   if rospy.has_param('~output_image_topic'):
     output_image_topic = rospy.get_param('~output_image_topic')
     output_image_topic = '%s/compressed' % output_image_topic
