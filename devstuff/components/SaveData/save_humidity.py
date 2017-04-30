@@ -6,25 +6,25 @@ from std_msgs.msg import Float32
 from datetime import datetime
 
 
-def save_ph():
-  rospy.init_node('save_ph', anonymous=True)
+def save_humidity():
+  rospy.init_node('save_humidity', anonymous=True)
   description = None
 
   if rospy.has_param('~description'):
     description = rospy.get_param('~description')
 
-  data = rospy.wait_for_message('ph', Float32)
-  ph = data.data
+  data = rospy.wait_for_message('humidity', Float32)
+  humidity = data.data
 
   time_now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-  filename = '%s_pH.txt' % time_now
+  filename = '%s_humidity.txt' % time_now
   if description:
     filename = '%s_%s' %(description, filename)
   f = open(filename, 'w')
-  f.write('pH: %s\n' % str(ph))
+  f.write('Relative humidity: %s%\n' % str(humidity))
   f.close()
 
-  rospy.loginfo("Saved pH reading '%s' to file '%s'" % (ph, filename))
+  rospy.loginfo("Saved relative humidity reading %s% to file '%s'" % (humidity, filename))
 
 if __name__ == '__main__':
-  save_ph()
+  save_humidity()

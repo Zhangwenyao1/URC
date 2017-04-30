@@ -22,7 +22,7 @@ def save_temp():
   if description:
     filename = '%s_%s' %(description, filename)
   f = open(filename, 'w')
-  f.write('temperature: %sC\n' % str(temp))
+  f.write('Temperature: %sC\n' % str(temp))
   f.close()
 
   rospy.loginfo("Saved temperature reading '%s' to file '%s'" % (temp, filename))
