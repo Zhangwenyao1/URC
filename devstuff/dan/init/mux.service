@@ -1,0 +1,11 @@
+[Unit]
+Description=Ryerson R3 Rover tmuxinator startup
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/ubuntu/URC
+ExecStart=/usr/bin/mux start URC
+
+[Install]
+WantedBy=multi-user.target
+
