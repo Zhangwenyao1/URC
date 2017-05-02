@@ -12,9 +12,14 @@
             <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros" respawn="true">
                 <param name="frame_id" value="robot_base"/>
                 <param name="publish_tf" value="false"/>
+
+                <!-- INPUT TOPICS -->
                 <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
                 <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
                 <remap from="depth/image" to="/camera/depth/depth_registered"/>
+                <!-- OUTPUT TOPICS -->
+                <remap from="odom" to="odom" />
+
                 <param name="Odom/ResetCountdown" value="1"/>
                 <param name="inital_pose" value="0 0 0 0 0.523599 0"/> <!-- ZED camera is tilted downwards by 30 degrees -->
 

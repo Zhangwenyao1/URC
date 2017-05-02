@@ -9,7 +9,8 @@
             <param name="frame_id" value="robot_base" />
             <param name="subscribe_depth" value="true" />
             <param name="subscribe_scan_cloud" value="false" />
-            <remap from="odom" to="/odom_source/zed/odom" />
+            <!-- INPUT TOPICS -->
+            <remap from="odom" to="/rgbd_odometry/odom" />
             <remap from="rgb/image" to="/camera/rgb/image_rect_color" />
             <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
             <remap from="scan_cloud" to="/camera/point_cloud/cloud_registered" />
