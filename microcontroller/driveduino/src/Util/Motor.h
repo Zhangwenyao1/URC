@@ -3,10 +3,11 @@
 #include "Arduino.h"
 #include <Servo.h>
 #include "MotorController.h"
+
 class Motor{
   public:
+	Motor();
     Motor(int pin, bool type);
-    Motor();
     void doPWM(int input);
   private:
     MotorController driver;

@@ -2,7 +2,6 @@
 #include <Servo.h>
 #include "Motor.h"
 #include "MotorController.h"
-#include "Servo.h"
 
 Motor::Motor(){ }
 Motor::Motor(int pin, bool type){

@@ -2,6 +2,7 @@
 #define MotorController_h
 #include <Servo.h>
 #include <Arduino.h>
+
 class MotorController{
 	public:
 		MotorController(bool type, int pin);

@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "MotorController.h"
 #include <Servo.h>
 #include "mathFunc.h"
 
