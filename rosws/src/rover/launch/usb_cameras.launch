@@ -1,8 +1,9 @@
 <launch>
   <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
     <arg name="full_zed_node" default="true"/>
-    <arg name="zed" default="false"/>
+    <arg name="zed" default="true"/>
     <arg name="usb_cams" default="true"/>
+    <arg name="kinect" default="false" />
     <group if="$(arg zed)">
         <node name="zed" pkg="usb_cam" type="usb_cam_node" output="screen" unless="$(arg full_zed_node)">
             <param name="video_device" value="/dev/video0"/>
@@ -37,6 +38,9 @@
             <param name="pixel_format" value="yuyv"/>
             <param name="io_method" value="mmap"/>
         </node>
+    </group>
+    <group ns="camera" if="$(arg kinect)">
+        <include file="$(find openni2_launch)/launch/openni2.launch" />
     </group>
 </launch>
 

@@ -4,6 +4,7 @@
             <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros" respawn="true">
                 <param name="frame_id" value="robot_base"/>
                 <param name="publish_tf" value="false"/>
+
                 <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
                 <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
                 <remap from="depth/image" to="/camera/depth/depth_registered"/>
