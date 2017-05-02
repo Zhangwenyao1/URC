@@ -5,10 +5,15 @@
         <arg name="camera_info_topic" value="/zed/rgb/camera_info" />
         -->
     <arg name="rtabmap_args" default="--delete_db_on_start"/>
+    <arg name="USE_KINECT" default="false" />
     <!-- otherwise known as trolley mapping! -->
 
-    <include file="$(find rover_rtabmap_config)/launch/setup_mapping_transforms_handheld.launch"/>
-    <include file="$(find rover_rtabmap_config)/launch/odom_up.launch" />
+    <include file="$(find rover_rtabmap_config)/launch/setup_mapping_transforms_handheld.launch">
+
+    </include>
+    <include file="$(find rover_rtabmap_config)/launch/odom_up.launch" >
+        <arg name="USE_KINECT" value="$(arg USE_KINECT)" />
+    </include>
     <group ns="rtabmap">
         <node output="screen" pkg="rtabmap_ros" name="rtabmap" type="rtabmap">
 
@@ -20,8 +25,8 @@
             <remap from="rgb/image" to="/camera/rgb/image_rect_color" />
             <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
             <remap from="scan_cloud" to="/camera/point_cloud/cloud_registered" />
-            <remap from="depth/image" to="/camera/depth/depth_registered" unless="$(env USE_KINECT)"/>
-            <remap from="depth/image" to="/camera/depth_registered/image_raw" if="$(env USE_KINECT)"/>
+            <remap from="depth/image" to="/camera/depth/depth_registered" unless="$(arg USE_KINECT)"/>
+            <remap from="depth/image" to="/camera/depth_registered/image_raw" if="$(arg USE_KINECT)"/>
 
             <param name="frame_id" value="robot_base" />
 
