@@ -40,7 +40,7 @@
         </node>
     </group>
     <group ns="camera" if="$(arg kinect)">
-        <include file="$(find openni2_launch)/launch/openni.launch" />
+        <include file="$(find openni_launch)/launch/openni.launch" />
     </group>
 </launch>
 
