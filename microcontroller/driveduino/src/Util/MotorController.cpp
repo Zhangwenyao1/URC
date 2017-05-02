@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Servo.h>
-#include "Util/mathFunc.h"
+#include "mathFunc.h"
 
 mathFunc math = mathFunc();
 Servo driver;
