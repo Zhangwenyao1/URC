@@ -27,6 +27,6 @@
     </node> -->
 
     <!--include file="$(find rover)/launch/zed_up.launch"/-->
-    <include file="$(find rover_navigation/rtabmap_config)/launch/move_base_bringup.launch" />
+    <include file="$(find rover_navigation)/launch/move_base_bringup.launch" />
 
 </launch>
