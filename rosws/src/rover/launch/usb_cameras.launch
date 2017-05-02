@@ -39,7 +39,7 @@
             <param name="io_method" value="mmap"/>
         </node>
     </group>
-    <group ns="camera" if="$(arg kinect)">
+    <group if="$(arg kinect)">
         <include file="$(find openni_launch)/launch/openni.launch" />
     </group>
 </launch>
