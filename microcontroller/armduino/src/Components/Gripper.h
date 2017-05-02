@@ -6,14 +6,15 @@
 
 class Gripper{
 	public:
-		Gripper(Motor rotationMotor, Motor gripperMotor, Switch limitSwitch);
+		Gripper(Motor rotationMotor, Motor gripperMotor, Switch openSwitch, Switch closeSwitch);
 		void spin(float vel);
-		void open(float dist);
+		bool open();
+		bool close();
 		bool zeroGripper();
 	private:
 		Motor rotationMotor, gripperMotor;
-		Switch limitSwitch;
-		int postion;
+		Switch openSwitch, closeSwitch;
+		bool Open;
 
 };
 #endif

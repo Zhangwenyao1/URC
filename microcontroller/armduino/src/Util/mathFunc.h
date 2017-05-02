@@ -21,6 +21,6 @@ class mathFunc{
 			return (distance*stepsPer);
 		};
 		int dutyCycletoMicroSeconds(int maxSeconds, int minSeconds, int dutyCycle){
-			return map(dutyCycle,-100,100,maxSeconds,minSeconds);
+			return map((dutyCycle*100),-100,100,maxSeconds,minSeconds);
 		};
 };
