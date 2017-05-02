@@ -2,33 +2,34 @@
     <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
     <!--  Joy and teleop -->
 
-<!--     <group ns="/imu">
-        <node pkg="tf" type="static_transform_publisher" name="imu_base_publisher"
-              args="0 0 0.1 0 0 0 robot_base imu_link 100"/>
-        <node pkg="i2c_imu" type="i2c_imu_node" name="imu_node" output="screen">
-            <param name="i2c_bus" value="0"/>
-            <param name="imu_frame" value="imu_link"/>
-        </node>
-    </group>
+    <!--     <group ns="/imu">
+            <node pkg="tf" type="static_transform_publisher" name="imu_base_publisher"
+                  args="0 0 0.1 0 0 0 robot_base imu_link 100"/>
+            <node pkg="i2c_imu" type="i2c_imu_node" name="imu_node" output="screen">
+                <param name="i2c_bus" value="0"/>
+                <param name="imu_frame" value="imu_link"/>
+            </node>
+        </group>
 
-    <node pkg="rover_rtabmap_config" type="odom_covariance_adder.py" name="odom_zed_fizer" output="screen"/>
+        <node pkg="rover_rtabmap_config" type="odom_covariance_adder.py" name="odom_zed_fizer" output="screen"/>
 
-    <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
-        <param name="output_frame" value="odom_combined"/>
-        <param name="base_footprint_frame" value="robot_base"/>
-        <param name="freq" value="30.0"/>
-        <param name="sensor_timeout" value="1.0"/>
-        <param name="odom_used" value="false"/>
-        <param name="imu_used" value="true"/>
-        <param name="vo_used" value="true"/>
+        <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+            <param name="output_frame" value="odom_combined"/>
+            <param name="base_footprint_frame" value="robot_base"/>
+            <param name="freq" value="30.0"/>
+            <param name="sensor_timeout" value="1.0"/>
+            <param name="odom_used" value="false"/>
+            <param name="imu_used" value="true"/>
+            <param name="vo_used" value="true"/>
 
-        <remap from="/imu_data" to="/imu/data" />
-        <remap from="/vo" to="/zed/odom_fixed" />
-    </node> -->
+            <remap from="/imu_data" to="/imu/data" />
+            <remap from="/vo" to="/zed/odom_fixed" />
+        </node> -->
 
     <!--include file="$(find rover)/launch/zed_up.launch"/-->
-    <arg name="kinect" default="false" />
-    <env name="USE_KINECT" value="$(arg kinect)" />
-    <include file="$(find rover_navigation)/launch/move_base.launch" />
-    <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" />
+    <arg name="kinect" default="false"/>
+    <env name="USE_KINECT" value="$(arg kinect)">
+        <include file="$(find rover_navigation)/launch/move_base.launch"/>
+        <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch"/>
+    </env>
 </launch>
