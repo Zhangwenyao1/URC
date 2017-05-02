@@ -20,7 +20,8 @@
             <remap from="rgb/image" to="/camera/rgb/image_rect_color" />
             <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
             <remap from="scan_cloud" to="/camera/point_cloud/cloud_registered" />
-            <remap from="depth/image" to="/camera/depth/depth_registered" />
+            <remap from="depth/image" to="/camera/depth/depth_registered" unless="$(env USE_KINECT)"/>
+            <remap from="depth/image" to="/camera/depth_registered/image_raw" if="$(env USE_KINECT)"/>
 
             <param name="frame_id" value="robot_base" />
 

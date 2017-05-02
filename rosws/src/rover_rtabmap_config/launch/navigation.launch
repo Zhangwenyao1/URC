@@ -27,6 +27,8 @@
     </node> -->
 
     <!--include file="$(find rover)/launch/zed_up.launch"/-->
+    <arg name="kinect" default="false" />
+    <env name="USE_KINECT" value="$(arg kinect)" />
     <include file="$(find rover_navigation)/launch/move_base.launch" />
     <include file="$(find rover_rtabmap_config)/launch/handheld_mapping.launch" />
 </launch>
