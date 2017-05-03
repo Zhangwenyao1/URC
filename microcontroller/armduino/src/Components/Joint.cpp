@@ -26,19 +26,15 @@ void initPID(double Kp, double Kd, double Ki, double maxOut, double minOut){
 	jointPID.SetOutputLimits(minOut, maxOut);
 	jointPID.SetMode(MANUAL);
 }
-int Joint::setJointPosition(double setPoint){
+bool Joint::setJointPosition(double setPoint){
 	this->setPoint = setPoint;
 	if(!jointPID.Compute()){
 		jointPID.SetMode(AUTOMATIC);
-		jointMotor.doPWM(map(((int)math.radToDegrees(outPut)),-360,360,0,180));
-		return 0;
+		jointMotor.doPWM(outPut);
+		return false;
 	}
 	else{
 		jointPID.SetMode(MANUAL);
-		return 1;
+		return true;
 	}
-}
-void Joint::setJointPositionStepper(float rads){
-	int steps = math.toSteps(math.radToDegrees(rads),constant.nema17GearAngle51);
-	jointMotor.doStepper(steps);
 }

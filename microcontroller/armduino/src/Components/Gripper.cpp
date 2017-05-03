@@ -9,24 +9,30 @@ mathFunc math = mathFunc();
 Motor gripperMotor, rotationMotor;
 Switch limitSwitch;
 
-Gripper::Gripper(Motor rotationMotor, Motor gripperMotor, Switch limitSwitch){
+Gripper::Gripper(Motor rotationMotor, Motor gripperMotor, Switch openSwitch, Switch closeSwitch){
 	this->gripperMotor = gripperMotor;
 	this->rotationMotor = rotationMotor;
-	this->limitSwitch = limitSwitch;
+	this->openSwitch = openSwitch;
+	this->closeSwitch = closeSwitch;
 }
 void Gripper::spin(float vel){
-	rotationMotor.doPWM(map((vel*10),-10,10,0,180));
+	rotationMotor.doPWM(vel);
 }
-void Gripper::open(float dist){
-	gripperMotor.doStepper((int)math.calcGripperDistance(dist,constant.stepsPerCm));
+bool Gripper::open(){
+	while(!openSwitch.getState())
+		gripperMotor.doPWM(1);
+	open = !open;
+	return open;
 }
-bool zeroGripper(){
-	if(limitSwitch.getState()!=true){
-		gripperMotor.doStepper(5000);
-		return false;
-	}
-	else{
-		position = 0;
-		return true;
-	}
+bool Gripper::close(){
+	while(!closeSwitch.getState())
+		gripperMotor.doPWM(-1);
+	open = !open;
+	return open;
+}
+bool Gripper::zeroGripper(){
+	while(!openSwitch.getState()&& open!=true)
+		gripperMotor.doPWM(1);
+	open = true;
+	return open;
 }

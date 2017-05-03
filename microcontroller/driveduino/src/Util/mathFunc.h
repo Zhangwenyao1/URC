@@ -1,10 +1,11 @@
 #ifndef mathFunc_h
 #define mathFunc_h
+
 #include <Arduino.h>
+
 class mathFunc{
 	public:
 		mathFunc(){};
-		static const float Pi = 3.14159;
 		float degToRad(float _val){
 			return ((_val*PI)/180);
 		};
@@ -24,3 +25,4 @@ class mathFunc{
 			return map((dutyCycle*100),-100,100,maxSeconds,minSeconds);
 		};
 };
+#endif
