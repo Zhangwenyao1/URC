@@ -7,7 +7,7 @@ import struct
 
 
 def on_new_twist(data):
-    dat = struct.pack("<ff", data.linear.x/1.7, (-data.angular.z)/1.777)
+    dat = struct.pack("<ff", data.linear.x/5.7, (-data.angular.z)/5.777)
     theSerial.write(dat)
 
 theSerial = serial.Serial()

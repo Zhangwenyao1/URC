@@ -21,7 +21,7 @@ local_costmap:
     point_cloud_sensor: {
       sensor_frame: zed_actual_frame,
       data_type: PointCloud2,
-      topic: "/camera/points_fixed",
+      topic: "/camera/depth_registered/points",
       expected_update_rate: 0.5,
       marking: true,
       clearing: true,
