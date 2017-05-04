@@ -52,6 +52,6 @@ windows:
       root: ~/URC/rosws/src/rover/src/
       layout: tiled
       panes:
-        - "#python gps_goal.py --lat 49.9 --long 8.8"
+        - "#python gps_goal.py --lat 43.659055 --long -79.3803416667"
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
 
