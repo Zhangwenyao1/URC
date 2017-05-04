@@ -34,8 +34,7 @@
 
             <!-- Reduce Point Cloud Noise -->
             <!-- Explaination: http://docs.pointclouds.org/1.7.0/classpcl_1_1_radius_outlier_removal.html#details -->
-            <param name="cloud_noise_filtering_radius" value="0.05"/> <!-- Noise filtering radius (default=0 disabled) -->
-            <param name="cloud_noise_filtering_min_neighbors" value="7"/> <!-- Noise filtering minimum neighbors (default=5) -->
+
 
 
         </node>

@@ -18,11 +18,11 @@
                 <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
                 <param name="Odom/Strategy" value="0"/>
                 <!-- Correspondences: 0=Features Matching, 1=Optical Flow -->
-                <param name="Vis/CorType" value="1"/>
+                <param name="Vis/CorType" value="0"/>
                 <!-- maximum features map size, default 2000 -->
-                <param name="OdomF2M/MaxSize" type="string" value="1500"/>
+<!--                <param name="OdomF2M/MaxSize" type="string" value="1500"/> -->
                 <!-- maximum features extracted by image, default 1000 -->
-                <param name="Vis/MaxFeatures" type="string" value="1200"/>
+<!--                <param name="Vis/MaxFeatures" type="string" value="1200"/> -->
             </node>
         </group>
     </group>
