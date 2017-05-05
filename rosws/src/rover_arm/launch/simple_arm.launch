@@ -1,0 +1,8 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+  <param name="robot_description" textfile="$(find rover_arm)/arm.urdf" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
+    <param name="use_gui" value="true"/>
+  </node>
+  <node pkg="rover_arm" name="arm_serial" type="arm.py" output="screen" />
+</launch>
