@@ -12,7 +12,7 @@ ALL_RECOGNIZED_JOINTS.extend(RECOGNIZED_ARM)
 ALL_RECOGNIZED_JOINTS.extend(RECOGNIZED_GRIPPER)
 
 def on_new_joint(data):
-  # For better readability and long-term robustness, convert ROS joint message
+  # For better readability and robustness, convert ROS joint message
   # to dict so that joint values can be access by name instead of by index.
   joint_position = {}
   for idx, name in enumerate(data.name):
@@ -39,12 +39,10 @@ def on_new_joint(data):
     rospy.logwarn('Ignoring unknown joints: %s' % unknown_joints)
 
 theSerial = serial.Serial()
-theSerial.port = "/dev/pts/19" # SET SERIAL DEVICE
+theSerial.port = "/dev/pts/28" # SET SERIAL DEVICE
 theSerial.open()
 
 rospy.init_node("joint_sender")
 subscriber = rospy.Subscriber("/joint_states", sensor_msgs.msg.JointState, on_new_joint, queue_size=10)
 rospy.spin()
 
-
-theSerial.write('tell')
