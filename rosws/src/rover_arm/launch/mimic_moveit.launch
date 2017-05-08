@@ -1,0 +1,35 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+  <param name="robot_description" textfile="$(find rover_arm)/arm.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
+    <param name="use_gui" value="true"/>
+    <rosparam>
+      zeros:
+        hip: 0
+        shoulder: -1.2
+        elbow: 1.6
+        lower_elbow: 1.1
+        wrist: 0
+        grip: 0
+    </rosparam>
+  </node>
+  <node pkg="rover_arm" name="arm_serial" type="simple_arm_serial.py" output="screen" />
+  
+    <node name="controller_spawner_arm" pkg="controller_manager" type="spawner"
+          args="arm_controller"/>
+    <node name="controller_spawner_grip" pkg="controller_manager" type="spawner"
+          args="grip_controller"/>
+  
+    <!-- Gazebo Section (TO BE DELETED) -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+          args="-param robot_description -urdf -model arm" />
+    <rosparam file="$(find rover_arm)/gazebo_controllers.yaml" command="load"/>
+  
+    <include file="$(find rover_moveit_config)/launch/move_group.launch"/>
+    <include file="$(find rover_moveit_config)/launch/moveit_rviz.launch">
+      <arg  name="config" value="True"/>
+    </include>
+</launch>
+
