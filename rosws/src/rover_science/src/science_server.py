@@ -82,7 +82,7 @@ class ScienceDataTracker:
 
 
 site_manager = ScienceDataTracker()
-science = rospy.Publisher("sites", rover_science.msg.Sites, queue_size=15)
+science = rospy.Publisher("sites", rover_science.msg.Sites, queue_size=15, latch=True)
 
 
 def new_site(msg):

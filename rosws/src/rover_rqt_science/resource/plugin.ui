@@ -29,14 +29,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QListView" name="listView">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>9</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
+        <widget class="QListWidget" name="listWidget"/>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -44,7 +37,7 @@
           <enum>QLayout::SetMinimumSize</enum>
          </property>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="addSitePushButton">
            <property name="text">
             <string>Add</string>
            </property>

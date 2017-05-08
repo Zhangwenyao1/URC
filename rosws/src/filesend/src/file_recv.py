@@ -43,7 +43,7 @@ def announce(msg):
     elif not msg.ending:
         rospy.logwarn("Two file announces came in at once, discarding the second one")
     else:
-        rospy.logwarn("File ended, but I never knew about it!")
+        rospy.logwarn("File ended, but I never knew about it or its checksum failed!")
 
 
 def data(msg):
