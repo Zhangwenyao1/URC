@@ -74,8 +74,8 @@ class ScienceDataTracker:
         self.sites.sites[site_id].measurements[measurement_id].data_completeness |= taken
         return taken
 
-    def mark_pano(self, site_id):
-        self.sites.sites[site_id].has_pano = 1
+    def mark_pano(self, site_id, flags):
+        self.sites.sites[site_id].has_pano |= flags
 
     def delete_site(self, site_id):
         del self.sites.sites[site_id]
@@ -93,7 +93,7 @@ def new_site(msg):
 
 def mark_pano(msg):
     try:
-        site_manager.mark_pano(msg.site_id)
+        site_manager.mark_pano(msg.site_id, msg.mark_flags)
         publish()
         return rover_science.srv.MarkPanoResponse(success=True)
     except IndexError:

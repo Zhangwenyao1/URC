@@ -4,7 +4,7 @@ import filesend.msg
 import binascii
 import pylzma
 import os
-
+import std_msgs.msg
 import time
 
 rospy.init_node("fsend_recv")
@@ -17,12 +17,15 @@ working_on = None
 save_to = None
 working = False
 
+saved = rospy.Publisher("file_saved", std_msgs.msg.Bool, queue_size=5)
+
 
 def finish():
     time.sleep(0.5)
     decompressed = pylzma.decompress(working_on)
     save_to.write(decompressed)
     save_to.close()
+    saved.publish(True)
 
 
 def announce(msg):
@@ -35,7 +38,7 @@ def announce(msg):
         rospy.loginfo("Successfully saved file!")
     elif not working and not msg.ending:
         if not os.path.exists(os.path.join(directory, msg.folder)):
-            os.mkdir(os.path.join(directory, msg.folder))
+            os.makedirs(os.path.join(directory, msg.folder))
         working_on = ""
         save_to = open(os.path.join(directory, msg.folder, msg.filename), "wb")
         rospy.loginfo("Receiving file {}".format(msg.filename))
@@ -43,6 +46,7 @@ def announce(msg):
     elif not msg.ending:
         rospy.logwarn("Two file announces came in at once, discarding the second one")
     else:
+        saved.publish(False)
         rospy.logwarn("File ended, but I never knew about it or its checksum failed!")
 
 
