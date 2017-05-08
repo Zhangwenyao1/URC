@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import rospy
 import rover_science.msg
 import rover_science.srv
@@ -36,7 +37,7 @@ class ScienceDataTracker:
         measurement.time_recorded = rospy.Time.now()
         m_id = len(self.sites.sites[site_id].measurements)
         self.sites.sites[site_id].measurements.append(measurement)
-        return self.take_measurement(site_id, m_id, to_take)
+        return self.take_measurements(site_id, m_id, to_take)
 
     def _take_ph_measurement(self, site_id, measurement_id):
         ph = rospy.wait_for_message(ph_topic, std_msgs.msg.Float32, timeout=5)
@@ -70,6 +71,7 @@ class ScienceDataTracker:
                 taken |= rover_science.msg.Measurement.HAS_TEMP
             except rospy.ROSException:
                 rospy.logerr("Failed to take temp reading: couldn't get value in time")
+        self.sites.sites[site_id].measurements[measurement_id].data_completeness |= taken
         return taken
 
     def mark_pano(self, site_id):
@@ -101,6 +103,7 @@ def mark_pano(msg):
 def delete_site(msg):
     try:
         site_manager.delete_site(msg.site_id)
+        publish()
         return rover_science.srv.DeleteSiteResponse(success=True)
     except IndexError:
         return rover_science.srv.DeleteSiteResponse(success=False)
@@ -117,7 +120,8 @@ def site_name_change(msg):
 
 def take_measurement(msg):
     r = rover_science.srv.TakeMeasurementResponse(
-        measurements_taken=site_manager.take_measurement(msg.site_id, msg.measurements_to_take)
+        measurements_taken=site_manager.take_measurement(msg.site_id, msg.measurements_to_take),
+        measurement_id=len(site_manager.sites.sites[msg.site_id].measurements)-1
     )
     publish()
     return r
@@ -125,7 +129,7 @@ def take_measurement(msg):
 
 def update_measurement(msg):
     r = rover_science.srv.UpdateMeasurementResponse(
-        measurements_taken=site_manager.take_measurements(msg.site_id, msg.measurement.id, msg.measurements_to_retake)
+        measurements_taken=site_manager.take_measurements(msg.site_id, msg.measurement_id, msg.measurements_to_retake)
     )
     publish()
     return r
