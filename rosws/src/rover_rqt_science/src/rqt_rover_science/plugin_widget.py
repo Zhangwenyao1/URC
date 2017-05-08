@@ -28,7 +28,9 @@ class ScienceWidget(QWidget):
                                                  queue_size=5)
 
         self.add_site = rospy.ServiceProxy("/science/sci/new_site", rover_science.srv.NewSite)
+        self.remove_site = rospy.ServiceProxy("/science/sci/delete_site", rover_science.srv.DeleteSite)
         self.addSitePushButton.clicked.connect(self.new_site_click)
+        self.removeSitePushButton.clicked.connect(self.remove_site_click)
         context.add_widget(self)
 
     @Slot(rover_science.msg.Sites)
@@ -49,3 +51,13 @@ class ScienceWidget(QWidget):
             msg = rover_science.srv.NewSiteRequest()
             msg.site_name = input_text
             self.add_site(msg)
+
+    @Slot()
+    def remove_site_click(self):
+        site_id = self.listWidget.currentRow()
+        if site_id == -1:
+            return
+        else:
+            msg = rover_science.srv.DeleteSiteRequest()
+            msg.site_id = site_id
+            self.remove_site(msg)
