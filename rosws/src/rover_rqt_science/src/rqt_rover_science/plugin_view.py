@@ -1,13 +1,6 @@
 #!/usr/bin/env python
-import os
-import rospy
-import rospkg
 
 from qt_gui.plugin import Plugin
-from python_qt_binding import loadUi
-from python_qt_binding.QtWidgets import QWidget
-from python_qt_binding.QtCore import Signal, Slot
-import rover_science.msg
 from .plugin_widget import ScienceWidget
 
 
@@ -22,4 +15,4 @@ class SciencePlugin(Plugin):
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
 
     def shutdown_plugin(self):
-        self._widget.sites_subscriber.unregister()
+        self._widget.shutdown()

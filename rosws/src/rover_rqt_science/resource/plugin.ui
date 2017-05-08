@@ -44,6 +44,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="renamePushButton">
+           <property name="text">
+            <string>Rename</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="removeSitePushButton">
            <property name="text">
             <string>Remove</string>
@@ -64,7 +71,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="takeMeasurementPushButton">
          <property name="text">
           <string>Take new measurement</string>
          </property>
