@@ -1,165 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>URCScience</class>
- <widget class="QSplitter" name="URCScience">
+ <class>rootenclosure</class>
+ <widget class="QWidget" name="rootenclosure">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>994</width>
-    <height>453</height>
+    <width>949</width>
+    <height>440</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <property name="orientation">
-   <enum>Qt::Horizontal</enum>
-  </property>
-  <widget class="QWidget" name="layoutWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>Sites</string>
-      </property>
+  <layout class="QHBoxLayout" name="rootLayout">
+   <item>
+    <widget class="QSplitter" name="URCScience">
+     <property name="windowTitle">
+      <string>Form</string>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Sites</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListView" name="listView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>9</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Remove</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item>
-     <widget class="QListView" name="listView">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>9</verstretch>
-       </sizepolicy>
-      </property>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Measurements</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>Take new measurement</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>2</horstretch>
+           <verstretch>2</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="currentIndex">
+          <number>-1</number>
+         </property>
+         <property name="tabsClosable">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetMinimumSize</enum>
-      </property>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Add</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>Remove</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Measurements</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton_3">
-      <property name="text">
-       <string>Take new measurement</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>2</horstretch>
-        <verstretch>2</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="tabsClosable">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>URCScience</receiver>
-   <slot>addSelected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>206</x>
-     <y>429</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>879</x>
-     <y>35</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>URCScience</receiver>
-   <slot>removeSelected()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>516</x>
-     <y>440</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1108</x>
-     <y>34</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>URCScience</sender>
-   <signal>refresh()</signal>
-   <receiver>URCScience</receiver>
-   <slot>refreshDo()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>496</x>
-     <y>226</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>496</x>
-     <y>226</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_3</sender>
-   <signal>clicked()</signal>
-   <receiver>URCScience</receiver>
-   <slot>addNewMeasurement()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>731</x>
-     <y>46</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>667</x>
-     <y>12</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <signal>refresh()</signal>
   <slot>addSelected()</slot>
