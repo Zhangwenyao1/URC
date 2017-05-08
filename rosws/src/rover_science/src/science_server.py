@@ -75,4 +75,70 @@ class ScienceDataTracker:
     def mark_pano(self, site_id):
         self.sites.sites[site_id].has_pano = 1
 
+    def delete_site(self, site_id):
+        del self.sites.sites[site_id]
 
+
+site_manager = ScienceDataTracker()
+science = rospy.Publisher("sites", rover_science.msg.Sites, queue_size=15)
+
+
+def new_site(msg):
+    s_id = site_manager.new_site(msg.site_name)
+    publish()
+    return rover_science.srv.NewSiteResponse(site_name=msg.site_name, site_id=s_id)
+
+
+def mark_pano(msg):
+    try:
+        site_manager.mark_pano(msg.site_id)
+        publish()
+        return rover_science.srv.MarkPanoResponse(success=True)
+    except IndexError:
+        return rover_science.srv.MarkPanoResponse(success=False)
+
+
+def delete_site(msg):
+    try:
+        site_manager.delete_site(msg.site_id)
+        return rover_science.srv.DeleteSiteResponse(success=True)
+    except IndexError:
+        return rover_science.srv.DeleteSiteResponse(success=False)
+
+
+def site_name_change(msg):
+    try:
+        site_manager.site_name_change(msg.site_id, msg.site_name)
+        publish()
+        return rover_science.srv.SiteNameChangeResponse(success=True)
+    except IndexError:
+        return rover_science.srv.SiteNameChangeResponse(success=False)
+
+
+def take_measurement(msg):
+    r = rover_science.srv.TakeMeasurementResponse(
+        measurements_taken=site_manager.take_measurement(msg.site_id, msg.measurements_to_take)
+    )
+    publish()
+    return r
+
+
+def update_measurement(msg):
+    r = rover_science.srv.UpdateMeasurementResponse(
+        measurements_taken=site_manager.take_measurements(msg.site_id, msg.measurement.id, msg.measurements_to_retake)
+    )
+    publish()
+    return r
+
+
+def publish():
+    science.publish(site_manager.sites)
+
+s__update_measure_ = rospy.Service("~update_measurement", rover_science.srv.UpdateMeasurement, update_measurement)
+s_take_measurement = rospy.Service("~take_measurement", rover_science.srv.TakeMeasurement, take_measurement)
+s_site_name_change = rospy.Service("~change_site_name", rover_science.srv.SiteNameChange, site_name_change)
+s__mark_panorama__ = rospy.Service("~mark_panorama", rover_science.srv.MarkPano, mark_pano)
+s___delete_site___ = rospy.Service("~delete_site", rover_science.srv.DeleteSite, delete_site)
+s____new_site_____ = rospy.Service("~new_site", rover_science.srv.NewSite, new_site)
+
+rospy.spin()

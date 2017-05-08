@@ -54,6 +54,8 @@ find_package(catkin REQUIRED COMPONENTS geographic_msgs message_generation std_m
    SiteNameChange.srv
    TakeMeasurement.srv
    UpdateMeasurement.srv
+   MarkPano.srv
+   DeleteSite.srv
  )
 
 ## Generate actions in the 'action' folder
