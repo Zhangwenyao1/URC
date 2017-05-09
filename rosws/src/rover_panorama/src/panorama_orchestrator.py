@@ -31,7 +31,7 @@ class Panorama:
         self.n = 0
         self.folder = os.path.join(fsend_recv_save_dir, "pano{}".format(self.n))
         self.save_folder = "pano{}".format(self.n)
-        self.as_ = actionlib.SimpleActionServer("stitch_panorama", rover_panorama.msg.PanoramaAction, execute_cb=stitch,
+        self.as_ = actionlib.SimpleActionServer("stitch_panorama", rover_panorama.msg.PanoramaAction, execute_cb=self.stitch,
                                                 auto_start=False)
         self.take_image_ = rospy.Service("take_pano_image", std_srvs.srv.Empty, self.take_image)
         self.as_.start()
@@ -49,13 +49,14 @@ class Panorama:
             folder=self.save_folder
         ))
         datawait = True
+        return rover_panorama.srv.TakeImageResponse()
 
     def call_and_send(self, cmd, toGo):
         feed = rover_panorama.msg.PanoramaFeedback(executing=cmd, commandsToGo=toGo)
         self.as_.publish_feedback(feed)
         os.system(cmd)
 
-    def stitch(self):
+    def stitch(self, a):
         if datawait:
             rospy.logwarn("Still waiting for a filetransfer to go")
             self.as_.set_aborted(None, "Waiting for images")
@@ -94,4 +95,5 @@ class Panorama:
             self.save_folder = "pano{}".format(self.n)
 
 
+p = Panorama()
 rospy.spin()
