@@ -1,6 +1,6 @@
 <launch>
     <group ns="/science/panorama" >
-        <node pkg="filesend" type="file_recv.py" name="fsend_recv">
+        <node pkg="filesend" type="file_recv.py" name="fsend_recv" output="screen">
             <param name="save_to" value="$(env HOME)/.urc/pano_work_base" />
         </node>
 

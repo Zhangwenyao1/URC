@@ -24,7 +24,7 @@ def finish():
     time.sleep(0.5)
     try:
         decompressed = pylzma.decompress(working_on)
-    except ValueError, e:
+    except TypeError, e:
         save_to.close()
         rospy.logerr("Failed to decompress file: {}".format(e.message))
         saved.publish(False)

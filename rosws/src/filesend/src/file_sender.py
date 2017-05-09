@@ -11,7 +11,7 @@ import pylzma
 from cStringIO import StringIO
 
 file_queue = []
-target_chunks = 280  # amount of chunks minimum (increase for smaller messages)
+target_chunks = 320  # amount of chunks minimum (increase for smaller messages)
 sending = False
 starting = False
 
@@ -65,7 +65,7 @@ send_serv = rospy.Service("send_file", filesend.srv.RequestFile, request_file)
 while not rospy.is_shutdown():
     if len(file_queue) > 0 and sending:
         rospy.loginfo("Sending file, remaining packets {}: ".format(len(file_queue)-1))
-        rospy.sleep(0.04)
+        rospy.sleep(0.06)
         d = file_queue.pop(0)
         starting = False
         crc32 = binascii.crc32(d)
