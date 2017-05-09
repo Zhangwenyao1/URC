@@ -40,7 +40,7 @@ class Panorama:
     def take_image(self, e):
         global datawait
         rf = take_image(rover_panorama.srv.TakeImageRequest()).result
-        n = os.path.split(rf)[0]
+        n = os.path.split(rf)[1]
         n = os.path.join(self.folder, n)
         self.images.append("\"" + n + "\"")
         rospy.loginfo("Took image, sending to basestation")
@@ -57,15 +57,11 @@ class Panorama:
         os.system(cmd)
 
     def stitch(self, a):
-        if datawait:
-            rospy.logwarn("Still waiting for a filetransfer to go")
-            self.as_.set_aborted(None, "Waiting for images")
-            return
-        else:
+        if True:
             rospy.loginfo("Running stitcher. THE BASESTATION MIGHT HEAVILY LAG!")
             prev = os.getcwd()
             os.chdir(self.folder)
-
+            print self.images
             # create project file YES I USE self.call_and_send please don't kill me
             self.call_and_send("pto_gen -o pano.pto " + " ".join(self.images), 7)
             # do cpfind
@@ -75,11 +71,11 @@ class Panorama:
             # do vertical lines
             self.call_and_send("linefind -o pano.pto pano.pto", 4)
             # do optimize locations
-            self.call_and_send("autooptimizer -a -m -l -s -o pano.pto pano.pto", 3)
+            self.call_and_send("autooptimiser -a -m -l -s -o pano.pto pano.pto", 3)
             # calculate size
             self.call_and_send("pano_modify --canvas=AUTO --crop=AUTO -o pano.pto pano.pto", 2)
             # stitch
-            self.call_and_send("hugin_executor --stitching --prefix=prefix pano.pto", 1)
+            self.call_and_send("hugin_executor --stitching --prefix=output pano.pto", 1)
             # compress
             self.call_and_send("convert output.tif output.png", 0)
             os.chdir(prev)
