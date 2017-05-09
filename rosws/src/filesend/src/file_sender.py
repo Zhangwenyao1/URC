@@ -5,18 +5,21 @@ import os
 import rospy
 import filesend.msg
 import filesend.srv
+import std_msgs.msg
 import binascii
 import pylzma
 from cStringIO import StringIO
 
 file_queue = []
-target_chunks = 512
+target_chunks = 280  # amount of chunks minimum (increase for smaller messages)
 sending = False
 starting = False
 
 rospy.init_node("fsend_sender")
 pub_data = rospy.Publisher("file_data", filesend.msg.FileChunk, queue_size=30)
 pub_announce = rospy.Publisher("file_announce", filesend.msg.FileBegin, queue_size=5)
+pub_busy = rospy.Publisher("file_send_busy", std_msgs.msg.Bool, queue_size=5, latch=True)
+
 
 def CHUNK_SIZE(for_):
     return max(2048, min((2**int(math.log(int(for_/target_chunks)+4, 2))), 4194304))
@@ -53,10 +56,11 @@ def request_file(msg):
         rospy.sleep(1)
         starting = True
         rospy.loginfo("Sending file!")
+        pub_busy.publish(True)
         return filesend.srv.RequestFileResponse(status=0)
 
 
-send_serv = rospy.Service("~send_file", filesend.srv.RequestFile, request_file)
+send_serv = rospy.Service("send_file", filesend.srv.RequestFile, request_file)
 
 while not rospy.is_shutdown():
     if len(file_queue) > 0 and sending:
@@ -70,5 +74,6 @@ while not rospy.is_shutdown():
         rospy.loginfo("Sent file!")
         sending = False
         pub_announce.publish(ending=True)
+        pub_busy.publish(False)
     else:
         pass

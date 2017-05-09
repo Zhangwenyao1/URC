@@ -22,7 +22,13 @@ saved = rospy.Publisher("file_saved", std_msgs.msg.Bool, queue_size=5)
 
 def finish():
     time.sleep(0.5)
-    decompressed = pylzma.decompress(working_on)
+    try:
+        decompressed = pylzma.decompress(working_on)
+    except ValueError, e:
+        save_to.close()
+        rospy.logerr("Failed to decompress file: {}".format(e.message))
+        saved.publish(False)
+        return
     save_to.write(decompressed)
     save_to.close()
     saved.publish(True)
