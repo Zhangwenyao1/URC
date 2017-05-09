@@ -1,0 +1,11 @@
+<launch>
+    <group ns="/science/panorama">
+        <node pkg="rover_panorama" name="image_taker" type="take_image.py">
+            <param name="image_topic" value="/camera/image_raw" />
+            <param name="save_dir" value="$(env HOME)/.urc/pano_work_robot" />
+        </node>
+
+        <node pkg="filesend" type="file_sender.py" name="fsend_sender" />
+        <node pkg="filesend" type="batch_file_sender.py" name="fsend_batch" />
+    </group>
+</launch>

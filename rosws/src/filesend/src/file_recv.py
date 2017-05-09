@@ -11,7 +11,7 @@ rospy.init_node("fsend_recv")
 
 directory = rospy.get_param("~save_to")
 if not os.path.exists(directory):
-    os.mkdir(directory)
+    os.makedirs(directory)
 
 working_on = None
 save_to = None

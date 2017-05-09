@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   rospy
   std_msgs
+  actionlib_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -58,16 +59,16 @@ find_package(catkin REQUIRED COMPONENTS
  )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
+ add_action_files(
+   FILES
+Panorama.action
 #   Action2.action
-# )
+ )
 
 # Generate added messages and services with any dependencies listed here
  generate_messages(
    DEPENDENCIES
-   std_msgs
+   std_msgs actionlib_msgs
  )
 
 ################################################
@@ -102,7 +103,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES rover_panorama
-   CATKIN_DEPENDS filesend message_runtime rospy std_msgs
+   CATKIN_DEPENDS filesend message_runtime rospy std_msgs actionlib_msgs
 #  DEPENDS system_lib
 )
 

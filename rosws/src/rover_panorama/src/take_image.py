@@ -14,7 +14,9 @@ the_bridge = CvBridge()
 
 image_topic = rospy.get_param("~image_topic")
 save_dir = rospy.get_param("~save_dir")
-
+last_image = rospy.Publisher("last_image_took", sensor_msgs.msg.CompressedImage, queue_size=5, latch=True)
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
 image_counter = 0
 
 
@@ -24,6 +26,8 @@ def take_picture(msg):
     cv2image = the_bridge.imgmsg_to_cv2(image)
     pat = os.path.join(save_dir, "IMGROS_{}.png".format(image_counter))
     cv2.imwrite(pat, cv2image)
+    rosmsg = the_bridge.cv2_to_compressed_imgmsg(cv2image)
+    last_image.publish(rosmsg)
     image_counter += 1
     return rover_panorama.srv.TakeImageResponse(result=pat)
 
