@@ -1,0 +1,5 @@
+uint8 measurements_to_take
+uint16 site_id
+---
+uint8 measurements_taken
+uint8 measurement_id

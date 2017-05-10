@@ -1,0 +1,4 @@
+uint16 site_id
+string site_name
+---
+bool success

@@ -1,0 +1,6 @@
+---
+string resultFilenameSmall
+string resultFilenameBig
+---
+string executing
+uint8 commandsToGo
