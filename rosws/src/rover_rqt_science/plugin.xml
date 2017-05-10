@@ -14,4 +14,19 @@
             <statustip>You found the easter egg!</statustip>
         </qtgui>
     </class>
+    <class name="URCSciencePano" type="rqt_rover_panorama.plugin.PanoramaPlugin" base_class_type="rqt_gui_py::Plugin">
+        <description>
+            The URC science-pano rqt thing
+
+            matthew was here :)
+        </description>
+        <qtgui>
+            <group>
+                <label>URC</label>
+            </group>
+            <label>URC Panorama</label>
+            <icon type="theme">applications-science</icon>
+            <statustip>You found the easter egg!</statustip>
+        </qtgui>
+    </class>
 </library>

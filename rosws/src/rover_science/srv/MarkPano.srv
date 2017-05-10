@@ -1,6 +1,9 @@
 uint16 site_id
 uint8 mark_flags
 
+string pano_location
+string closeup_location
+
 uint8 HAS_PANO=1
 uint8 HAS_CLOSEUP=2
 ---
