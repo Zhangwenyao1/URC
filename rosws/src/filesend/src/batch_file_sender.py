@@ -40,7 +40,7 @@ def on_sent(msg):
         pass
 
 
-sent_subscriber = rospy.Subscriber("file_saved", std_msgs.msg.Bool, queue_size=5, callback=on_sent)
+sent_subscriber = rospy.Subscriber("file_saved", std_msgs.msg.String, queue_size=5, callback=on_sent)
 queue_done = rospy.Publisher("queue_done", std_msgs.msg.Empty, queue_size=4)
 
 
