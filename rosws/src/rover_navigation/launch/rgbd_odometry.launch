@@ -4,7 +4,7 @@
     <!-- map_to_odom publisher: this is just for isolated testing of this node 
     <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom" />
     -->
-    <node pkg="tf2_ros" type="static_transform_publisher" name="robot_base_to_camera_link" args="0 0 0 0 0 0 robot_base camera_link"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="robot_base_to_camera_link" args="0 0 1.4224 0 0.523599 0 robot_base camera_link"/>
     <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_to_zed_actual_frame" args="0 0 0 0 0 0 camera_link zed_actual_frame"/>
 
     <!-- RGBD_ODOMETRY -->
@@ -21,7 +21,8 @@
                 <remap from="odom" to="odom" />
 
                 <param name="Odom/ResetCountdown" value="1"/>
-                <param name="initial_pose" value="0 0 0 0 0.523599 0"/> <!-- ZED camera is tilted downwards by 30 degrees -->
+                <!-- ZED camera is tilted downwards by 30 degrees (0.523599) or 15 degrees (0.261799) -->
+                <!-- <param name="initial_pose" value="0 0 0 0 0.523599 0"/> -->
 
                 <!-- Options to Reduce Resource Usage -->
                 <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
