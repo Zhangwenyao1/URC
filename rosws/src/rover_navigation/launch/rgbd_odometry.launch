@@ -1,17 +1,12 @@
 <launch>
     <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
 
-    <!-- map_to_odom publisher: this is just for isolated testing of this node 
-    <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom" />
-    -->
-    <node pkg="tf2_ros" type="static_transform_publisher" name="robot_base_to_camera_link" args="0 0 1.4224 0 0.523599 0 robot_base camera_link"/>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_link_to_zed_actual_frame" args="0 0 0 0 0 0 camera_link zed_actual_frame"/>
 
     <!-- RGBD_ODOMETRY -->
     <group ns="rgbd_odometry">
             <node output="screen" type="rgbd_odometry" name="zed_odom" pkg="rtabmap_ros" respawn="true">
                 <param name="frame_id" value="robot_base"/>
-                <param name="publish_tf" value="false"/>
+                <param name="publish_tf" value="true"/>
 
                 <!-- INPUT TOPICS -->
                 <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
@@ -22,7 +17,7 @@
 
                 <param name="Odom/ResetCountdown" value="1"/>
                 <!-- ZED camera is tilted downwards by 30 degrees (0.523599) or 15 degrees (0.261799) -->
-                <!-- <param name="initial_pose" value="0 0 0 0 0.523599 0"/> -->
+                <param name="initial_pose" value="0 0 0 0 0.323599 0"/> 
 
                 <!-- Options to Reduce Resource Usage -->
                 <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
