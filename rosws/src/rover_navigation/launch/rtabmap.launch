@@ -3,6 +3,7 @@
 
     <!-- RTABMAP -->
     <arg name="rtabmap_args" default="--delete_db_on_start"/>
+    <arg name="localization" default="false"/>
     <remap from="map" to="/rtabmap/grid_map"/>
     <group ns="rtabmap">
         <node output="screen" pkg="rtabmap_ros" name="rtabmap" type="rtabmap">
@@ -23,7 +24,8 @@
             <param name="cloud_noise_filtering_radius" value="0.05"/> <!-- Noise filtering radius (default=0 disabled) -->
             <param name="cloud_noise_filtering_min_neighbors" value="5"/> <!-- Noise filtering minimum neighbors (default=5) -->
 
-
+            <!-- RTAB-Map localization mode -->
+            <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true"/>
         </node>
     </group>
 </launch>
