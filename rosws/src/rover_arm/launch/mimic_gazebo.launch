@@ -34,6 +34,7 @@
   <include file="$(find rover_moveit_config)/launch/moveit_rviz.launch">
     <arg  name="config" value="True"/>
   </include>
+  <include file="$(find rover_moveit_config)/launch/joystick_control.launch"/>
   <include file="$(find rover_moveit_config)/launch/default_warehouse_db.launch"/>
 </launch>
 
