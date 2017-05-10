@@ -1,10 +1,7 @@
 <launch>
   <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
-  <arg name="LOCALIZATION_ONLY" default="false" />
 
     <!-- RTABMAP -->
-    <arg name="localization" default="true" if="$(arg LOCALIZATION_ONLY)"/>
-    <arg name="rtabmap_args" default="--delete_db_on_start" unless="$(arg LOCALIZATION_ONLY)"/>
     <group ns="rtabmap">
         <node output="screen" pkg="rtabmap_ros" name="rtabmap" type="rtabmap">
             <param name="frame_id" value="robot_base" />
@@ -27,9 +24,6 @@
             <!-- <param name="cloud_noise_filtering_radius" value="0.05"/> -->
             <!-- <param name="cloud_noise_filtering_min_neighbors" value="5"/>  -->
             <!-- Noise filtering minimum neighbors (default=5) -->
-
-            <!-- RTAB-Map localization mode -->
-            <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true" if="$(arg LOCALIZATION_ONLY)"/>
         </node>
     </group>
 </launch>
