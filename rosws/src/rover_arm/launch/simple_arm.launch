@@ -1,0 +1,19 @@
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+  <param name="robot_description" textfile="$(find rover_arm)/arm.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
+    <param name="use_gui" value="true"/>
+    <rosparam>
+      zeros:
+        hip: 0
+        shoulder: -1.2
+        elbow: 1.6
+        lower_elbow: 1.1
+        wrist: 0
+        grip: 0
+    </rosparam>
+  </node>
+  <node pkg="rover_arm" name="arm_serial" type="simple_arm_serial.py" output="screen" />
+
+</launch>

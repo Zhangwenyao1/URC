@@ -52,6 +52,7 @@
   </link>
   <joint name="hip" type="continuous">
     <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="0.1"/>
     <parent link="base_link"/>
     <child link="torso"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.05"/>
@@ -76,8 +77,9 @@
       <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
     </inertial>
   </link>
-  <joint name="shoulder" type="continuous">
+  <joint name="shoulder" type="revolute">
     <axis xyz="0 1 0"/>
+    <limit effort="1000" velocity="0.1" lower="-1.57" upper="0.1" />
     <parent link="torso"/>
     <child link="upper_arm"/>
     <origin rpy="0 1.5708 0" xyz="0.0 0 0.084"/>
@@ -102,8 +104,9 @@
       <inertia ixx="0.01396" iyy="0.01396" izz="0.00125" ixy="0" ixz="0" iyz="0"/>
     </inertial>
   </link>
-  <joint name="elbow" type="continuous">
+  <joint name="elbow" type="revolute">
     <axis xyz="0 1 0"/>
+    <limit effort="1000" velocity="0.1" lower="0" upper="2.5" />
     <parent link="upper_arm"/>
     <child link="middle_arm"/>
     <origin rpy="0 0 0" xyz="0.0 0 0.5584"/>
@@ -128,8 +131,9 @@
       <inertia ixx="0.00042" iyy="0.00042" izz="0.00042" ixy="0" ixz="0" iyz="0"/>
     </inertial>
   </link>
-  <joint name="lower_elbow" type="continuous">
+  <joint name="lower_elbow" type="revolute">
     <axis xyz="0 1 0"/>
+    <limit effort="1000" velocity="0.1" lower="-1.9" upper="1.9" />
     <parent link="middle_arm"/>
     <child link="lower_arm"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.3673"/>
@@ -154,6 +158,7 @@
   </link>
   <joint name="wrist" type="continuous">
     <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="0.1"/>
     <parent link="lower_arm"/>
     <child link="hand"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.11525"/>

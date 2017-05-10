@@ -1,0 +1,40 @@
+<!-- Robot arm will mimic the motions seen in gazebo, set by MoveIt!  -->
+<launch>
+  <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+
+  <!-- URDF  -->
+  <param name="robot_description" textfile="$(find rover_arm)/arm.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+
+  <!-- Output to Arm Serial Device -->
+  <node pkg="rover_arm" name="arm_serial" type="simple_arm_serial.py" output="screen" />
+
+  <!-- Gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="paused" default="true"/>
+  </include>
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description
+              -urdf -model arm
+              -J hip 0
+              -J shoulder -1.2
+              -J elbow 1.6
+              -J lower_elbow 1.1
+              -J wrist 0
+              -J grip 0
+              -unpause" />
+  <rosparam file="$(find rover_arm)/gazebo_controllers.yaml" command="load"/>
+  <node name="controller_spawner_arm" pkg="controller_manager" type="spawner"
+        args="arm_controller"/>
+  <node name="controller_spawner_grip" pkg="controller_manager" type="spawner"
+        args="grip_controller"/>
+
+    <!-- MoveIt! -->
+  <include file="$(find rover_moveit_config)/launch/move_group.launch"/>
+  <include file="$(find rover_moveit_config)/launch/moveit_rviz.launch">
+    <arg  name="config" value="True"/>
+  </include>
+  <include file="$(find rover_moveit_config)/launch/joystick_control.launch"/>
+  <include file="$(find rover_moveit_config)/launch/default_warehouse_db.launch"/>
+</launch>
+
