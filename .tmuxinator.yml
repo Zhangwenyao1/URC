@@ -47,7 +47,7 @@ windows:
       root: ~/URC/rosws/src/rover/
       layout: main-horizontal
       panes:
-        - sleep 3; roslaunch rover usb_cameras.launch
+        - sleep 3; roslaunch rover usb_webcams.launch
         - 
   - ZED:
       root: ~/URC/rosws/src/rover/
