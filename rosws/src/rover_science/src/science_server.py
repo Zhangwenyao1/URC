@@ -31,7 +31,7 @@ class ScienceDataTracker:
         current_navsat_fix = rospy.wait_for_message(navsat_topic, sensor_msgs.msg.NavSatFix, timeout=5)
         measurement = rover_science.msg.Measurement()
         measurement.location.latitude = current_navsat_fix.latitude
-        measurement.location.latitude = current_navsat_fix.longitude
+        measurement.location.longitude = current_navsat_fix.longitude
         measurement.location.altitude = current_navsat_fix.altitude
         measurement.data_completeness = 0x0
         measurement.time_recorded = rospy.Time.now()
@@ -74,8 +74,12 @@ class ScienceDataTracker:
         self.sites.sites[site_id].measurements[measurement_id].data_completeness |= taken
         return taken
 
-    def mark_pano(self, site_id, flags):
+    def mark_pano(self, site_id, flags, p, c):
         self.sites.sites[site_id].has_pano |= flags
+        if flags & rover_science.msg.Site.HAS_PANO:
+            self.sites.sites[site_id].pano_location = p
+        if flags & rover_science.msg.Site.HAS_CLOSEUP:
+            self.sites.sites[site_id].closeup_location = c
 
     def delete_site(self, site_id):
         del self.sites.sites[site_id]
@@ -93,7 +97,7 @@ def new_site(msg):
 
 def mark_pano(msg):
     try:
-        site_manager.mark_pano(msg.site_id, msg.mark_flags)
+        site_manager.mark_pano(msg.site_id, msg.mark_flags, msg.pano_location, msg.closeup_location)
         publish()
         return rover_science.srv.MarkPanoResponse(success=True)
     except IndexError:

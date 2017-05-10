@@ -28,13 +28,13 @@ def send_next():
 
 
 def on_sent(msg):
-    if len(file_send_queue) > 0 and msg.data:
+    if len(file_send_queue) > 0 and msg.data != "":
         rospy.sleep(2)
         file_send_queue.pop(0)
         send_next()
-    elif len(file_send_queue) > 0 and not msg.data:
+    elif len(file_send_queue) > 0 and msg.data == "":
         send_next()
-    elif len(file_send_queue) == 0 and msg.data:
+    elif len(file_send_queue) == 0 and msg.data != "":
         queue_done.publish()
     else:
         pass
@@ -42,6 +42,7 @@ def on_sent(msg):
 
 sent_subscriber = rospy.Subscriber("file_saved", std_msgs.msg.Bool, queue_size=5, callback=on_sent)
 queue_done = rospy.Publisher("queue_done", std_msgs.msg.Empty, queue_size=4)
+
 
 def add_more(msg):
     f = False

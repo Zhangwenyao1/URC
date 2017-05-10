@@ -14,10 +14,11 @@ if not os.path.exists(directory):
     os.makedirs(directory)
 
 working_on = None
+workin_name = ""
 save_to = None
 working = False
 
-saved = rospy.Publisher("file_saved", std_msgs.msg.Bool, queue_size=5)
+saved = rospy.Publisher("file_saved", std_msgs.msg.String, queue_size=5)
 
 
 def finish():
@@ -27,25 +28,26 @@ def finish():
     except TypeError, e:
         save_to.close()
         rospy.logerr("Failed to decompress file: {}".format(e.message))
-        saved.publish(False)
-        return
+        saved.publish("")
+        return False
     save_to.write(decompressed)
     save_to.close()
-    saved.publish(True)
-
+    saved.publish(workin_name)
+    return True
 
 def announce(msg):
-    global working_on, save_to, working
+    global working_on, save_to, working, workin_name
     if msg.ending and working:
-        finish()
+        if finish(): rospy.loginfo("Successfully saved file!")
         working = False
         working_on = ""
         save_to = None
-        rospy.loginfo("Successfully saved file!")
+        workin_name = ""
     elif not working and not msg.ending:
         if not os.path.exists(os.path.join(directory, msg.folder)):
             os.makedirs(os.path.join(directory, msg.folder))
         working_on = ""
+        workin_name = msg.filename
         save_to = open(os.path.join(directory, msg.folder, msg.filename), "wb")
         rospy.loginfo("Receiving file {}".format(msg.filename))
         working = True

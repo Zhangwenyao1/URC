@@ -4,7 +4,7 @@
             <param name="save_to" value="$(env HOME)/.urc/pano_work_base" />
         </node>
 
-        <node pkg="rover_panorama" name="panorama_orches" type="panorama_orchestrator.py">
+        <node pkg="rover_panorama" name="panorama_orches" type="panorama_orchestrator.py" output="screen">
             <param name="image_save_dir" value="$(env HOME)/.urc/pano_work_base" />
         </node>
     </group>
