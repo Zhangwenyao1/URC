@@ -1,10 +1,10 @@
 <launch>
   <env name="ROSCONSOLE_FORMAT" value="[${thread}] [${node}/${function}:${line}]: ${message}"/>
+  <arg name="LOCALIZATION_ONLY" default="false" />
 
     <!-- RTABMAP -->
-    <arg name="rtabmap_args" default="--delete_db_on_start"/>
-    <arg name="localization" default="false"/>
-    <remap from="map" to="/rtabmap/grid_map"/>
+    <arg name="localization" default="true" if="$(arg LOCALIZATION_ONLY)"/>
+    <arg name="rtabmap_args" default="--delete_db_on_start" unless="$(arg LOCALIZATION_ONLY)"/>
     <group ns="rtabmap">
         <node output="screen" pkg="rtabmap_ros" name="rtabmap" type="rtabmap">
             <param name="frame_id" value="robot_base" />
@@ -16,8 +16,10 @@
             <remap from="rgb/camera_info" to="/camera/rgb/camera_info" />
             <remap from="scan_cloud" to="/camera/point_cloud/cloud_registered" />
             <remap from="depth/image" to="/camera/depth/depth_registered" />
+            <!-- OUTPUT TOPICS -->
+            <remap from="map" to="grid_map"/>
 
--            <param name="proj_max_ground_angle" value="45"/> <!-- Maximum angle between point's normal to ground's normal to label it as ground. Points with higher ngle difference are considered as obstacles. (default=45) -->
+            <param name="proj_max_ground_angle" value="45"/> <!-- Maximum angle between point's normal to ground's normal to label it as ground. Points with higher ngle difference are considered as obstacles. (default=45) -->
 
             <!-- Reduce Point Cloud Noise -->
             <!-- Explaination: http://docs.pointclouds.org/1.7.0/classpcl_1_1_radius_outlier_removal.html#details -->
@@ -27,7 +29,7 @@
             <!-- Noise filtering minimum neighbors (default=5) -->
 
             <!-- RTAB-Map localization mode -->
-            <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true"/>
+            <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true" if="$(arg LOCALIZATION_ONLY)"/>
         </node>
     </group>
 </launch>
