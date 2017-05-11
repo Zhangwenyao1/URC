@@ -11,16 +11,18 @@ cmode = False
 
 def transmit_if(t):
     global cmode
+    while theSerial.in_waiting > 0:
+        theSerial.read(100)
     if cmode == t:
         return
     else:
-        theSerial.write("\x00" if not t else "\x01")
+        theSerial.write(b"\x00" if not t else b"\x01")
         cmode = t
 
 
 def on_new_twist(data):
     transmit_if(False)
-    dat = "\x02" + struct.pack("<ff", data.linear.x/5.7, (-data.angular.z)/5.777)
+    dat = bytes(b"\x02") + struct.pack("<ff", data.linear.x, (-data.angular.z))
     theSerial.write(dat)
 
 
@@ -28,8 +30,9 @@ def on_new_tank(data):
     transmit_if(True)
     dat = "\x02" + struct.pack("<ff", data.left, data.right)
     theSerial.write(dat)
+    pass
 
-theSerial = serial.Serial()
+theSerial = serial.Serial(baudrate=9600)
 theSerial.port = "/dev/ttyACM0"
 theSerial.open()
 
