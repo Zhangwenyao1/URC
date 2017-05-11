@@ -8,12 +8,6 @@ global_costmap:
   update_frequency: 4
   publish_frequency: 0.5
   static_map: true
-  # TODO: Test initilizing move_base global map to 1 km in x and y directions. URC rules state the rover may have to travel 1 km. Move_base won't accept a goal outside of the global map so if we want to a far GPS coordinate our map should be initialized large. This may cause a performance hit. The resolution setting can remedy the performance problem but introduce accuracy problems.
-  # width: 2000.0
-  # height: 2000.0
-  # resolution: 0.5
-  # origin_x: -1000.0
-  # origin_y: -1000.0
 
 #  inflation:
   inflation_radius: 0.01

@@ -7,7 +7,8 @@
             <param name="frame_id" value="robot_base" />
             <param name="subscribe_depth" value="true" />
             <param name="subscribe_scan_cloud" value="false" />
-            <param name="grid_size" type="double" value="2000"/>
+            <param name="grid_size" type="double" value="200"/>
+            <param name="grid_cell_size" type="double" value="0.25"/> <!-- default: 0.05 -->
             <param name="proj_max_ground_angle" value="45"/> <!-- Maximum angle between point's normal to ground's normal to label it as ground. Points with higher ngle difference are considered as obstacles. (default=45) -->
 
             <!-- INPUT TOPICS -->
