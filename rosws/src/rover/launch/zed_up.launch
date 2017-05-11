@@ -6,12 +6,14 @@
 
     <node pkg="tf" type="static_transform_publisher" name="left_frame_publisher" args="0 0 0 0 0 0 zed_current_frame ZED_left_camera 100" />
 
+    <arg name="res" default="3" />
+
     <group ns="camera">
         <node respawn="true" output="screen" pkg="zed_wrapper" name="zed_node" type="zed_wrapper_node">
 
             <param name="zed_id" value="0"/>
 
-            <param name="resolution" value="3"/>
+            <param name="resolution" value="$(arg res)"/>
             <param name="quality" value="1"/>
             <param name="sensing_mode" value="1"/>
             <param name="frame_rate" value="60"/>
