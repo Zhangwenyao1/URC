@@ -72,9 +72,10 @@ void loop(){
 		recieveData();
 }
 void initPID(){
-	joint1.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
-	joint2.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
-	joint3.initPID(constant.Kp,constant.Ki,constant.Kd,constant.minOut,constant.maxOut);
+	joint1.initPID(constant.joint1Gains[0], constant.joint1Gains[1], constant.joint1Gains[2], constant.minOut, constant.maxOut);
+	joint2.initPID(constant.joint2Gains[0], constant.joint2Gains[1], constant.joint2Gains[2], constant.minOut, constant.maxOut);
+	joint3.initPID(constant.joint3Gains[0], constant.joint3Gains[1], constant.joint3Gains[2], constant.minOut, constant.maxOut);
+	joint4.initPID(constant.joint4Gains[0], constant.joint4Gains[1], constant.joint4Gains[2], constant.minOut, constant.maxOut);
 }
 bool moveJoints(){
 	int temp;
@@ -85,7 +86,7 @@ bool moveJoints(){
 	return ((temp==4)?true:false);
 }
 bool moveGripper(){
-	bool temp
+	bool temp;
 	if(gripperData.gripperOpen == 1)
 		temp = gripper.open();
 	else if(gripperData.gripperOpen == 2)
