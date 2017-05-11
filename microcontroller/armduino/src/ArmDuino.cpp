@@ -46,7 +46,7 @@ Switch open = Switch(constant.openSwitch);
 Gripper gripper = Gripper(grM,goM,open, close);
 
 //Winch declaration
-Winch winch = Winch(winchMotor);
+//Winch winch = Winch(winchMotor);
 
 struct RECIEVEJOINT{
 	float joint1;
