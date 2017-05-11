@@ -24,7 +24,7 @@ windows:
       root: ~/URC/rosws/src/rtimulib_ros/
       layout: even-horizontal
       panes:
-        - sleep 5; roslaunch rtimulib_ros rtimulib_ros.launch
+        - '#sleep 5; roslaunch rtimulib_ros rtimulib_ros.launch'
         - sleep 3; rostopic echo imu/data_fixed
         - sleep 3; python ./src/imu_fixer.py
   - RTAB:
