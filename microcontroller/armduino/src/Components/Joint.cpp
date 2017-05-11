@@ -9,9 +9,7 @@ Motor jointMotor = Motor();
 Potentiometer jointPot = Potentiometer();
 mathFunc math = mathFunc();
 Constants constant = Constants();
-double currentPos;
-double pos;
-double setPoint;
+double currentPos, pos, output, setPoint;
 
 Joint::Joint(Motor motor, Potentiometer jointPot){
 	this->jointMotor = motor;
@@ -22,7 +20,7 @@ float Joint::getJointPosition(){
 	return currentPos;
 }
 void initPID(double Kp, double Kd, double Ki, double maxOut, double minOut){
-	PID jointPID(&currentPos, &outPut, &setPoint, Kp, Ki, Kd, DIRECT);
+	PID jointPID(&currentPos, &output, &setPoint, Kp, Ki, Kd, DIRECT);
 	jointPID.SetOutputLimits(minOut, maxOut);
 	jointPID.SetMode(MANUAL);
 }
@@ -30,7 +28,7 @@ bool Joint::setJointPosition(double setPoint){
 	this->setPoint = setPoint;
 	if(!jointPID.Compute()){
 		jointPID.SetMode(AUTOMATIC);
-		jointMotor.doPWM(outPut);
+		jointMotor.doPWM(output);
 		return false;
 	}
 	else{

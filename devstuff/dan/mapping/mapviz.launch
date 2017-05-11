@@ -8,6 +8,7 @@
   <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" output="screen">
     <param name="local_xy_frame" value="/world"/>
     <param name="local_xy_origin" value="auto"/> <!-- "auto" setting will set the origin to the first gps fix that it recieves -->
+    <remap from="gps" to="/gps/fix"/>
     <rosparam param="local_xy_origins">
       [{ name: jackal,
          latitude: 49.9000002583,

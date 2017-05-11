@@ -12,7 +12,7 @@ class Joint{
 		void initPID(double Kp, double Kd, double Ki, double maxOut, double minOut);
 		void updateJoint();
 	private:
-		double outPut, setPoint, currentPos;
+		double output, setPoint, currentPos;
 		Motor jointMotor;
 		Potentiometer jointPot;
 		PID jointPID;

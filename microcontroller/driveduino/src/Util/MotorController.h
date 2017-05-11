@@ -5,6 +5,7 @@
 
 class MotorController{
 	public:
+		MotorController();
 		MotorController(bool type, int pin);
 		void setDutyCycle(int dutyCycle);
 	private:

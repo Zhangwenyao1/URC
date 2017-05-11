@@ -54,4 +54,9 @@ windows:
       panes:
         - "#python gps_goal.py --lat 43.659055 --long -79.3803416667"
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
+  - RTABMAPVIZ:
+      root: ~/URC/rosws/src/rover_navigation/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_navigation rtabmapviz.launch"
 

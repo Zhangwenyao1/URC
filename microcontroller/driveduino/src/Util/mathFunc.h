@@ -1,16 +1,18 @@
 #ifndef mathFunc_h
 #define mathFunc_h
 
+#define pi 3.1415
+
 #include <Arduino.h>
 
 class mathFunc{
 	public:
 		mathFunc(){};
 		float degToRad(float _val){
-			return ((_val*PI)/180);
+			return ((_val*pi)/180);
 		};
 		float radToDegrees(float _val){
-			return ((_val*180)/PI);
+			return ((_val*180)/pi);
 		};
 		float toFloat(int _val){
 			return((_val)/(10^7));
