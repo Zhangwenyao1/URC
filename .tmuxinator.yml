@@ -24,15 +24,15 @@ windows:
       root: ~/URC/rosws/src/rtimulib_ros/
       layout: even-horizontal
       panes:
-        - '#sleep 5; roslaunch rtimulib_ros rtimulib_ros.launch'
-        - sleep 3; rostopic echo imu/data_fixed
+        - '#roslaunch rtimulib_ros rtimulib_ros.launch'
+        - sleep 3; rostopic echo imu/data_raw
         - sleep 3; python ./src/imu_fixer.py
   - RTAB:
       root: ~/URC/rosws/src/rover_navigation/
       layout: even-horizontal
       panes:
-        - "#roslaunch rover_navigation rtabmap.launch"
-        - "#roslaunch rover_navigation move_base.launch"
+        - roslaunch rover_navigation rtabmap.launch
+        - roslaunch rover_navigation move_base.launch
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
@@ -59,7 +59,7 @@ windows:
       root: ~/URC/rosws/src/rover_robot_localization/
       layout: tiled
       panes:
-        - sleep 3; roslaunch rover_robot_localization ekf.launch
+        - sleep 3; roslaunch rover_robot_localization global_ekf.launch
         - 
         - sleep 3; rostopic echo /odometry/filtered_local
         - sleep 3; rosrun tf tf_echo odom robot_base
