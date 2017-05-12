@@ -5,7 +5,7 @@
 
 mathFunc math = mathFunc();
 Servo driver;
-
+MotorController::MotorController(){}
 MotorController::MotorController(bool type, int pin){
 	this->type = type;
 	driver.attach(pin);

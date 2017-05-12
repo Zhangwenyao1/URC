@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Servo.h>
-#include "Motor.h"
-#include "MotorController.h"
+#include "Util/Motor.h"
+#include "Util/MotorController.h"
 
 Motor::Motor(){ }
 Motor::Motor(int pin, bool type){
