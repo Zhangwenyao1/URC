@@ -4,7 +4,7 @@
 class mathFunc{
 	public:
 		mathFunc(){};
-		static const float Pi = 3.14159;
+		static constexpr float Pi = 3.14159;
 		float degToRad(float _val){
 			return ((_val*PI)/180);
 		};
@@ -24,3 +24,4 @@ class mathFunc{
 			return map((dutyCycle*100),-100,100,maxSeconds,minSeconds);
 		};
 };
+#endif
