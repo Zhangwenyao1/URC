@@ -13,28 +13,28 @@ fsend_recv_save_dir = rospy.get_param("~image_save_dir")
 
 take_image = rospy.ServiceProxy("take_image", rover_panorama.srv.TakeImage)
 send_file = rospy.ServiceProxy("add_request_queue", filesend.srv.RequestManyFiles)
-datawait = False
-
-
-def fini(b):
-    global datawait
-    if datawait:
-        datawait = False
-
-
-_fini_sub = rospy.Subscriber("queue_done", std_msgs.msg.Empty, queue_size=5, callback=fini)
 
 
 class Panorama:
     def __init__(self):
         self.images = []
+        self.waiting_on = {}
+        self.trig_waiting = []
         self.n = 0
         self.folder = os.path.join(fsend_recv_save_dir, "pano{}".format(self.n))
         self.save_folder = "pano{}".format(self.n)
         self.as_ = actionlib.SimpleActionServer("stitch_panorama", rover_panorama.msg.PanoramaAction, execute_cb=self.stitch,
-                                                auto_start=False)
+                                                        auto_start=False)
+        self.req_fini = rospy.Subscriber("file_saved", std_msgs.msg.String, self.do_a_fini, queue_size=10)
         self.take_image_ = rospy.Service("take_pano_image", std_srvs.srv.Empty, self.take_image)
+        self.p = rospy.Publisher("pano_state", rover_panorama.msg.PanoState, queue_size=3)
         self.as_.start()
+
+    def do_a_fini(self, e):
+        if e.data in self.trig_waiting:
+            self.images.append(self.waiting_on[e.data])
+            self.trig_waiting.remove(e.data)
+            self.publish_data()
 
     # noinspection PyUnusedLocal
     def take_image(self, e):
@@ -42,14 +42,23 @@ class Panorama:
         rf = take_image(rover_panorama.srv.TakeImageRequest()).result
         n = os.path.split(rf)[1]
         n = os.path.join(self.folder, n)
-        self.images.append("\"" + n + "\"")
+        self.waiting_on[rf] = "\"" + n + "\""
+        self.trig_waiting.append(rf)
         rospy.loginfo("Took image, sending to basestation")
         send_file(filesend.srv.RequestManyFilesRequest(
             local_files=[rf],
             folder=self.save_folder
         ))
         datawait = True
+        self.publish_data()
         return rover_panorama.srv.TakeImageResponse()
+
+    def publish_data(self):
+        msg = rover_panorama.msg.PanoState()
+        msg.in_transfer = self.waiting_on.keys()[:]
+        msg.transferred = self.images[:]
+        msg.ready = len(self.images) > 2 and len(self.trig_waiting) == 0
+        self.p.publish(msg)
 
     def call_and_send(self, cmd, toGo):
         feed = rover_panorama.msg.PanoramaFeedback(executing=cmd, commandsToGo=toGo)

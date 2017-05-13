@@ -4,6 +4,8 @@
     <!-- declare arg to be passed in -->
     <arg name="frame_id" default="imu_link" /> 
 
+    <node pkg="tf2_ros" type="static_transform_publisher" name="robot_base_to_imu_link" args="0 0 0 0 0 0 robot_base $(arg frame_id)" />
+
     <node pkg="rtimulib_ros" type="rtimulib_ros" name="rtimulib_node" output="screen" respawn="true">
         <param name="calibration_file_path" value="$(find rtimulib_ros)/config"/>
         <param name="update_rate" value="10"/>
@@ -11,3 +13,4 @@
         <remap from="imu/data" to="imu/data_raw"/>
     </node>
 </launch>
+
