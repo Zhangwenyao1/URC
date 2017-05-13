@@ -45,7 +45,7 @@ windows:
         - sleep 3; rosrun rover_science save_ph.py _description:=site1
         - watch cat *_temperature.txt
         - watch cat *_ph.txt
-  - USB:
+  - WEBCAMS:
       root: ~/URC/rosws/src/rover/
       layout: main-horizontal
       panes:
@@ -65,6 +65,16 @@ windows:
         - sleep 3; rostopic echo /odometry/filtered_global
         - sleep 3; rostopic echo /gps/filtered
         - sleep 3; rosrun tf tf_echo odom robot_base
+  - ARM:
+      root: ~/URC/rosws/src/rover_arm/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_arm simple_arm_serial.launch"
+  - DRIVE:
+      root: ~/URC/rosws/src/rover_drive/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_drive ramsbot_test.launch"
   - D:
   - M:
   - A:
