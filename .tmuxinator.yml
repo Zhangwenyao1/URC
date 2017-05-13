@@ -30,10 +30,11 @@ windows:
         - sleep 3; python ./src/imu_fixer.py
   - RTAB:
       root: ~/URC/rosws/src/rover_navigation/
-      layout: even-horizontal
+      layout: titled
       panes:
         - sleep 5; roslaunch rover_navigation rtabmap.launch
         - sleep 5; roslaunch rover_navigation move_base.launch
+        - sleep 5; rostopic echo /cmd_vel_mux/move_base
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
@@ -44,7 +45,7 @@ windows:
         - sleep 3; rosrun rover_science save_ph.py _description:=site1
         - watch cat *_temperature.txt
         - watch cat *_ph.txt
-  - USB:
+  - WEBCAMS:
       root: ~/URC/rosws/src/rover/
       layout: main-horizontal
       panes:
@@ -64,6 +65,16 @@ windows:
         - sleep 3; rostopic echo /odometry/filtered_global
         - sleep 3; rostopic echo /gps/filtered
         - sleep 3; rosrun tf tf_echo odom robot_base
+  - ARM:
+      root: ~/URC/rosws/src/rover_arm/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_arm simple_arm_serial.launch"
+  - DRIVE:
+      root: ~/URC/rosws/src/rover_drive/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_drive ramsbot_test.launch"
   - D:
   - M:
   - A:
