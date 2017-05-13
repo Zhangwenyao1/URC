@@ -20,19 +20,20 @@ windows:
       panes:
         - sleep 5; roslaunch rover gps.launch
         - sleep 3; rostopic echo /gps/fix
+        - sleep 3; rostopic echo /gps/filtered
   - IMU:
       root: ~/URC/rosws/src/rtimulib_ros/
       layout: even-horizontal
       panes:
-        - '#roslaunch rtimulib_ros rtimulib_ros.launch'
+        - sleep 4; roslaunch rtimulib_ros rtimulib_ros.launch
         - sleep 3; rostopic echo imu/data_raw
         - sleep 3; python ./src/imu_fixer.py
   - RTAB:
       root: ~/URC/rosws/src/rover_navigation/
       layout: even-horizontal
       panes:
-        - roslaunch rover_navigation rtabmap.launch
-        - roslaunch rover_navigation move_base.launch
+        - sleep 5; roslaunch rover_navigation rtabmap.launch
+        - sleep 5; roslaunch rover_navigation move_base.launch
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
@@ -47,21 +48,21 @@ windows:
       root: ~/URC/rosws/src/rover/
       layout: main-horizontal
       panes:
-        - sleep 3; roslaunch rover usb_webcams.launch
+        - sleep 4; roslaunch rover usb_webcams.launch
         - 
   - ZED:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal
       panes:
         - sleep 5; roslaunch rover zed_up.launch
-        - sleep 3; roslaunch rover_navigation rgbd_odometry.launch
+        - sleep 4; roslaunch rover_navigation rgbd_odometry.launch
   - EKF:
       root: ~/URC/rosws/src/rover_robot_localization/
       layout: tiled
       panes:
-        - sleep 3; roslaunch rover_robot_localization global_ekf.launch
-        - 
-        - sleep 3; rostopic echo /odometry/filtered_local
+        - sleep 4; roslaunch rover_robot_localization global_ekf.launch
+        - sleep 3; rostopic echo /odometry/filtered_global
+        - sleep 3; rostopic echo /gps/filtered
         - sleep 3; rosrun tf tf_echo odom robot_base
   - D:
   - M:
