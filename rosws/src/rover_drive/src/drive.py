@@ -11,8 +11,8 @@ cmode = False
 
 def transmit_if(t):
     global cmode
-    while theSerial.in_waiting > 0:
-        theSerial.read(100)
+    if theSerial.in_waiting > 0:
+        rospy.logwarn("Data in serial buffer, but the driveduino shouldn't be giving me any...")
     if cmode == t:
         return
     else:
