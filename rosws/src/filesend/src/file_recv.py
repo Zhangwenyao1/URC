@@ -35,6 +35,7 @@ def finish():
     saved.publish(workin_name)
     return True
 
+
 def announce(msg):
     global working_on, save_to, working, workin_name
     if msg.ending and working:
