@@ -41,6 +41,21 @@ windows:
       panes:
         - "#roslaunch ./mapviz.launch"
         - sudo docker run -p 8080:8080 -d -t -v ~/mapproxy:/mapproxy danielsnider/mapproxy
+  - RTABMAPVIZ:
+      root: ~/URC/rosws/src/rover_navigation/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_navigation rtabmapviz.launch"
+  - ARM:
+      root: ~/URC/rosws/src/rover_arm/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_arm mimic_gazebo.launch"
+  - TELEOP:
+      root: ~/URC/rosws/src/rover_teleoperation/
+      layout: tiled
+      panes:
+        - "roslaunch rover_teleoperation joy_teleoperation.launch"
   - WAYPOINT:
       root: ~/URC/rosws/src/rover/src/
       layout: tiled
@@ -54,9 +69,3 @@ windows:
       panes:
         - "#python gps_goal.py --lat 43.659055 --long -79.3803416667"
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
-  - RTABMAPVIZ:
-      root: ~/URC/rosws/src/rover_navigation/
-      layout: tiled
-      panes:
-        - "#roslaunch rover_navigation rtabmapviz.launch"
-
