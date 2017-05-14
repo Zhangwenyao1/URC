@@ -3,7 +3,7 @@
 
 
         <node pkg="rover_panorama" name="image_taker" type="take_image.py" output="screen">
-            <param name="image_topic" value="/usb_cam/image_raw" />
+            <param name="image_topic" value="/camera/rgb/image_raw_color" />
            <param name="save_dir" value="$(env HOME)/.urc/pano_work_robot" />
         </node>
 
