@@ -1,8 +1,5 @@
 //Dependencies
 #include <Arduino.h>
-#include <Servo.h>
-#include <Stepper.h>
-#include <PID_v1.h>
 //Utilities
 #include "Util/Motor.h"
 #include "Util/Potentiometer.h"
@@ -33,10 +30,10 @@ Potentiometer j3Pos = Potentiometer(constant.joint3pot);
 Potentiometer j4Pos = Potentiometer(constant.joint4Pot);
 
 //Joint Declaration
-Joint joint1 = Joint(j1M,j1Pos);
-Joint joint2 = Joint(j2M,j2Pos);
-Joint joint3 = Joint(j3M,j3Pos);
-Joint joint4 = Joint(j4M,j4Pos);
+Joint joint1 = Joint(j1M,j1Pos,constant.joint1Gains[0], constant.joint1Gains[1], constant.joint1Gains[2], constant.minOut, constant.maxOut);
+Joint joint2 = Joint(j2M,j2Pos,constant.joint2Gains[0], constant.joint2Gains[1], constant.joint2Gains[2], constant.minOut, constant.maxOut);
+Joint joint3 = Joint(j3M,j3Pos,constant.joint3Gains[0], constant.joint3Gains[1], constant.joint3Gains[2], constant.minOut, constant.maxOut);
+Joint joint4 = Joint(j4M,j4Pos,constant.joint4Gains[0], constant.joint4Gains[1], constant.joint4Gains[2], constant.minOut, constant.maxOut);
 
 //Switch declaration
 Switch close = Switch(constant.closeSwitch);
@@ -60,29 +57,12 @@ struct RECIEVEGRIPPER{
 	float gripperOpen;
 }gripperData;
 
-void setup(){
-	initPID();
-	Serial.begin(constant.serialBaud);
-	recieveData();
-}
-void loop(){
-	if(moveJoints())
-		recieveData();
-	else if(moveGripper())
-		recieveData();
-}
-void initPID(){
-	joint1.initPID(constant.joint1Gains[0], constant.joint1Gains[1], constant.joint1Gains[2], constant.minOut, constant.maxOut);
-	joint2.initPID(constant.joint2Gains[0], constant.joint2Gains[1], constant.joint2Gains[2], constant.minOut, constant.maxOut);
-	joint3.initPID(constant.joint3Gains[0], constant.joint3Gains[1], constant.joint3Gains[2], constant.minOut, constant.maxOut);
-	joint4.initPID(constant.joint4Gains[0], constant.joint4Gains[1], constant.joint4Gains[2], constant.minOut, constant.maxOut);
-}
 bool moveJoints(){
 	int temp;
-	temp += joint1.setJointPosition(jointData.joint1);
-	temp += joint2.setJointPosition(jointData.joint2);
-	temp += joint3.setJointPosition(jointData.joint3);
-	temp += joint4.setJointPosition(jointData.joint4);
+	temp += joint1.setJointPosition(math.jointConversions(constant.joint1Gear, jointData.joint1, 10));
+	temp += joint2.setJointPosition(math.jointConversions(constant.joint2Gear, jointData.joint2, 10));
+	temp += joint3.setJointPosition(math.jointConversions(constant.joint3Gear, jointData.joint3, 10));
+	temp += joint4.setJointPosition(math.jointConversions(constant.joint4Gear, jointData.joint4, 1));
 	return ((temp==4)?true:false);
 }
 bool moveGripper(){
@@ -96,6 +76,11 @@ bool moveGripper(){
 	gripper.spin(gripperData.gripperRotate);
 	return temp;
 }
+void sendData(){
+	Serial.write(1);
+	Serial.write(0);
+	Serial.write(0);
+}
 void recieveData(){
 	String input;
 	int commandByte;
@@ -107,18 +92,11 @@ void recieveData(){
 		default:
 			break;
 		case 1:
-			if(Serial.avalable()>=sizeof(float)){
+			if(Serial.available()>=sizeof(float)){
 				Serial.readBytes((char*)&jointData.joint1,sizeof(float));
 				Serial.readBytes((char*)&jointData.joint2,sizeof(float));
 				Serial.readBytes((char*)&jointData.joint3,sizeof(float));
 				Serial.readBytes((char*)&jointData.joint4,sizeof(float));
-			}
-			if(moveJoints()){
-				data[0] = joint1.getJointPosition();
-				data[1] = joint2.getJointPosition();
-				data[2] = joint3.getJointPosition();
-				data[3] = joint4.getJointPosition();
-				sendData(data, 4);
 			}
 			break;
 		case 2:
@@ -132,16 +110,19 @@ void recieveData(){
 				Serial.readBytes((char*)&gripperData.gripperRotate,sizeof(float));
 				Serial.readBytes((char*)&gripperData.gripperOpen,sizeof(float));
 			}
-			if(moveGripper()){
-				data[0] = 0;
-				sendData(data, 1);
-			}
 			break;
 		case 4:
 			break;
 		}
 }
-void sendData(float data[],int length){
-	for(int i = 0; i<length;i++)
-		Serial.print(data[i]+" ");
+void setup(){
+	Serial.begin(constant.serialBaud);
+}
+void loop(){
+	if(moveJoints()){
+		sendData();
+		recieveData();
+	}
+	else if(moveGripper())
+		recieveData();
 }

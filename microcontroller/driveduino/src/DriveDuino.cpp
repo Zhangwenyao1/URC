@@ -1,7 +1,7 @@
 //driveduino
 #include "Arduino.h"
 #include <Encoder.h>
-#include "Util/Motor.h"
+#include "./Util/Motor.h"
 #include "Constants.h"
 
 #define vel 0
