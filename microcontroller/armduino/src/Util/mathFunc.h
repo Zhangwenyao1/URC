@@ -20,7 +20,7 @@ class mathFunc{
 			return (distance*stepsPer);
 		};
 		int dutyCycletoMicroSeconds(int maxSeconds, int minSeconds, int dutyCycle){
-			return map((dutyCycle*100),-100,100,maxSeconds,minSeconds);
+			return map((dutyCycle*100),-100,100,minSeconds,maxSeconds);
 		};
 		double jointConversions(double gearRatio, float inputAngle, double totalRotation){
 			double rotation = gearRatio * (inputAngle/(2*constant.Pi));
