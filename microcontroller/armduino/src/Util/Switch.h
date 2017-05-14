@@ -4,10 +4,15 @@
 
 class Switch{
 	public:
-    Switch();
-	  Switch(int pin);
-	  bool getState();
+    	Switch(){};
+    	Switch(int pin){
+    		this->pin = pin;
+    		pinMode(pin, INPUT);
+    	};
+    	bool getState(){
+    		return digitalRead(pin);
+    	};
 	private:
-	  int pin;
+    	int pin;
 };
 #endif

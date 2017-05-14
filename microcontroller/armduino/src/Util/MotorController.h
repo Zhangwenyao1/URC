@@ -2,10 +2,24 @@
 #define MotorController_h
 #include <Servo.h>
 #include <Arduino.h>
+#include "./mathFunc.h"
+
+
 class MotorController{
 	public:
-		MotorController(bool type, int pin);
-		void setDutyCycle(int dutyCycle);
+		MotorController(){};
+		MotorController(bool type, int pin){
+			this->type =  type;
+			driver.attach(pin);
+		}
+		void setDutyCycle(int dutyCycle){
+			if(type==true){
+				driver.writeMicroseconds(math.dutyCycletoMicroSeconds(victor.min, victor.max, dutyCycle));
+			}
+			else{
+				driver.writeMicroseconds(math.dutyCycletoMicroSeconds(spark.min, spark.max, dutyCycle));
+			}
+		};
 	private:
 		struct VICTORSP{
 			static const int min = 600;
@@ -17,5 +31,6 @@ class MotorController{
 		}spark;
 		bool type;//false is victor, true is spark
 		Servo driver;
+		mathFunc math;
 };
 #endif
