@@ -69,7 +69,7 @@ windows:
       root: ~/URC/rosws/src/rover_arm/
       layout: tiled
       panes:
-        - "#roslaunch rover_arm simple_arm_serial.launch"
+        - "#rosrun rover_arm simple_arm_serial.py"
   - DRIVE:
       root: ~/URC/rosws/src/rover_drive/
       layout: tiled
