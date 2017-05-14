@@ -59,10 +59,10 @@ struct RECIEVEGRIPPER{
 
 bool moveJoints(){
 	int temp;
-	temp += joint1.setJointPosition(jointData.joint1);
-	temp += joint2.setJointPosition(jointData.joint2);
-	temp += joint3.setJointPosition(jointData.joint3);
-	temp += joint4.setJointPosition(jointData.joint4);
+	temp += joint1.setJointPosition(math.jointConversions(constant.joint1Gear, jointData.joint1, 10));
+	temp += joint2.setJointPosition(math.jointConversions(constant.joint2Gear, jointData.joint2, 10));
+	temp += joint3.setJointPosition(math.jointConversions(constant.joint3Gear, jointData.joint3, 10));
+	temp += joint4.setJointPosition(math.jointConversions(constant.joint4Gear, jointData.joint4, 1));
 	return ((temp==4)?true:false);
 }
 bool moveGripper(){
@@ -75,6 +75,11 @@ bool moveGripper(){
 		temp = false;
 	gripper.spin(gripperData.gripperRotate);
 	return temp;
+}
+void sendData(){
+	Serial.write(1);
+	Serial.write(0);
+	Serial.write(0);
 }
 void recieveData(){
 	String input;
@@ -114,8 +119,10 @@ void setup(){
 	Serial.begin(constant.serialBaud);
 }
 void loop(){
-	if(moveJoints())
+	if(moveJoints()){
+		sendData();
 		recieveData();
+	}
 	else if(moveGripper())
 		recieveData();
 }
