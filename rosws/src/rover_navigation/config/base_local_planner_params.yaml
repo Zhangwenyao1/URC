@@ -14,7 +14,8 @@ TrajectoryPlannerROS:
   xy_goal_tolerance:  0.20
   yaw_goal_tolerance: 0.20
 
-  sim_time: 1.7
+  # make sure that the minimum velocity multiplied by the sim_period is less than twice the tolerance on a goal. Otherwise, the robot will prefer to rotate in place just outside of range of its target position rather than moving towards the goal.
+  sim_time: 1.7 # set between 1 and 2. The higher he value, the smoother the path (though more samples would be required).
   sim_granularity: 0.025
   vx_samples: 3
   vtheta_samples: 3
