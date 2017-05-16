@@ -87,7 +87,7 @@ void recieveData(){
   switch(commandByte){
     default:
       break;
-    case 1:
+    case 1: // New arm joint position
       if(Serial.available()>=sizeof(float)){
         Serial.readBytes((char*)&jointData.joint1,sizeof(float));
         Serial.readBytes((char*)&jointData.joint2,sizeof(float));
@@ -95,23 +95,24 @@ void recieveData(){
         Serial.readBytes((char*)&jointData.joint4,sizeof(float));
       }
       break;
-    case 2:
+    case 2: // Abort everythin'
       joint1.jointMotor.doPWM(0);
       joint2.jointMotor.doPWM(0);
       joint3.jointMotor.doPWM(0);
       joint4.jointMotor.doPWM(0);
+      joint1.abortJoint();
+      joint2.abortJoint();
+      joint3.abortJoint();
+      joint4.abortJoint();
       break;
-    case 3:
+    case 3: // New gripper joint position
       if(Serial.available()>=sizeof(float)){
         Serial.readBytes((char*)&gripperData.gripperRotate,sizeof(float));
         Serial.readBytes((char*)&gripperData.gripperOpen,sizeof(float));
       }
       break;
-    case 4:
-      joint1.jointMotor.doPWM(0);
-      joint2.jointMotor.doPWM(0);
-      joint3.jointMotor.doPWM(0);
-      joint4.jointMotor.doPWM(0);
+    case 4: // Path has ended
+      break;
     }
 }
 void setup(){
