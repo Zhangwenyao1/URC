@@ -18,6 +18,8 @@ JOINT_ORDERINGS = {
 }
 
 
+MOTION_TIMELIMIT = 0.7
+
 
 class ArmActionServer:
     def __init__(self, serial_):
@@ -91,7 +93,7 @@ class ArmActionServer:
         while True:
             if self.is_preempt:
                 return False
-            elif time.time() - self.ltime > 0.7:
+            elif time.time() - self.ltime > MOTION_TIMELIMIT:
                 return False
             elif self.serial.in_waiting < 1:
                 continue
@@ -122,7 +124,8 @@ def new_data(msg):
     serial_dev.write(m)
 
 rospy.init_node("serial_arm_node")
-serial_dev = serial.Serial(port=rospy.get_param("~dev"), baudrate=9600)
+serial_port = rospy.get_param("~dev")
+serial_dev = serial.Serial(port=serial_port, baudrate=9600)
 p = rospy.Subscriber("/arm_controller/winch", std_msgs.msg.Float32, callback=new_data, queue_size=10)
 as_arm_ = ArmActionServer(serial_dev)
 rospy.spin()
