@@ -18,8 +18,8 @@
                 <remap from="odom" to="odom" />
 
                 <param name="Odom/ResetCountdown" value="1"/>
-                <!-- ZED camera is tilted downwards by 30 degrees (0.523599) or 15 degrees (0.261799) -->
-                <param name="initial_pose" value="0 0 0 0 0 0"/> 
+                <param name="Reg/Force3DoF" type="string" value="true"/> <!-- 2D SLAM -->
+                <param name="initial_pose" value="0 0 0 0 0 0"/> <!-- ZED camera is tilted downwards by 30 degrees (0.523599) or 15 degrees (0.261799) -->
 
                 <!-- Options to Reduce Resource Usage -->
                 <!-- 0=Frame-to-Map (F2M) 1=Frame-to-Frame (F2F) -->
