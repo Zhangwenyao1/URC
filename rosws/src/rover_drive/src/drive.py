@@ -22,7 +22,7 @@ def transmit_if(t):
 
 def on_new_twist(data):
     transmit_if(False)
-    dat = bytes(b"\x02") + struct.pack("<ff", data.linear.x, (-data.angular.z))
+    dat = bytes(b"\x02") + struct.pack("<ff", data.linear.x/1.7777777, (-data.angular.z)/1.77777777)
     theSerial.write(dat)
 
 

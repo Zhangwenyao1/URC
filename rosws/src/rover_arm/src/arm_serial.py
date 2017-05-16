@@ -54,7 +54,7 @@ class ArmActionServer:
                 self._send_abort()
                 return
             a, b, c, d = pts[indicies[0]], pts[indicies[1]], pts[indicies[2]], pts[indicies[3]]
-            self.serial.write("\x01\x00\x00" + struct.pack("<fxfxfxfx", a, b, c, d))
+            self.serial.write("\x01\x00\x00" + struct.pack("<ffff", a, b, c, d))
             print "Sent command"
             if self._wait_response():
                 if self.is_preempt:
@@ -93,20 +93,20 @@ class ArmActionServer:
                 return False
             elif time.time() - self.ltime > 0.7:
                 return False
-            elif self.serial.in_waiting < 3:
+            elif self.serial.in_waiting < 1:
                 continue
             else:
-                d = self.serial.read(3)
+                d = self.serial.read(1)
                 if d[0] == 0x01:
                     return True
                 else:
                     return False
 
     def _send_abort(self):
-        self.serial.write('\x02\x00\x00')
+        self.serial.write('\x02')
 
     def _send_finish(self):
-        self.serial.write('\x04\x00\x00')
+        self.serial.write('\x04')
 
 
 def new_data(msg):
@@ -118,7 +118,7 @@ def new_data(msg):
         d = 1
     else:
         d = -1
-    m = "\x05" + struct.pack("<bx", d)
+    m = "\x05" + struct.pack("<b", d)
     serial2.write(m)
 
 rospy.init_node("serial_arm_node")
