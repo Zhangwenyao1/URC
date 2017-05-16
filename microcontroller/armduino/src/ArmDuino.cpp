@@ -77,9 +77,6 @@ bool moveGripper(){
   gripper.spin(gripperData.gripperRotate);
   return temp;
 }
-void sendData(){
-  Serial.write(1);
-}
 void recieveData(){
   String input;
   int commandByte;
@@ -137,9 +134,10 @@ void send_status_update() {
 void loop(){
   recieveData();
   if(moveJoints()){
-    sendData();
+    Serial.write(1);
   }
   send_status_update();
   else if(moveGripper())
+    Serial.write(3);
     recieveData();
 }
