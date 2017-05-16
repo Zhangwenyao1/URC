@@ -136,8 +136,9 @@ void loop(){
   if(moveJoints()){
     Serial.write(1);
   }
-  send_status_update();
   else if(moveGripper())
+  {
     Serial.write(3);
-    recieveData();
+  }
+  send_status_update();
 }
