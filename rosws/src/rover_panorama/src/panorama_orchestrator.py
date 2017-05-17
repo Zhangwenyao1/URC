@@ -26,8 +26,10 @@ class Panorama:
         self.as_ = actionlib.SimpleActionServer("stitch_panorama", rover_panorama.msg.PanoramaAction, execute_cb=self.stitch,
                                                         auto_start=False)
         self.req_fini = rospy.Subscriber("file_saved", std_msgs.msg.String, self.do_a_fini, queue_size=10)
+        print "hi2"
         self.take_image_ = rospy.Service("take_pano_image", std_srvs.srv.Empty, self.take_image)
         self.p = rospy.Publisher("pano_state", rover_panorama.msg.PanoState, queue_size=3)
+        print "hi"
         self.as_.start()
 
     def do_a_fini(self, e):
