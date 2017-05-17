@@ -75,6 +75,9 @@ windows:
       layout: tiled
       panes:
         - "#roslaunch rover_drive ramsbot_test.launch"
+        - "#pio run -t upload"
+        - sleep 5; rostopic echo cmd_vel_mux/teleoperation
+        - sleep 5; rostopic echo cmd_vel_tank
   - D:
   - M:
   - A:

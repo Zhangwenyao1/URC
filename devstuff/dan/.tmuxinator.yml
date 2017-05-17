@@ -23,7 +23,7 @@ windows:
       layout: main-horizontal
       panes:
         - "#rqt_image_view /camera/rgb_fixed/compressed" # Zed Left Camera
-        - "#rqt --perspective-file ./devstuff/dan/gui_configs/rqt_all_cameras.perspective" # USB Cameras
+        - "#rqt --perspective-file ./devstuff/dan/gui_configs/rqt_all_cameras.perspective" # All Cameras
   - RQT:
       layout: tiled
       panes:
@@ -51,6 +51,8 @@ windows:
       layout: tiled
       panes:
         - "#roslaunch rover_arm mimic_gazebo.launch"
+        - "#rqt --perspective-file ./devstuff/dan/PID Tuning.perspective"
+
   - TELEOP:
       root: ~/URC/rosws/src/rover_teleoperation/
       layout: tiled
