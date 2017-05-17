@@ -50,7 +50,7 @@ windows:
       layout: main-horizontal
       panes:
         - sleep 4; roslaunch rover usb_webcams.launch
-        - 
+        - v4l2-ctl --list-devices
   - ZED:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal

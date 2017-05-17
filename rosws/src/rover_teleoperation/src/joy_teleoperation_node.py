@@ -12,7 +12,7 @@ def on_joy_data(data):
 
     :type data: Joy
     """
-    if data.buttons[1]:
+    if data.buttons[1]: # B button on xbox 360 controller
         mode = not mode
 
     if not mode:
