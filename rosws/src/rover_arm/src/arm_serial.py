@@ -18,6 +18,8 @@ JOINT_ORDERINGS = {
 }
 
 
+MOTION_TIMELIMIT = 0.7
+
 
 class ArmActionServer:
     def __init__(self, serial_):
@@ -39,7 +41,7 @@ class ArmActionServer:
 
     def goal_callback(self):
         self._goal = self.as_arm.accept_new_goal()  # type: control_msgs.msg.FollowJointTrajectoryGoal
-        print "GOT NEW GOAL!!!!"
+        rospy.loginfo("GOT NEW GOAL!!!!")
         if len(self._goal.trajectory.joint_names) != 4:
             self.as_arm.set_aborted(None, "Bad joints")
             return
@@ -47,22 +49,22 @@ class ArmActionServer:
         for setpoint in self._goal.trajectory.points:
             pts = setpoint.positions
             self.ltime = time.time()
-            print "Sending setpoint: " + str(pts)
+            rospy.loginfo("Sending setpoint: " + str(pts))
             if self.is_preempt:
                 self.as_arm.set_preempted(None, "Preempt")
                 self.is_preempt = False
                 self._send_abort()
                 return
             a, b, c, d = pts[indicies[0]], pts[indicies[1]], pts[indicies[2]], pts[indicies[3]]
-            self.serial.write("\x01\x00\x00" + struct.pack("<fxfxfxfx", a, b, c, d))
-            print "Sent command"
+            self.serial.write("\x01" + struct.pack("<ffff", a, b, c, d))
+            rospy.loginfo("Sent command")
             if self._wait_response():
                 if self.is_preempt:
                     self.as_arm.set_preempted(None, "Preempt")
                     self.is_preempt = False
                     self._send_abort()
                     return
-                print "Got feedback! Next setpoint"
+                rospy.loginfo("Got feedback! Next setpoint")
                 self._feedback_message.joint_names = self._goal.trajectory.joint_names
                 self._feedback_message.desired = setpoint
                 self._feedback_message.actual = setpoint
@@ -76,9 +78,9 @@ class ArmActionServer:
                     self._send_abort()
                     return
                 self.as_arm.set_aborted(None, "Aborted")
-                print "Failed!"
+                rospy.logerr("Failed!")
                 return
-        print "Done!"
+        rospy.loginfo("Done!")
         self._send_finish()
         self._result_message.error_code = self._result_message.SUCCESSFUL
         self.as_arm.set_succeeded(self._result_message, "Done!")
@@ -91,22 +93,22 @@ class ArmActionServer:
         while True:
             if self.is_preempt:
                 return False
-            elif time.time() - self.ltime > 0.7:
+            elif time.time() - self.ltime > MOTION_TIMELIMIT:
                 return False
-            elif self.serial.in_waiting < 3:
+            elif self.serial.in_waiting < 1:
                 continue
             else:
-                d = self.serial.read(3)
+                d = self.serial.read(1)
                 if d[0] == 0x01:
                     return True
                 else:
                     return False
 
     def _send_abort(self):
-        self.serial.write('\x02\x00\x00')
+        self.serial.write('\x02')
 
     def _send_finish(self):
-        self.serial.write('\x04\x00\x00')
+        self.serial.write('\x04')
 
 
 def new_data(msg):
@@ -118,11 +120,12 @@ def new_data(msg):
         d = 1
     else:
         d = -1
-    m = "\x05" + struct.pack("<bx", d)
-    serial2.write(m)
+    m = "\x05" + struct.pack("<b", d)
+    serial_dev.write(m)
 
 rospy.init_node("serial_arm_node")
-serial2 = serial.Serial(port=rospy.get_param("~dev"), baudrate=9600)
+serial_port = rospy.get_param("~dev")
+serial_dev = serial.Serial(port=serial_port, baudrate=9600)
 p = rospy.Subscriber("/arm_controller/winch", std_msgs.msg.Float32, callback=new_data, queue_size=10)
-as_arm_ = ArmActionServer(serial2)
+as_arm_ = ArmActionServer(serial_dev)
 rospy.spin()

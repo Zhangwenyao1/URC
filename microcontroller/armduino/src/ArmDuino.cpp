@@ -11,6 +11,7 @@
 #include "Components/Gripper.h"
 #include "Constants.h"
 
+
 Constants constant = Constants();
 mathFunc math = mathFunc();
 
@@ -46,83 +47,99 @@ Gripper gripper = Gripper(grM,goM,open, close);
 //Winch winch = Winch(winchMotor);
 
 struct RECIEVEJOINT{
-	float joint1;
-	float joint2;
-	float joint3;
-	float joint4;
+  float joint1;
+  float joint2;
+  float joint3;
+  float joint4;
 }jointData;
 
 struct RECIEVEGRIPPER{
-	float gripperRotate;
-	float gripperOpen;
+  float gripperRotate;
+  float gripperOpen;
 }gripperData;
 
 bool moveJoints(){
-	int temp;
-	temp += joint1.setJointPosition(math.jointConversions(constant.joint1Gear, jointData.joint1, 10));
-	temp += joint2.setJointPosition(math.jointConversions(constant.joint2Gear, jointData.joint2, 10));
-	temp += joint3.setJointPosition(math.jointConversions(constant.joint3Gear, jointData.joint3, 10));
-	temp += joint4.setJointPosition(math.jointConversions(constant.joint4Gear, jointData.joint4, 1));
-	return ((temp==4)?true:false);
+  int temp = 0;
+  temp += joint1.setJointPosition(math.jointConversions(constant.joint1Gear, jointData.joint1, 10));
+  temp += joint2.setJointPosition(math.jointConversions(constant.joint2Gear, jointData.joint2, 10));
+  temp += joint3.setJointPosition(math.jointConversions(constant.joint3Gear, jointData.joint3, 10));
+  temp += joint4.setJointPosition(math.jointConversions(constant.joint4Gear, jointData.joint4, 1));
+  return temp == 4;
 }
 bool moveGripper(){
-	bool temp;
-	if(gripperData.gripperOpen == 1)
-		temp = gripper.open();
-	else if(gripperData.gripperOpen == 2)
-		temp = gripper.close();
-	else
-		temp = false;
-	gripper.spin(gripperData.gripperRotate);
-	return temp;
-}
-void sendData(){
-	Serial.write(1);
-	Serial.write(0);
-	Serial.write(0);
+  bool temp;
+  if(gripperData.gripperOpen == 1)
+    temp = gripper.open();
+  else if(gripperData.gripperOpen == 2)
+    temp = gripper.close();
+  else
+    temp = false;
+  gripper.spin(gripperData.gripperRotate);
+  return temp;
 }
 void recieveData(){
-	String input;
-	int commandByte;
-	float data[4];
-	if(Serial.available()){
-		Serial.readBytes((char*)&commandByte,sizeof(int));
-	}
-	switch(commandByte){
-		default:
-			break;
-		case 1:
-			if(Serial.available()>=sizeof(float)){
-				Serial.readBytes((char*)&jointData.joint1,sizeof(float));
-				Serial.readBytes((char*)&jointData.joint2,sizeof(float));
-				Serial.readBytes((char*)&jointData.joint3,sizeof(float));
-				Serial.readBytes((char*)&jointData.joint4,sizeof(float));
-			}
-			break;
-		case 2:
-			joint1.jointMotor.doPWM(0);
-			joint2.jointMotor.doPWM(0);
-			joint3.jointMotor.doPWM(0);
-			joint4.jointMotor.doPWM(0);
-			break;
-		case 3:
-			if(Serial.available()>=sizeof(float)){
-				Serial.readBytes((char*)&gripperData.gripperRotate,sizeof(float));
-				Serial.readBytes((char*)&gripperData.gripperOpen,sizeof(float));
-			}
-			break;
-		case 4:
-			break;
-		}
+  String input;
+  int commandByte;
+  float data[4];
+  if(Serial.available()){
+    Serial.readBytes((char*)&commandByte,sizeof(int));
+  }
+  switch(commandByte){
+    default:
+      break;
+    case 1: // New arm joint position
+      if(Serial.available()>=sizeof(float)){
+        Serial.readBytes((char*)&jointData.joint1,sizeof(float));
+        Serial.readBytes((char*)&jointData.joint2,sizeof(float));
+        Serial.readBytes((char*)&jointData.joint3,sizeof(float));
+        Serial.readBytes((char*)&jointData.joint4,sizeof(float));
+      }
+      break;
+    case 2: // Abort everythin'
+      joint1.jointMotor.doPWM(0);
+      joint2.jointMotor.doPWM(0);
+      joint3.jointMotor.doPWM(0);
+      joint4.jointMotor.doPWM(0);
+      joint1.abortJoint();
+      joint2.abortJoint();
+      joint3.abortJoint();
+      joint4.abortJoint();
+      break;
+    case 3: // New gripper joint position
+      if(Serial.available()>=sizeof(float)){
+        Serial.readBytes((char*)&gripperData.gripperRotate,sizeof(float));
+        Serial.readBytes((char*)&gripperData.gripperOpen,sizeof(float));
+      }
+      break;
+    case 4: // Path has ended
+      break;
+    }
 }
 void setup(){
-	Serial.begin(constant.serialBaud);
+  Serial.begin(constant.serialBaud);
 }
+
+void send_status_update() {
+  Serial.write(6);
+  float f1 = joint1.getJointPosition();
+  float f2 = joint2.getJointPosition();
+  float f3 = joint3.getJointPosition();
+  float f4 = joint4.getJointPosition();
+
+  Serial.write((char*)&f1, sizeof(float));
+  Serial.write((char*)&f2, sizeof(float));
+  Serial.write((char*)&f3, sizeof(float));
+  Serial.write((char*)&f4, sizeof(float));
+}
+
 void loop(){
-	if(moveJoints()){
-		sendData();
-		recieveData();
-	}
-	else if(moveGripper())
-		recieveData();
+  recieveData();
+  if(moveJoints()){
+    Serial.write(1);
+  }
+  else if(moveGripper())
+  {
+    Serial.write(3);
+  }
+  send_status_update();
 }

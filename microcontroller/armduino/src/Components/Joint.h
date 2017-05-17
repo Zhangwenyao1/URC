@@ -24,6 +24,9 @@ class Joint{
 			currentPos = jointPot.getValue();
 			return currentPos;
 		};
+		void abortJoint(){
+			jointPID.SetMode(MANUAL); // WHY code in .h? BLAME GABE
+		};
 		bool setJointPosition(double setPoint){
 			this->setPoint = setPoint;
 			if(!jointPID.Compute()){
