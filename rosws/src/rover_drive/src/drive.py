@@ -22,13 +22,13 @@ def transmit_if(t):
 
 def on_new_twist(data):
     transmit_if(False)
-    dat = bytes(b"\x02") + struct.pack("<ff", data.linear.x, (-data.angular.z))
+    dat = bytes(b"\x02") + struct.pack("<ff", -data.linear.x, (-data.angular.z))
     theSerial.write(dat)
 
 
 def on_new_tank(data):
     transmit_if(True)
-    dat = "\x02" + struct.pack("<ff", data.left, data.right)
+    dat = "\x02" + struct.pack("<ff", -data.left, -data.right)
     theSerial.write(dat)
     pass
 
