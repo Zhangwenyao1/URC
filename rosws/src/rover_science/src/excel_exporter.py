@@ -114,10 +114,11 @@ def _gen_site_measurement_page(ws, site):
         v = [measurement.location.longitude, measurement.location.latitude, measurement.location.altitude,
              _value_or_no_data(measurement, measurement.HAS_PH, measurement.ph),
              _value_or_no_data(measurement, measurement.HAS_TEMP, measurement.temp),
-             _value_or_no_data(measurement, measurement.HAS_HUMIDITY, measurement.humidity)]
+             _value_or_no_data(measurement, measurement.HAS_HUMIDITY, measurement.humidity)
+             _value_or_no_data(measurement, measurement.HAS_EC, measurement.ec)]
         d.append(v)
-    _gen_header_table(ws, 4, ["Longitude", "Latitude", "Altitude (m)", "PH", "Temperature (C)", "Humidity"], 0, d, "sHA")
-    ws.column_dimensions["A"].width = 10.5
+    _gen_header_table(ws, 4, ["Longitude", "Latitude", "Altitude (m)", "PH", "Temperature (C)", "Humidity", "Electroconductivity"], 0, d, "sHA")
+    ws.column_dimensions["A"].width = 10.5,
     ws.column_dimensions["B"].width = 10.5
     ws.column_dimensions["C"].width = 10.5
     ws.column_dimensions["D"].width = 5.5

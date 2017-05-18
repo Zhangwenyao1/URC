@@ -55,7 +55,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0">
      <property name="spacing">
       <number>17</number>
      </property>
@@ -86,6 +86,13 @@
       <widget class="QCheckBox" name="humidCheckBox">
        <property name="text">
         <string>Humidity</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>EC</string>
        </property>
       </widget>
      </item>

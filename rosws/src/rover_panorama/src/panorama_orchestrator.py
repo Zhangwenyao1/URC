@@ -28,14 +28,16 @@ class Panorama:
         self.req_fini = rospy.Subscriber("file_saved", std_msgs.msg.String, self.do_a_fini, queue_size=10)
         print "hi2"
         self.take_image_ = rospy.Service("take_pano_image", std_srvs.srv.Empty, self.take_image)
-        self.p = rospy.Publisher("pano_state", rover_panorama.msg.PanoState, queue_size=3)
+        self.p = rospy.Publisher("pano_state", rover_panorama.msg.PanoState, queue_size=3, latch=True)
         print "hi"
         self.as_.start()
 
     def do_a_fini(self, e):
+        print self.trig_waiting
         if e.data in self.trig_waiting:
             self.images.append(self.waiting_on[e.data])
             self.trig_waiting.remove(e.data)
+            del self.waiting_on[e.data]
             self.publish_data()
 
     # noinspection PyUnusedLocal
@@ -44,8 +46,8 @@ class Panorama:
         rf = take_image(rover_panorama.srv.TakeImageRequest()).result
         n = os.path.split(rf)[1]
         n = os.path.join(self.folder, n)
-        self.waiting_on[rf] = "\"" + n + "\""
-        self.trig_waiting.append(rf)
+        self.waiting_on[os.path.split(rf)[1]] = "\"" + n + "\""
+        self.trig_waiting.append(os.path.split(rf)[1])
         rospy.loginfo("Took image, sending to basestation")
         send_file(filesend.srv.RequestManyFilesRequest(
             local_files=[rf],
@@ -57,8 +59,8 @@ class Panorama:
 
     def publish_data(self):
         msg = rover_panorama.msg.PanoState()
-        msg.in_transfer = self.waiting_on.keys()[:]
-        msg.transferred = self.images[:]
+        msg.in_transfer = self.waiting_on.values()[:]
+        msg.transferred = [x.strip("\"") for x in self.images[:]]
         msg.ready = len(self.images) > 2 and len(self.trig_waiting) == 0
         self.p.publish(msg)
 
