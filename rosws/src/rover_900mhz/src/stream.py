@@ -9,7 +9,7 @@ import threading
 
 rospy.init_node("yay_900mhz_publish")
 dev = rospy.get_param("~dev")
-s = serial.Serial(port=dev,baudrate=9600)
+s = serial.Serial(port=dev, baudrate=115200)
 # s.open()
 
 st = struct.Struct("<H")
@@ -19,7 +19,16 @@ db = Queue.Queue()
 def r():
     while True:
         a = db.get()
+        #	for i in a:
+        #       	s.write(i)
+        #		while not s.cts:
+        #			print "WAIT"
+        #		print "BYTE"
         s.write(a)
+    while not s.cts:
+        print "WAIT"
+        print "HOKEYDOKEY"
+
 
 a = threading.Thread(target=r, name="hi")
 a.start()
@@ -37,7 +46,9 @@ def gen_serialize(i):
         si.write(s2.getvalue())
         a = si.getvalue()
         db.put(a)
+
     return serialize
+
 
 im_i_in = rospy.Subscriber(rospy.get_param("~image"), sensor_msgs.msg.CompressedImage, gen_serialize(1))
 rospy.spin()
