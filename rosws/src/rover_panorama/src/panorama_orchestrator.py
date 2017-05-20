@@ -102,6 +102,9 @@ class Panorama:
             self.images = []
             self.folder = os.path.join(fsend_recv_save_dir, "pano{}".format(self.n))
             self.save_folder = "pano{}".format(self.n)
+            self.waiting_on = {}
+            self.trig_waiting = []
+            self.publish_data()
 
 
 p = Panorama()

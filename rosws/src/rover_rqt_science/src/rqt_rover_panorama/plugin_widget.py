@@ -49,13 +49,14 @@ class PluginWidget(QWidget):
 
         self.pushButton.clicked.connect(self.push_button)
         self.stitchButton.clicked.connect(self.stitch)
-        self.tableWidget
+        self.tableWidget.cellClicked.connect(self.new_selected)
 
     def feedback(self, f):
         self.progreeeeeees.emit(f)
 
     def goal(self, f, r):
-        self.finiiiiiished.emit(r)
+       # self.finiiiiiished.emit(r)
+        print "GGAGAGG"
 
     @Slot(dict)
     def new_state(self, l):
@@ -67,33 +68,40 @@ class PluginWidget(QWidget):
         self.files = {}
         self.pixmaps = {}
         j = 0
+        self.tableWidget.setRowCount(len(msg.in_transfer) + len(msg.transferred))
         for i in msg.in_transfer:
             self.tableWidget.setItem(j, 0, QTableWidgetItem(i))
             self.tableWidget.setItem(j, 1, QTableWidgetItem("Transferring"))
             j += 1
-            self.tableWidget.setRowCount(j)
+            # self.tableWidget.setRowCount(j)
         for i in msg.transferred:
             self.tableWidget.setItem(j, 0, QTableWidgetItem(i))
             self.tableWidget.setItem(j, 1, QTableWidgetItem("Transferred"))
             self.files[j] = i
+            print self.files
             self.pixmaps[j] = QPixmap(i)
             j += 1
-            self.tableWidget.setRowCount(j)
 
-    @Slot(int)
+    @Slot(int, int)
     def new_selected(self, r, c):
-        if r in self.files:
+        print r, c
+        print self.pixmaps.keys()
+        if r in self.pixmaps.keys():
+            print "GA"
             pmap = self.pixmaps[r]
-            self.label.pixmap = pmap
-            self.label.text = ""
+            self.label.setPixmap(pmap)
+            self.label.setScaledContents(True)
+            self.label.setMaximumSize(400, 200)
+            self.label.setText("")
         else:
-            self.label.pixmap = None
-            self.label.text = "File does not exist yet"
+            print "GA2"
+            self.label.setPixmap(None)
+            self.label.setText("File does not exist yet")
 
     @Slot(rover_panorama.msg.PanoramaFeedback)
     def new_feedback(self, msg):
-        c = self.progressBar.maximum - msg.commandsToGo
-        self.progressBar.value = c
+        c = 8 - msg.commandsToGo
+        self.progressBar.setValue(c)
 
     @Slot(rover_panorama.msg.PanoramaGoal)
     def goaal(self, msg):
@@ -114,6 +122,6 @@ class PluginWidget(QWidget):
         site, ok = QInputDialog.getItem(self, "Pick a site", "Pick a site to set the panorama for", self.sites.keys())
         if not ok:
             return
-        s = self.sites[site]
-        self.science_mark = s
+        #s = self.sites[site]
+        #self.science_mark = s
         self.panorama.send_goal(rover_panorama.msg.PanoramaGoal(), self.goal, None, self.feedback)
