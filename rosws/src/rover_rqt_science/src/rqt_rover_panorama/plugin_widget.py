@@ -9,7 +9,7 @@ import rover_science.srv
 import std_srvs.srv
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Signal, Slot
-from python_qt_binding.QtWidgets import QWidget, QInputDialog
+from python_qt_binding.QtWidgets import QWidget, QInputDialog, QTableWidgetItem
 from python_qt_binding.QtGui import QPixmap
 
 
@@ -49,6 +49,7 @@ class PluginWidget(QWidget):
 
         self.pushButton.clicked.connect(self.push_button)
         self.stitchButton.clicked.connect(self.stitch)
+        self.tableWidget
 
     def feedback(self, f):
         self.progreeeeeees.emit(f)
@@ -62,23 +63,25 @@ class PluginWidget(QWidget):
 
     @Slot(rover_panorama.msg.PanoState)
     def new_pano_state(self, msg):
-        self.listWidget.clear()
+        self.tableWidget.clearContents()
         self.files = {}
         self.pixmaps = {}
         j = 0
         for i in msg.in_transfer:
-            self.tableWidget.setItem(j, 0, i)
-            self.tableWidget.setItem(j, 1, "Transferred")
+            self.tableWidget.setItem(j, 0, QTableWidgetItem(i))
+            self.tableWidget.setItem(j, 1, QTableWidgetItem("Transferring"))
             j += 1
+            self.tableWidget.setRowCount(j)
         for i in msg.transferred:
-            self.tableWidget.setItem(j, 0, i)
-            self.tableWidget.setItem(j, 1, "Transferring")
+            self.tableWidget.setItem(j, 0, QTableWidgetItem(i))
+            self.tableWidget.setItem(j, 1, QTableWidgetItem("Transferred"))
             self.files[j] = i
             self.pixmaps[j] = QPixmap(i)
             j += 1
+            self.tableWidget.setRowCount(j)
 
     @Slot(int)
-    def new_selected(self, r):
+    def new_selected(self, r, c):
         if r in self.files:
             pmap = self.pixmaps[r]
             self.label.pixmap = pmap
@@ -101,7 +104,10 @@ class PluginWidget(QWidget):
 
     @Slot()
     def push_button(self):
-        self.take_pano_image(std_srvs.srv.EmptyRequest())
+        try:
+            self.take_pano_image(std_srvs.srv.EmptyRequest())
+        except:
+            pass
 
     @Slot()
     def stitch(self):
