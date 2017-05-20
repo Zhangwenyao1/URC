@@ -8,9 +8,10 @@ import filesend.srv
 import std_msgs.msg
 import binascii
 import pylzma
+import Queue
 from cStringIO import StringIO
 
-file_queue = []
+file_queue = Queue.Queue()
 target_chunks = 320  # amount of chunks minimum (increase for smaller messages)
 sending = False
 starting = False
@@ -27,7 +28,7 @@ def CHUNK_SIZE(for_):
 
 def populate_queue(f_obj):
     global file_queue
-    file_queue = []
+    file_queue = Queue.Queue()
     cfile = StringIO(pylzma.compress(f_obj.read(), eos=1))
     cfile.seek(0, 2)
     cfile_size = cfile.tell()
@@ -35,8 +36,8 @@ def populate_queue(f_obj):
     c_size = CHUNK_SIZE(cfile_size)
     while abs(cfile_size - cfile.tell()) / c_size > 1:
         rospy.loginfo("Compressing data packet")
-        file_queue.append(cfile.read(c_size))
-    file_queue.append(cfile.read())
+        file_queue.put(cfile.read(c_size))
+    file_queue.put(cfile.read())
 
 
 def request_file(msg):
@@ -50,7 +51,7 @@ def request_file(msg):
                 populate_queue(f)
                 sending = True
         except IOError:
-            file_queue = []
+            file_queue.empty()
             return filesend.srv.RequestFileResponse(status=1)
         pub_announce.publish(ending=False, folder=msg.folder, filename=os.path.split(msg.local_file)[1])
         rospy.sleep(1)
@@ -63,10 +64,10 @@ def request_file(msg):
 send_serv = rospy.Service("send_file", filesend.srv.RequestFile, request_file)
 
 while not rospy.is_shutdown():
-    if len(file_queue) > 0 and sending:
-        rospy.loginfo("Sending file, remaining packets {}: ".format(len(file_queue)-1))
+    if not file_queue.empty() and sending:
+        rospy.loginfo("Sending file, remaining packets {}: ".format(file_queue.qsize()))
         rospy.sleep(0.06)
-        d = file_queue.pop(0)
+        d = file_queue.get()
         starting = False
         crc32 = binascii.crc32(d)
         pub_data.publish(data=d, crc32=crc32)

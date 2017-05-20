@@ -7,6 +7,7 @@ import rover_science.srv
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Signal, Slot
 from python_qt_binding.QtWidgets import QWidget, QInputDialog
+from python_qt_binding.QtGui import QPixmap
 
 from .take_dialog import TakeMeasurementsDialog
 from .inner_widget import InnerWidget
@@ -72,7 +73,10 @@ class ScienceWidget(QWidget):
             msg = rover_science.srv.TakeMeasurementRequest()
             msg.site_id = self.listWidget.currentRow()
             msg.measurements_to_take = b
-            self.take_measurement(msg)
+            try:
+                self.take_measurement(msg)
+            except:
+                pass
 
     @Slot(int, int)
     def retake_measurement_clicked(self, mid, sid):
@@ -103,6 +107,12 @@ class ScienceWidget(QWidget):
         tabContent.latitudeLabel.setText("Latitude: {}".format(measurement.location.latitude))
         tabContent.longitudeLabel.setText("Longitude: {}".format(measurement.location.longitude))
         tabContent.altitudeLabel.setText("Altitude: {}".format(measurement.location.altitude))
+        site = self.last_site_data.sites[sid]
+        if site.has_pano & site.HAS_PANO == site.HAS_PANO:
+            pmap = QPixmap(site.pano_location)
+            tabContent.panorama.clear()
+            tabContent.panorama.setPixmap(pmap)
+            tabContent.panorama.setMaximumSize(500, 350)
         if measurement.data_completeness & measurement.HAS_PH == measurement.HAS_PH:
             tabContent.phLabel.setText("PH: {}".format(measurement.ph))
         if measurement.data_completeness & measurement.HAS_TEMP == measurement.HAS_TEMP:
