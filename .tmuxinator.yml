@@ -30,7 +30,7 @@ windows:
         - sleep 3; python ./src/imu_fixer.py
   - RTAB:
       root: ~/URC/rosws/src/rover_navigation/
-      layout: titled
+      layout: tiled
       panes:
         - sleep 5; roslaunch rover_navigation rtabmap.launch
         - sleep 5; roslaunch rover_navigation move_base.launch
