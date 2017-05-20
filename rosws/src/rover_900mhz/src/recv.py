@@ -8,7 +8,7 @@ from cStringIO import StringIO
 
 rospy.init_node("yay_900mhz_recv")
 dev = rospy.get_param("~dev")
-s = serial.Serial(port=dev)
+s = serial.Serial(port=dev,baudrate=115200)
 
 st = struct.Struct("<BBBBH")
 ss = int(st.size)
@@ -23,7 +23,7 @@ def search():
     if s.in_waiting >= ss:
         try:
             d = st.unpack(s.read(ss))
-            # print d
+            print d
             if not (d[0] == d[1] == d[2] == d[3]):
                 return
             elif d[0] not in P:
@@ -40,7 +40,7 @@ def search():
                 dser = dbuffer.getvalue()
                 msg = V[d[0]]()
                 msg.deserialize(dser)
-                # print msg
+                print "YAAAAY"
                 P[d[0]].publish(msg)
         except struct.error:
             return
