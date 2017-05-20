@@ -24,9 +24,10 @@ def save_gps():
   f.write('Latitude: %s\n' % str(data.latitude))
   f.write('Longitude: %sCn' % str(data.longitude))
   f.write('Altitude (m above WGS-84 ellipsoid): %s\n' % str(data.altitude))
+  f.write('Accuracy: +/-3m\n')
   f.close()
 
-  rospy.loginfo("Saved GPS reading (lat,long) %s,%s and altitude %s m above WGS-84 ellipsoid to file '%s'" % (data.latitude, data.longitude, data.altitude, filename))
+  rospy.loginfo("Saved GPS reading (lat,long) %s,%s (+/-3m) and altitude %s m above WGS-84 ellipsoid to file '%s'" % (data.latitude, data.longitude, data.altitude, filename))
 
 if __name__ == '__main__':
   save_gps()
