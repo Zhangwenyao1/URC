@@ -6,9 +6,10 @@ import rospy
 import rover_panorama.msg
 import rover_science.msg
 import rover_science.srv
+import std_srvs.srv
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Signal, Slot
-from python_qt_binding.QtWidgets import QWidget
+from python_qt_binding.QtWidgets import QWidget, QInputDialog
 from python_qt_binding.QtGui import QPixmap
 
 
@@ -29,6 +30,7 @@ class PluginWidget(QWidget):
 
         self.mark_pano = rospy.ServiceProxy("/science/sci/mark_panorama", rover_science.srv.MarkPano)
         self.panorama = actionlib.SimpleActionClient("/science/panorama/stitch_panorama", rover_panorama.msg.PanoramaAction)
+        self.take_pano_image = rospy.ServiceProxy("/science/panorama/take_pano_image", std_srvs.srv.Empty)
 
         def state_sub(s):
             self.pstate_signal.emit(s)
@@ -36,9 +38,17 @@ class PluginWidget(QWidget):
         self._state_sub = rospy.Subscriber("/science/panorama/pano_state", rover_panorama.msg.PanoState, callback=state_sub)
 
         def science_sub(s):
-            self.sstate_signal.emit([x.site_name for x in s.sites])
+            self.sstate_signal.emit({x.site_name: j for j, x in enumerate(s.sites)})
 
         self._sstate_sub = rospy.Subscriber("/science/sites", rover_science.msg.Sites, callback=science_sub)
+
+        self.progreeeeeees.connect(self.new_feedback)
+        self.finiiiiiished.connect(self.goaal)
+        self.pstate_signal.connect(self.new_pano_state)
+        self.sstate_signal.connect(self.new_state)
+
+        self.pushButton.clicked.connect(self.push_button)
+        self.stitchButton.clicked.connect(self.stitch)
 
     def feedback(self, f):
         self.progreeeeeees.emit(f)
@@ -83,7 +93,7 @@ class PluginWidget(QWidget):
         self.progressBar.value = c
 
     @Slot(rover_panorama.msg.PanoramaGoal)
-    def goal(self, msg):
+    def goaal(self, msg):
         request = rover_science.srv.MarkPanoRequest()
         request.mark_flags = request.HAS_PANO
         request.pano_location = msg.resultFilenameSmall
@@ -91,4 +101,13 @@ class PluginWidget(QWidget):
 
     @Slot()
     def push_button(self):
+        self.take_pano_image(std_srvs.srv.EmptyRequest())
 
+    @Slot()
+    def stitch(self):
+        site, ok = QInputDialog.getItem(self, "Pick a site", "Pick a site to set the panorama for", self.sites.keys())
+        if not ok:
+            return
+        s = self.sites[site]
+        self.science_mark = s
+        self.panorama.send_goal(rover_panorama.msg.PanoramaGoal(), self.goal, None, self.feedback)

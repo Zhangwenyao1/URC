@@ -26,6 +26,7 @@ def on_human_data(data):
     dt = time.time()
     auto_timeout = 5
     pub.publish(data)
+#    time.sleep(5)
 
 
 s1 = rospy.Subscriber("cmd_vel_mux/move_base", geometry_msgs.msg.Twist, callback=on_auto_data)

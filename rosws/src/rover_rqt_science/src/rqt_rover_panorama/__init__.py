@@ -1,1 +1,1 @@
-from . import plugin
+from . import plugin, plugin_widget

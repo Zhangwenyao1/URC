@@ -143,13 +143,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>EC: &lt; no data &gt;</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>

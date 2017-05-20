@@ -93,7 +93,6 @@ class ScienceWidget(QWidget):
         b |= rover_science.msg.Measurement.HAS_PH * int(dialog.phCheckBox.isChecked())
         b |= rover_science.msg.Measurement.HAS_TEMP * int(dialog.tempCheckBox.isChecked())
         b |= rover_science.msg.Measurement.HAS_HUMIDITY * int(dialog.humidCheckBox.isChecked())
-        b |= rover_science.msg.Measurement.HAS_EC * int(dialog.checkBox.isChecked())
         return b, ok
 
     def _setup_tab_view_page(self, sid, mid):
@@ -110,8 +109,6 @@ class ScienceWidget(QWidget):
             tabContent.tempLabel.setText("Temperature: {}".format(measurement.temp))
         if measurement.data_completeness & measurement.HAS_HUMIDITY == measurement.HAS_HUMIDITY:
             tabContent.humidityLabel.setText("Humidity: {}".format(measurement.humidity))
-        if measurement.data_completeness & measurement.HAS_EC == measurement.HAS_EC:
-            tabContent.label.setText("EC: {}".format(measurement.ec))
         tabContent.retake.connect(self.retake_measurement_clicked)
         self.tabWidget.addTab(tabContent, "Measurement {}".format(mid+1))
 
