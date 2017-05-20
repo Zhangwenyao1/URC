@@ -8,6 +8,7 @@ import openpyxl.styles
 import openpyxl.styles.fills
 import openpyxl.workbook
 import openpyxl.utils.cell
+import openpyxl.drawing.image
 import rover_science.msg
 import std_srvs.srv
 
@@ -126,6 +127,19 @@ def _gen_site_measurement_page(ws, site):
     ws.row_dimensions[1].height = 40
 
 
+def _gen_site_images_page(ws, site):
+    _gen_title(ws, "{}.Images".format(site.site_name))
+    ws["A5"] = "Panorama"
+    ws.row_dimensions[1].height = 40
+    ws["A70"] = "Closeup"
+    if site.has_pano & site.HAS_PANO == site.HAS_PANO:
+        i = openpyxl.drawing.image.Image(site.pano_location)
+        ws.add_image(i, "A6")
+    if site.has_pano & site.HAS_CLOSEUP == site.HAS_CLOSEUP:
+        i = openpyxl.drawing.image.Image(site.closeup_location)
+        ws.add_image(i, "A71")
+
+
 def _gen_header_table(ws, header_row, header_values, overlap, data, first="sHF"):
     cells = ws[openpyxl.utils.cell.get_column_letter(1) + str(header_row):openpyxl.utils.cell.get_column_letter(
         len(header_values) + 1 + overlap) + str(header_row)]
@@ -156,6 +170,8 @@ def do_it(empty_ignored):
     for site in sites.sites:
         ws_ = book.create_sheet("{}.Measurements".format(site.site_name))
         _gen_site_measurement_page(ws_, site)
+        ws_ = book.create_sheet("{}.Images".format(site.site_name))
+        _gen_site_images_page(ws_, site)
     book.save(home + "/.urc/science.xlsx")
     return std_srvs.srv.EmptyResponse()
 

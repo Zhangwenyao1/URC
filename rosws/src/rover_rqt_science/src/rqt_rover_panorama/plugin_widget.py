@@ -55,8 +55,8 @@ class PluginWidget(QWidget):
         self.progreeeeeees.emit(f)
 
     def goal(self, f, r):
-       # self.finiiiiiished.emit(r)
-        print "GGAGAGG"
+        self.finiiiiiished.emit(r)
+        # print "GGAGAGG"
 
     @Slot(dict)
     def new_state(self, l):
@@ -86,6 +86,7 @@ class PluginWidget(QWidget):
     def new_selected(self, r, c):
         print r, c
         print self.pixmaps.keys()
+        self.label.clear()
         if r in self.pixmaps.keys():
             print "GA"
             pmap = self.pixmaps[r]
@@ -95,7 +96,7 @@ class PluginWidget(QWidget):
             self.label.setText("")
         else:
             print "GA2"
-            self.label.setPixmap(None)
+            #self.label.setPixmap()
             self.label.setText("File does not exist yet")
 
     @Slot(rover_panorama.msg.PanoramaFeedback)
@@ -122,6 +123,6 @@ class PluginWidget(QWidget):
         site, ok = QInputDialog.getItem(self, "Pick a site", "Pick a site to set the panorama for", self.sites.keys())
         if not ok:
             return
-        #s = self.sites[site]
-        #self.science_mark = s
+        s = self.sites[site]
+        self.science_mark = s
         self.panorama.send_goal(rover_panorama.msg.PanoramaGoal(), self.goal, None, self.feedback)
