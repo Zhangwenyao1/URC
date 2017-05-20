@@ -25,8 +25,8 @@ def r():
         #			print "WAIT"
         #		print "BYTE"
         s.write(a)
-    while not s.cts:
-        print "WAIT"
+        while s.cts:
+            print "WAIT"
         print "HOKEYDOKEY"
 
 
