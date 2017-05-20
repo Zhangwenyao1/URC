@@ -74,7 +74,7 @@ windows:
       root: ~/URC/rosws/src/rover_drive/
       layout: tiled
       panes:
-        - "#roslaunch rover_drive ramsbot_test.launch"
+        - "#roslaunch rover_drive drive.launch"
         - "#pio run -t upload"
         - sleep 5; rostopic echo cmd_vel_mux/teleoperation
         - sleep 5; rostopic echo cmd_vel_tank

@@ -33,7 +33,7 @@ def on_new_zed_servo(data):
     theSerial.write(dat)
 
 theSerial = serial.Serial(baudrate=9600)
-theSerial.port = "/dev/ttyACM0"
+theSerial.port = rospy.get_param("dev")
 theSerial.open()
 
 rospy.init_node("twist_sender")
