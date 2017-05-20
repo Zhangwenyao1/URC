@@ -11,8 +11,6 @@
             <param name="Grid/MaxGroundAngle" value="130"/> <!-- Maximum angle between point's normal to ground's normal to label it as ground. Points with higher ngle difference are considered as obstacles. Default: 45 -->
             <param name="grid_eroded" value="true"/>
             <param name="Optimizer/Strategy"  type="string" value="0"/> <!-- TORO global optimization. Default: GTSAM -->
-            <param name="Reg/Force3DoF" type="string" value="true"/>         <!-- 2D SLAM -->
-            <param name="Optimizer/Slam2D" type="string" value="true"/>      <!-- 2D SLAM -->
 
             <!-- INPUT TOPICS -->
             <remap from="odom" to="/rgbd_odometry/odom" />
