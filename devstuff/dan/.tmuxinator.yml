@@ -50,14 +50,13 @@ windows:
       root: ~/URC/rosws/src/rover_arm/
       layout: tiled
       panes:
-        - "#roslaunch rover_arm mimic_gazebo.launch"
-        - "#rqt --perspective-file ./devstuff/dan/PID Tuning.perspective"
-
-  - TELEOP:
+        - "#roslaunch rover_teleoperation arm_teleoperation dev:=/dev/input/js0"
+        - rostopic echo /joy_arm
+  - DRIVE:
       root: ~/URC/rosws/src/rover_teleoperation/
       layout: tiled
       panes:
-        - roslaunch rover_teleoperation joy_teleoperation.launch
+        - "#roslaunch rover_teleoperation joy_teleoperation.launch dev:=/dev/input/js0"
         - rostopic echo /joy
   - WAYPOINT:
       root: ~/URC/rosws/src/rover/src/
@@ -70,5 +69,5 @@ windows:
       root: ~/URC/rosws/src/rover/src/
       layout: tiled
       panes:
-        - "#python gps_goal.py --lat 43.659055 --long -79.3803416667"
+        - python gps_goal.py --help
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
