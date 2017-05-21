@@ -8,16 +8,20 @@ struct JOINTPINS{
   int j2 = 11; // small arm
   int j3 = 12;  // big arm
   int j4 = 13;  // base yaw
-  int j5 = 8;  // gripper
-  int j6 = 15;  // winch
+  int g1 = 8;  // gripper enable
+  int g2 = 7;  // gripper open
+  int g3 = 6;  // gripper close
+  int w1 = 14;  // winch enable
+  int w2 = 15;  // winch in
+  int w3 = 16;  // winch out
   int camTilt = A0; // camera
 }pins;
 
 struct RECIEVED{
-  float j0,j1,j2,j3,j4,j5,j6,camTilt;
+  float j0,j1,j2,j3,j4,gripper,winch,camTilt;
 }data;
 
-Servo joint0, joint1, joint2, joint3, joint4, joint5, joint6, camTilt;
+Servo joint0, joint1, joint2, joint3, joint4, camTilt;
 
 int mapToVictor(float input){
   return map((input*100),-100,100,victorMin,victorMax);
@@ -29,8 +33,8 @@ void recievedData(){
     Serial.readBytes((char*)&data.j2,sizeof(float));
     Serial.readBytes((char*)&data.j3,sizeof(float));
     Serial.readBytes((char*)&data.j4,sizeof(float));
-    Serial.readBytes((char*)&data.j5,sizeof(float));
-    Serial.readBytes((char*)&data.j6,sizeof(float));
+    Serial.readBytes((char*)&data.gripper,sizeof(float));
+    Serial.readBytes((char*)&data.winch,sizeof(float));
     Serial.readBytes((char*)&data.camTilt,sizeof(float));
   }
 }
@@ -40,9 +44,51 @@ void writeToJoints(){
   joint2.writeMicroseconds(mapToVictor(data.j2));
   joint3.writeMicroseconds(mapToVictor(data.j3));
   joint4.writeMicroseconds(mapToVictor(data.j4));
-  joint5.writeMicroseconds(mapToVictor(data.j5));
-  joint6.writeMicroseconds(mapToVictor(data.j6));
   camTilt.write(data.camTilt);
+
+  // Gripper Open
+  if (data.gripper == 1){
+    digitalWrite(pins.g1, HIGH);   // enable pin
+    digitalWrite(pins.g2, HIGH);   // turn open on
+    digitalWrite(pins.g3, LOW);   // turn close off
+  }
+  // Gripper Close
+  else if (data.gripper == -1){
+    digitalWrite(pins.g1, HIGH);   // enable pin
+    digitalWrite(pins.g2, LOW);   // turn open off
+    digitalWrite(pins.g3, HIGH);   // turn close on
+  }
+  // Gripper Stop
+  else if (data.gripper == 0){
+    digitalWrite(pins.g1, LOW);   // enable pin
+    digitalWrite(pins.g2, LOW);   // turn open off
+    digitalWrite(pins.g3, LOW);   // turn close on
+  }
+
+  // Winch In
+  if (data.gripper == 1){
+    digitalWrite(pins.w1, HIGH);   // enable pin
+    digitalWrite(pins.w2, HIGH);   // turn open on
+    digitalWrite(pins.w3, LOW);   // turn close off
+  }
+  // Winch Out
+  else if (data.gripper == -1){
+    digitalWrite(pins.w1, HIGH);   // enable pin
+    digitalWrite(pins.w2, LOW);   // turn open off
+    digitalWrite(pins.w3, HIGH);   // turn close on
+  }
+  // Winch Off
+  else if (data.gripper == 0){
+    digitalWrite(pins.w1, LOW);   // enable pin
+    digitalWrite(pins.w2, LOW);   // turn open off
+    digitalWrite(pins.w3, LOW);   // turn close off
+  }
+  // Winch Break
+  else if (data.gripper == 1337){
+    digitalWrite(pins.w1, HIGH);   // enable pin
+    digitalWrite(pins.w2, HIGH);   // turn open on
+    digitalWrite(pins.w3, HIGH);   // turn close on
+  }
 }
 void setup() {
   Serial.begin(9600);
@@ -51,9 +97,13 @@ void setup() {
   joint2.attach(pins.j2);
   joint3.attach(pins.j3);
   joint4.attach(pins.j4);
-  joint5.attach(pins.j5);
-  joint6.attach(pins.j6);
   camTilt.attach(pins.camTilt);
+  pinMode(pins.g1, OUTPUT);
+  pinMode(pins.g2, OUTPUT);
+  pinMode(pins.g3, OUTPUT);
+  pinMode(pins.w1, OUTPUT);
+  pinMode(pins.w2, OUTPUT);
+  pinMode(pins.w3, OUTPUT);
   recievedData();
 }
 
