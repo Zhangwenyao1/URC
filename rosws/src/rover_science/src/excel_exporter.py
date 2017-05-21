@@ -8,6 +8,7 @@ import openpyxl.styles
 import openpyxl.styles.fills
 import openpyxl.workbook
 import openpyxl.utils.cell
+import openpyxl.drawing.image
 import rover_science.msg
 import std_srvs.srv
 
@@ -114,17 +115,29 @@ def _gen_site_measurement_page(ws, site):
         v = [measurement.location.longitude, measurement.location.latitude, measurement.location.altitude,
              _value_or_no_data(measurement, measurement.HAS_PH, measurement.ph),
              _value_or_no_data(measurement, measurement.HAS_TEMP, measurement.temp),
-             _value_or_no_data(measurement, measurement.HAS_HUMIDITY, measurement.humidity)
-             _value_or_no_data(measurement, measurement.HAS_EC, measurement.ec)]
+             _value_or_no_data(measurement, measurement.HAS_HUMIDITY, measurement.humidity)]
         d.append(v)
-    _gen_header_table(ws, 4, ["Longitude", "Latitude", "Altitude (m)", "PH", "Temperature (C)", "Humidity", "Electroconductivity"], 0, d, "sHA")
-    ws.column_dimensions["A"].width = 10.5,
+    _gen_header_table(ws, 4, ["Longitude", "Latitude", "Altitude (m)", "PH", "Temperature (C)", "Humidity"], 0, d, "sHA")
+    ws.column_dimensions["A"].width = 10.5
     ws.column_dimensions["B"].width = 10.5
     ws.column_dimensions["C"].width = 10.5
     ws.column_dimensions["D"].width = 5.5
     ws.column_dimensions["E"].width = 11.5
     ws.column_dimensions["F"].width = 11.5
     ws.row_dimensions[1].height = 40
+
+
+def _gen_site_images_page(ws, site):
+    _gen_title(ws, "{}.Images".format(site.site_name))
+    ws["A5"] = "Panorama"
+    ws.row_dimensions[1].height = 40
+    ws["A70"] = "Closeup"
+    if site.has_pano & site.HAS_PANO == site.HAS_PANO:
+        i = openpyxl.drawing.image.Image(site.pano_location)
+        ws.add_image(i, "A6")
+    if site.has_pano & site.HAS_CLOSEUP == site.HAS_CLOSEUP:
+        i = openpyxl.drawing.image.Image(site.closeup_location)
+        ws.add_image(i, "A71")
 
 
 def _gen_header_table(ws, header_row, header_values, overlap, data, first="sHF"):
@@ -157,6 +170,8 @@ def do_it(empty_ignored):
     for site in sites.sites:
         ws_ = book.create_sheet("{}.Measurements".format(site.site_name))
         _gen_site_measurement_page(ws_, site)
+        ws_ = book.create_sheet("{}.Images".format(site.site_name))
+        _gen_site_images_page(ws_, site)
     book.save(home + "/.urc/science.xlsx")
     return std_srvs.srv.EmptyResponse()
 

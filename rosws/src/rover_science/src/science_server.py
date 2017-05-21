@@ -10,7 +10,6 @@ rospy.init_node("science_server")
 ph_topic = rospy.get_param("~ph_topic")
 humid_topic = rospy.get_param("~humid_topic")
 temp_topic = rospy.get_param("~temp_topic")
-ec_topic = rospy.get_param("~ec_topic")
 navsat_topic = rospy.get_param("~navsat_topic")
 
 
@@ -52,10 +51,6 @@ class ScienceDataTracker:
         temp = rospy.wait_for_message(temp_topic, std_msgs.msg.Float32, timeout=5)
         self.sites.sites[site_id].measurements[measurement_id].temp = temp.data
 
-    def _take_ec_measurement(self, site_id, measurement_id):
-        ec = rospy.wait_for_message(temp_topic, std_msgs.msg.Float32, timeout=5)
-        self.sites.sites[site_id].measurements[measurement_id].ec = ec.data
-
     def take_measurements(self, site_id, measurement_id, to_take):
         taken = 0
         if to_take & rover_science.msg.Measurement.HAS_PH == rover_science.msg.Measurement.HAS_PH:
@@ -76,12 +71,6 @@ class ScienceDataTracker:
                 taken |= rover_science.msg.Measurement.HAS_TEMP
             except rospy.ROSException:
                 rospy.logerr("Failed to take temp reading: couldn't get value in time")
-        if to_take & rover_science.msg.Measurement.HAS_EC == rover_science.msg.Measurement.HAS_EC:
-            try:
-                self._take_ec_measurement(site_id, measurement_id)
-                taken |= rover_science.msg.Measurement.HAS_EC
-            except rospy.ROSException:
-                rospy.logerr("Failed to take ec reading: couldn't get value in time")
         self.sites.sites[site_id].measurements[measurement_id].data_completeness |= taken
         return taken
 

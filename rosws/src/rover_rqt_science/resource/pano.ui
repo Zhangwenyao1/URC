@@ -91,6 +91,13 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="stitchButton">
+         <property name="text">
+          <string>Stitch to science</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
