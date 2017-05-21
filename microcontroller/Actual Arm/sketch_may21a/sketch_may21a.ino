@@ -3,20 +3,21 @@
 #define victorMin 600
 
 struct JOINTPINS{
-  int j0 = 1;
-  int j1 = 2;
-  int j2 = 3;
-  int j3 = 4;
-  int j4 = 5;
-  int j5 = 6; 
-  int camTilt = 7;
+  int j0 = 9; // wrist roll
+  int j1 = 10; // wrist pitch
+  int j2 = 11; // small arm
+  int j3 = 12;  // big arm
+  int j4 = 13;  // base yaw
+  int j5 = 8;  // gripper
+  int j6 = 15;  // winch
+  int camTilt = A0; // camera
 }pins;
 
 struct RECIEVED{
-  float j0,j1,j2,j3,j4,j5,camTilt;
+  float j0,j1,j2,j3,j4,j5,j6,camTilt;
 }data;
 
-Servo joint0, joint1, joint2, joint3, joint4, joint5, camTilt;
+Servo joint0, joint1, joint2, joint3, joint4, joint5, joint6, camTilt;
 
 int mapToVictor(float input){
   return map((input*100),-100,100,victorMin,victorMax);
@@ -29,6 +30,7 @@ void recievedData(){
     Serial.readBytes((char*)&data.j3,sizeof(float));
     Serial.readBytes((char*)&data.j4,sizeof(float));
     Serial.readBytes((char*)&data.j5,sizeof(float));
+    Serial.readBytes((char*)&data.j6,sizeof(float));
     Serial.readBytes((char*)&data.camTilt,sizeof(float));
   }
 }
@@ -39,6 +41,7 @@ void writeToJoints(){
   joint3.writeMicroseconds(mapToVictor(data.j3));
   joint4.writeMicroseconds(mapToVictor(data.j4));
   joint5.writeMicroseconds(mapToVictor(data.j5));
+  joint6.writeMicroseconds(mapToVictor(data.j6));
   camTilt.write(data.camTilt);
 }
 void setup() {
@@ -49,6 +52,7 @@ void setup() {
   joint3.attach(pins.j3);
   joint4.attach(pins.j4);
   joint5.attach(pins.j5);
+  joint6.attach(pins.j6);
   camTilt.attach(pins.camTilt);
   recievedData();
 }
