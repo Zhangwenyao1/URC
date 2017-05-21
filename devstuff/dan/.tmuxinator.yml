@@ -1,3 +1,4 @@
+# sudo apt install tmuxinator
 name: BASE
 root: ~/URC
 windows:
