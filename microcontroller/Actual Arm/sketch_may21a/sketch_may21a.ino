@@ -39,7 +39,7 @@ void writeToJoints(){
   joint3.writeMicroseconds(mapToVictor(data.j3));
   joint4.writeMicroseconds(mapToVictor(data.j4));
   joint5.writeMicroseconds(mapToVictor(data.j5));
-  camTilt.writeMicroseconds(mapToVictor(data.camTilt));
+  camTilt.write(data.camTilt);
 }
 void setup() {
   Serial.begin(9600);
