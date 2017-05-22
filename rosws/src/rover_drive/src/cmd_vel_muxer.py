@@ -1,7 +1,8 @@
 #!/usr/bin/python
 import rospy
-import geometry_msgs.msg
 import time
+import geometry_msgs.msg
+import rover_drive.msg
 
 auto_timeout = 0
 dt = time.time()
@@ -20,15 +21,21 @@ def on_auto_data(data):
         auto_timeout = 0
         pub.publish(data)
 
-
-def on_human_data(data):
+def on_twist(data):
     global auto_timeout, dt
     dt = time.time()
     auto_timeout = 5
     pub.publish(data)
 #    time.sleep(5)
 
+def on_tank(data):
+    global auto_timeout, dt
+    dt = time.time()
+    auto_timeout = 5
+    # pub.publish(data)
+#    time.sleep(5)
 
-s1 = rospy.Subscriber("cmd_vel_mux/move_base", geometry_msgs.msg.Twist, callback=on_auto_data)
-s2 = rospy.Subscriber("cmd_vel_mux/teleoperation", geometry_msgs.msg.Twist, callback=on_human_data)
+rospy.Subscriber("cmd_vel_mux/move_base", geometry_msgs.msg.Twist, callback=on_auto_data)
+rospy.Subscriber("cmd_vel_mux/teleoperation", geometry_msgs.msg.Twist, callback=on_twist)
+rospy.Subscriber("cmd_vel_tank", rover_drive.msg.Tank, callback=on_tank)
 rospy.spin()

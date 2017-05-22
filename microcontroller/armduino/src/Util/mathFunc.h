@@ -22,9 +22,9 @@ class mathFunc{
 		int dutyCycletoMicroSeconds(int maxSeconds, int minSeconds, int dutyCycle){
 			return map((dutyCycle*100),-100,100,minSeconds,maxSeconds);
 		};
-		double jointConversions(double gearRatio, float inputAngle, double totalRotation){
-			double rotation = gearRatio * (inputAngle/(2*constant.Pi));
-			return constant.totalTicks * rotation / totalRotation;
+		int jointConversions(double gearRatio, float inputAngle, double turns, int minTicks){
+			int out = ((inputAngle/(2*constant.Pi))*(constant.totalTicks/turns)*gearRatio);
+			return out + minTicks;
 		};
 };
 #endif

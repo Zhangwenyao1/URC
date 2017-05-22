@@ -1,3 +1,4 @@
+# sudo apt install tmuxinator
 name: ROVER
 root: ~/URC
 windows:
@@ -18,7 +19,7 @@ windows:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal
       panes:
-        - sleep 5; roslaunch rover gps.launch
+        - sleep 5; roslaunch rover gps.launch dev:=/dev/ttyACM0
         - sleep 3; rostopic echo /gps/fix
         - sleep 3; rostopic echo /gps/filtered
 #  - IMU:
@@ -74,7 +75,7 @@ windows:
       root: ~/URC/rosws/src/rover_drive/
       layout: tiled
       panes:
-        - "#roslaunch rover_drive drive.launch"
+        - "#roslaunch rover_drive drive.launch dev:=/dev/serial/by-id/usb-Arduino_Arduino_Due-if00"
         - "#pio run -t upload"
         - sleep 5; rostopic echo cmd_vel_mux/teleoperation
         - sleep 5; rostopic echo cmd_vel_tank

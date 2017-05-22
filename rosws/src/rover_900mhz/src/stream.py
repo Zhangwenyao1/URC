@@ -27,6 +27,7 @@ def r():
         s.write(a)
         while s.cts:
             print "WAIT"
+            break
         print "HOKEYDOKEY"
 
 

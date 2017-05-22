@@ -1,0 +1,9 @@
+<launch>
+    <arg name="dev" default="/dev/input/js0"/>
+    <node pkg="rover_teleoperation" type="joy_teleoperation_node.py" name="teleoperation_ros" output="screen" respawn="true" />
+    <node pkg="joy" type="joy_node" name="joy_node" clear_params="true" output="screen" respawn="true" >
+      <param name="dev" value="$(arg dev)" />
+      <param name="deadzone" value="0.12" />
+      <remap from="joy" to="joy_arm" />
+    </node>
+</launch>
