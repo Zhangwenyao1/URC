@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Servo.h>
-#define victorMax 2600
+#define victorMax 2400
 #define victorMin 600
 
 struct JOINTPINS{

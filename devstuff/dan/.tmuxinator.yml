@@ -72,3 +72,8 @@ windows:
       panes:
         - python gps_goal.py --help
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
+  - IMU:
+      root: ~/URC/rosws/src/rtimulib_ros/
+      layout: tiled
+      panes:
+        - "#rqt --perspective-file ./devstuff/dan/IMU.perspective"

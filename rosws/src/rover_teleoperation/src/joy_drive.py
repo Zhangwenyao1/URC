@@ -28,8 +28,8 @@ class DriveTeleop:
 
         # Drive sticks
         msg = rover_drive.msg.Tank()
-        msg.left = data.axes[1] / self.speed_ratio # left stick
-        msg.right = data.axes[4] / self.speed_ratio # right stick
+        msg.left = -data.axes[1] / self.speed_ratio # left stick
+        msg.right = -data.axes[4] / self.speed_ratio # right stick
         self.tank_pub.publish(msg)
 
         # Zed servo panning control
