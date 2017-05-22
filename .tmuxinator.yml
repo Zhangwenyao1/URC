@@ -35,9 +35,37 @@ windows:
       layout: tiled
       panes:
         - sleep 5; roslaunch rover_navigation rtabmap.launch
-        - sleep 5; roslaunch rover_navigation move_base.launch
+        - sleep 5; roslaunch rover_rtabmap_config obstacle_up.launch
         - sleep 5; rostopic echo /cmd_vel_mux/move_base
         - sleep 5; rostopic echo /move_base/status
+        - sleep 5; roslaunch rover_navigation move_base.launch
+  - ZED:
+      root: ~/URC/rosws/src/rover/
+      layout: even-horizontal
+      panes:
+        - sleep 5; roslaunch rover zed_up.launch
+        - sleep 4; roslaunch rover_navigation rgbd_odometry.launch
+#  - EKF:
+#      root: ~/URC/rosws/src/rover_robot_localization/
+#      layout: tiled
+#      panes:
+#        - sleep 4; roslaunch rover_robot_localization global_ekf.launch
+#        - sleep 3; rostopic echo /odometry/filtered_global
+#        - sleep 3; rostopic echo /gps/filtered
+#        - sleep 3; rosrun tf tf_echo odom robot_base
+  - DRIVE:
+      root: ~/URC/rosws/src/rover_drive/
+      layout: tiled
+      panes:
+        - "#roslaunch rover_drive drive.launch dev:=/dev/serial/by-id/usb-Arduino_Arduino_Due-if00"
+        - "#pio run -t upload"
+        - sleep 5; rostopic echo cmd_vel
+        - sleep 5; rostopic echo cmd_vel_tank
+  - ARM:
+      root: ~/URC/rosws/src/rover_arm/
+      layout: tiled
+      panes:
+        - "#rosrun rover_arm simple_arm_serial.py"
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
@@ -54,33 +82,6 @@ windows:
       panes:
         - sleep 4; roslaunch rover usb_webcams.launch
         - v4l2-ctl --list-devices
-  - ZED:
-      root: ~/URC/rosws/src/rover/
-      layout: even-horizontal
-      panes:
-        - sleep 5; roslaunch rover zed_up.launch
-        - sleep 4; roslaunch rover_navigation rgbd_odometry.launch
-#  - EKF:
-#      root: ~/URC/rosws/src/rover_robot_localization/
-#      layout: tiled
-#      panes:
-#        - sleep 4; roslaunch rover_robot_localization global_ekf.launch
-#        - sleep 3; rostopic echo /odometry/filtered_global
-#        - sleep 3; rostopic echo /gps/filtered
-#        - sleep 3; rosrun tf tf_echo odom robot_base
-  - ARM:
-      root: ~/URC/rosws/src/rover_arm/
-      layout: tiled
-      panes:
-        - "#rosrun rover_arm simple_arm_serial.py"
-  - DRIVE:
-      root: ~/URC/rosws/src/rover_drive/
-      layout: tiled
-      panes:
-        - "#roslaunch rover_drive drive.launch dev:=/dev/serial/by-id/usb-Arduino_Arduino_Due-if00"
-        - "#pio run -t upload"
-        - sleep 5; rostopic echo cmd_vel
-        - sleep 5; rostopic echo cmd_vel_tank
   - D:
   - M:
   - A:
