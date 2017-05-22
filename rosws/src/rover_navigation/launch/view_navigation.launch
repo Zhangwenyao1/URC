@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="rviz" type="rviz" name="map_rviz" args="-d $(find rover_navigation)/launch/view_navigation.rviz"/>
+</launch>
+
