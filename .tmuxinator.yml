@@ -22,14 +22,14 @@ windows:
         - sleep 5; roslaunch rover gps.launch dev:=/dev/ttyACM0
         - sleep 3; rostopic echo /gps/fix
         - sleep 3; rostopic echo /gps/filtered
- - IMU:
-     root: ~/URC/rosws/src/rtimulib_ros/
-     layout: even-horizontal
-     panes:
-       - sleep 4; roslaunch rtimulib_ros rtimulib_ros.launch
-       - sleep 3; rostopic echo imu/data_raw
-       - sleep 3; roslaunch /home/ubuntu/URC/devstuff/dan/IMU/imu_madgwick_filter.launch
-       - sleep 3; rostopic echo /imu/data_madg
+  - IMU:
+      root: ~/URC/rosws/src/rtimulib_ros/
+      layout: even-horizontal
+      panes:
+        - sleep 4; roslaunch rtimulib_ros rtimulib_ros.launch
+        - sleep 3; rostopic echo imu/data_raw
+        - sleep 3; roslaunch /home/ubuntu/URC/devstuff/dan/IMU/ imu_madgwick_filter.launch
+        - sleep 3; rostopic echo /imu/data_madg
   - RTAB:
       root: ~/URC/rosws/src/rover_navigation/
       layout: tiled
@@ -37,6 +37,7 @@ windows:
         - sleep 5; roslaunch rover_navigation rtabmap.launch
         - sleep 5; roslaunch rover_navigation move_base.launch
         - sleep 5; rostopic echo /cmd_vel_mux/move_base
+        - sleep 5; rostopic echo /move_base/status
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
