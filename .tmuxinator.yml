@@ -19,7 +19,7 @@ windows:
       root: ~/URC/rosws/src/rover/
       layout: even-horizontal
       panes:
-        - sleep 5; roslaunch rover gps.launch dev:=/dev/ttyACM0
+        - sleep 5; roslaunch rover gps.launch dev:=/dev/ttyTHS2
         - sleep 3; rostopic echo /gps/fix
         - sleep 3; rostopic echo /gps/filtered
   - IMU:
@@ -37,6 +37,7 @@ windows:
         - sleep 5; roslaunch rover_navigation rtabmap.launch
         - sleep 5; roslaunch rover_navigation move_base.launch
         - sleep 5; rostopic echo /cmd_vel_mux/move_base
+        - sleep 5; rostopic echo /move_base/status
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled

@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="rviz" type="rviz" name="map_rviz" args="-d $(find rover_teleoperation)/launch/view_zed.rviz"/>
+</launch>
+

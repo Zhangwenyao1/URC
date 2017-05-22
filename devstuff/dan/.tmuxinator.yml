@@ -57,7 +57,7 @@ windows:
       root: ~/URC/rosws/src/rover_teleoperation/
       layout: tiled
       panes:
-        - "#roslaunch rover_teleoperation joy_teleoperation.launch dev:=/dev/input/js0"
+        - "#roslaunch rover_teleoperation drive_teleoperation.launch dev:=/dev/input/js0"
         - rostopic echo /joy
   - WAYPOINT:
       root: ~/URC/rosws/src/rover/src/
