@@ -11,9 +11,9 @@ class JoyArmSerial:
     PI = 3.14159265359
 
     def __init__(self,r = 0,i = 0):
-        # self.serialDev = serial.Serial()
-        # self.serialDev.port = "/dev/ttyACM1" # SET SERIAL DEVICE
-        # self.serialDev.open()
+        self.serialDev = serial.Serial()
+        self.serialDev.port = "/dev/ttyACM1" # SET SERIAL DEVICE
+        self.serialDev.open()
 
         self.velocities = {
             'wrist_roll': 0,
@@ -47,7 +47,7 @@ class JoyArmSerial:
                                         self.velocities['winch'],
                                         self.positions['camera'],
                                         )
-        # self.serialDev.write(encoded_position)
+        self.serialDev.write(encoded_position)
 
     def joy_callback(self, data):
         self.velocities = {
