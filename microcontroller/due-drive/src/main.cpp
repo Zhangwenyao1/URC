@@ -36,7 +36,7 @@ void setSparkVel(int left, int right) {
 }
 
 void setup() {
-    SerialUSB.begin(9600);
+    Serial.begin(9600);
     leftOne.attach(pinL1);
     leftTwo.attach(pinL2);
     leftThree.attach(pinL3);
@@ -47,34 +47,34 @@ void setup() {
 }
 
 void loop() {
-   if (SerialUSB.available() >= sizeof(uint8_t)) {
+   if (Serial.available() >= sizeof(uint8_t)) {
        delayMicroseconds(10);
-       uint8_t cmd = (uint8_t) SerialUSB.read();
-       // SerialUSB.print("GOT");
-       // SerialUSB.println(cmd);
+       uint8_t cmd = (uint8_t) Serial.read();
+       // Serial.print("GOT");
+       // Serial.println(cmd);
        // TWIST MOTOR COMMAND
        if (cmd == 0) {
-           SerialUSB.readBytes((char *) &received.linear, sizeof(float));
-           SerialUSB.readBytes((char *) &received.rotation, sizeof(float));
-           // SerialUSB.print("GOT TWIST ");
-           // SerialUSB.println((int) received.linear);
-           // SerialUSB.println((int) received.rotation);
+           Serial.readBytes((char *) &received.linear, sizeof(float));
+           Serial.readBytes((char *) &received.rotation, sizeof(float));
+           // Serial.print("GOT TWIST ");
+           // Serial.println((int) received.linear);
+           // Serial.println((int) received.rotation);
            setSparkVel((int) ((received.linear + received.rotation) * 100), (int) ((received.linear - received.rotation) * -100));
        }
        // TANK MOTOR COMMAND
        else if (cmd == 1) {
-           SerialUSB.readBytes((char *) &received.linear, sizeof(float));
-           SerialUSB.readBytes((char *) &received.rotation, sizeof(float));
-           // SerialUSB.print("GOT TANK ");
-           // SerialUSB.println((int) received.linear);
-           // SerialUSB.println((int) received.rotation);
+           Serial.readBytes((char *) &received.linear, sizeof(float));
+           Serial.readBytes((char *) &received.rotation, sizeof(float));
+           // Serial.print("GOT TANK ");
+           // Serial.println((int) received.linear);
+           // Serial.println((int) received.rotation);
            setSparkVel((int) (received.linear * 100), (int) (-received.rotation * 100));
        }
        // ZED SERVO MOTOR COMMAND
        else if (cmd == 2) {
-           SerialUSB.readBytes((char *) &received.zed_servo, sizeof(float));
-           // SerialUSB.print("GOT SERVO ");
-           // SerialUSB.println((int) received.zed_servo);
+           Serial.readBytes((char *) &received.zed_servo, sizeof(float));
+           // Serial.print("GOT SERVO ");
+           // Serial.println((int) received.zed_servo);
            ZEDServo.write((int) received.zed_servo);
        }
    }
