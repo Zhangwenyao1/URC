@@ -17,6 +17,8 @@ def on_auto_data(data):
     dtt = time.time() - dt
     dt = time.time()
     auto_timeout -= dtt
+    data.linear.x = -data.linear.x
+    data.angular.z =    data.angular.z * .25
     if auto_timeout <= 0:
         auto_timeout = 0
         pub.publish(data)
@@ -39,3 +41,4 @@ rospy.Subscriber("cmd_vel_mux/move_base", geometry_msgs.msg.Twist, callback=on_a
 rospy.Subscriber("cmd_vel_mux/teleoperation", geometry_msgs.msg.Twist, callback=on_twist)
 rospy.Subscriber("cmd_vel_tank", rover_drive.msg.Tank, callback=on_tank)
 rospy.spin()
+

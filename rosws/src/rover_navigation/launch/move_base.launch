@@ -4,14 +4,13 @@
 
     <node pkg="rover_rtabmap_config" type="pc_rotater.py" name="rotate_fixer" output="screen" />
 
-    <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true" >
+    <node pkg="move_base" type="move_base" name="move_base" output="screen" respawn="true"  clear_params="true" >
         <rosparam file="$(find rover_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
         <rosparam file="$(find rover_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
         <rosparam file="$(find rover_navigation)/config/local_costmap_params.yaml" command="load"/>
         <rosparam file="$(find rover_navigation)/config/global_costmap_params.yaml" command="load"/>
         <rosparam file="$(find rover_navigation)/config/base_local_planner_params.yaml" command="load"/>
 
-        <param name="controller_frequency" value="15" />
         <remap from="/cmd_vel" to="/cmd_vel_mux/move_base" />
     </node>
 

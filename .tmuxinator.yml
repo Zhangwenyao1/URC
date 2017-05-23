@@ -26,16 +26,16 @@ windows:
       root: ~/URC/rosws/src/rtimulib_ros/
       layout: even-horizontal
       panes:
-        - sleep 4; roslaunch rtimulib_ros rtimulib_ros.launch
+        - sleep 6; roslaunch rtimulib_ros rtimulib_ros.launch
         - sleep 3; rostopic echo imu/data_raw
-        - sleep 3; roslaunch /home/ubuntu/URC/devstuff/dan/IMU/imu_madgwick_filter.launch
+        - sleep 6; roslaunch /home/ubuntu/URC/devstuff/dan/IMU/imu_madgwick_filter.launch
         - sleep 3; rostopic echo /imu/data_madg
   - RTAB:
       root: ~/URC/rosws/src/rover_navigation/
       layout: tiled
       panes:
         - sleep 5; roslaunch rover_navigation rtabmap.launch
-        - sleep 5; roslaunch rover_rtabmap_config obstacle_up.launch
+        - "#sleep 5; roslaunch rover_rtabmap_config obstacle_up.launch"
         - sleep 5; rostopic echo /cmd_vel_mux/move_base
         - sleep 5; rostopic echo /move_base/status
         - sleep 5; roslaunch rover_navigation move_base.launch
@@ -57,8 +57,9 @@ windows:
       root: ~/URC/rosws/src/rover_drive/
       layout: tiled
       panes:
-        - "#roslaunch rover_drive drive.launch dev:=/dev/serial/by-id/usb-Arduino_Arduino_Due-if00"
-        - "#pio run -t upload"
+        - "#roslaunch rover_drive drive.launch dev:=/dev/serial/by-id/usb-Arduino_Srl_Arduino_Mega_85535303636351416262-if00"
+        - "#roslaunch rover_teleoperation drive_teleoperation.launch dev:=/dev/input/js0"
+        - pio device list
         - sleep 5; rostopic echo cmd_vel
         - sleep 5; rostopic echo cmd_vel_tank
   - ARM:
