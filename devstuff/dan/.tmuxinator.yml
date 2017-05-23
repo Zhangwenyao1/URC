@@ -25,6 +25,7 @@ windows:
       panes:
         - "#rqt_image_view /camera/rgb_fixed/compressed" # Zed Left Camera
         - "#rqt --perspective-file ./devstuff/dan/gui_configs/rqt_all_cameras.perspective" # All Cameras
+        - "#roslaunch rover_teleoperation view_zed.launch"
   - RQT:
       layout: tiled
       panes:
@@ -33,6 +34,7 @@ windows:
   - RVIZ:
       layout: tiled
       panes:
+        - "#roslaunch rover_navigation view_navigation.launch"
         - "#rviz"
         #- "#roslaunch rover_rtabmap_config mapping_rviz.launch"
         #- "#roslaunch rover_robot_localization odom_debug_rviz.launch"
@@ -73,7 +75,7 @@ windows:
         - python gps_goal.py --help
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
   - IMU:
-      root: ~/URC/rosws/src/rtimulib_ros/
+      root: ~/URC
       layout: tiled
       panes:
         - "#rqt --perspective-file ./devstuff/dan/IMU.perspective"
