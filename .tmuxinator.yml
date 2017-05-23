@@ -67,16 +67,16 @@ windows:
       layout: tiled
       panes:
         - "#rosrun rover_arm simple_arm_serial.py"
-  - SCI:
-      root: ~/URC/rosws/src/rover_science/
-      layout: tiled
-      panes:
-        - 
-        - python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
-        - sleep 3; rosrun rover_science save_temp.py _description:=site1
-        - sleep 3; rosrun rover_science save_ph.py _description:=site1
-        - watch cat *_temperature.txt
-        - watch cat *_ph.txt
+  # - SCI:
+  #     root: ~/URC/rosws/src/rover_science/
+  #     layout: tiled
+  #     panes:
+  #       - 
+  #       - python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
+  #       - sleep 3; rosrun rover_science save_temp.py _description:=site1
+  #       - sleep 3; rosrun rover_science save_ph.py _description:=site1
+  #       - watch cat *_temperature.txt
+  #       - watch cat *_ph.txt
   - WEBCAMS:
       root: ~/URC/rosws/src/rover/
       layout: main-horizontal
