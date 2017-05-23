@@ -1,26 +1,25 @@
-DWAPlannerROS:
+TrajectoryPlannerROS:
 
   # Current limits based on AZ3 standalone configuration.
-  acc_lim_x:  0.1
-  acc_lim_y:  0.0
-  acc_lim_th: 0.05
-  max_vel_x:  1.700
-  min_vel_x:  0
-  max_vel_y: 0
-  min_vel_y: 0
-  max_rot_vel: 0.2
-  min_rot_vel: -0.2
+  acc_lim_x:  0.5
+  acc_lim_y:  0.5
+  acc_lim_theta: 1.00
+  max_vel_x:  0.27
+  min_vel_x:  0.20
+  max_rotational_vel: 2.5
+  min_in_place_rotational_vel: 2.4
+  escape_vel: -0.017
   holonomic_robot: false
 
-  xy_goal_tolerance:  1
+  xy_goal_tolerance: 1 
   yaw_goal_tolerance: 1.39626 # 80 degrees
 
   # make sure that the minimum velocity multiplied by the sim_period is less than twice the tolerance on a goal. Otherwise, the robot will prefer to rotate in place just outside of range of its target position rather than moving towards the goal.
-  sim_time: 1.9 # set between 1 and 2. The higher he value, the smoother the path (though more samples would be required).
-  sim_granularity: 0.04
-  vx_samples: 10
-  vy_samples: 1
-  vtheta_samples: 30
+  sim_time: 1.7 # set between 1 and 2. The higher he value, the smoother the path (though more samples would be required).
+  sim_granularity: 0.025
+  vx_samples: 3
+  vtheta_samples: 3
+  vtheta_samples: 20
 
   goal_distance_bias: 0.8
   path_distance_bias: 0.6
