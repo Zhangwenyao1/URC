@@ -22,7 +22,7 @@
          altitude: 30.0,
          heading: 0.0},
 
-       { name: hanksville,
+       { name: MDRS,
          latitude: 38.36857886877816,
          longitude: -110.71678161621094,
          altitude: 30.0,

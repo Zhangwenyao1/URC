@@ -1,13 +1,12 @@
 #!/usr/bin/python
-
 import rospy
 import click
 import math
 import actionlib
 
 from geographiclib.geodesic import Geodesic
-from geometry_msgs.msg import PoseStamped
 from actionlib_msgs.msg import GoalStatus
+from geometry_msgs.msg import PoseStamped, PointStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 
@@ -19,19 +18,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 #     rospy.loginfo("Stop")
 #     rospy.sleep(1)
 
-
-@click.command()
-@click.option('--lat', prompt='Latitude', help='Latitude')
-@click.option('--long', prompt='Longitude', help='Longitude')
-# @click.option('--yaw', '-y', help='Set target direction robot should be facing after reaching the goal (ie. target yaw)')
-def gps_goal(lat, long):
-    """Send goal to move_base given latitude and longitude
-
-    \b
-    Two usage formats:
-    gps_goal.py --lat 43.658 --long -79.379 # decimal format
-    gps_goal.py --lat 43,39,31 --long 79,22,45 # DMS format"""
-
+def do_gps_goal(lat, long, marker_only=False):
     rospy.init_node('gps_goal')
 
     # Check for degrees, minutes, seconds format and convert to decimal
@@ -82,9 +69,25 @@ def gps_goal(lat, long):
     # else:
     #   # Use azimuth as yaw
 
-    # Send goal to move_base
+    # Publish goal as point message for visualization purposes
+    marker_topic = 'point_to_marker' # publish GPS point in ROS coordinates for visualization
+    point_publisher = rospy.Publisher(marker_topic, PointStamped, queue_size=10)
+    rospy.sleep(1) # allow time for subscribers to join
+    gps_point = PointStamped()
+    gps_point.point.x = x
+    gps_point.point.y = y
+    gps_point.point.z = 0
+    point_publisher.publish(gps_point)
+    rospy.loginfo("Published point {:.3f}, {:.3f} on topic {}.".format(x, y, marker_topic))
+
+    if marker_only:
+        return
+
+    # Create move_base goal
+    rospy.loginfo("Connecting to move_base...")
     move_base = actionlib.SimpleActionClient('move_base', MoveBaseAction)
     move_base.wait_for_server()
+    rospy.loginfo("Connected.")
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = 'map'
     goal.target_pose.pose.position.x = x
@@ -102,14 +105,32 @@ def gps_goal(lat, long):
     move_base.send_goal(goal)
     rospy.loginfo('Goal inital state: %s' % GoalStatus.to_string(move_base.get_state()))
     status = move_base.get_goal_status_text()
-    if status: rospy.loginfo(status)
+    if status:
+        rospy.loginfo(status)
 
     # Wait for goal result
     move_base.wait_for_result()
     rospy.loginfo('Goal final state: %s' % GoalStatus.to_string(move_base.get_state()))
     status = move_base.get_goal_status_text()
-    if status: rospy.loginfo(status)
+    if status:
+        rospy.loginfo(status)
 
+@click.command()
+@click.option('--lat', prompt='Latitude', help='Latitude')
+@click.option('--long', prompt='Longitude', help='Longitude')
+@click.option('--marker-only', help='Only publish a marker at the gps location, do not execute goal', is_flag=True)
+# @click.option('--yaw', '-y', help='Set target direction robot should be facing after reaching the goal (ie. target yaw)')
+def main_gps_goal(lat, long, marker_only):
+    """Send goal to move_base given latitude and longitude
+
+    \b
+    Two usage formats:
+    gps_goal.py --lat 43.658 --long -79.379 # decimal format
+    gps_goal.py --lat 43,39,31 --long -79,22,45 # DMS format"""
+
+    # Get click arguments then call do gps goal
+    do_gps_goal(lat, long, marker_only)
 
 if __name__ == '__main__':
-    gps_goal()
+    main_gps_goal()
+    rospy.spin()
