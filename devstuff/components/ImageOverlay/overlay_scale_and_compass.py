@@ -17,7 +17,7 @@ img = np.zeros((700,1000,3),dtype=np.uint8)
 
 def image_callback(data):
   global img
-  img_cv = CvBridge().imgmsg_to_cv2(data)
+  img_cv = CvBridge().compressed_imgmsg_to_cv2(data)
 
   # resize img to at least 1000 high
   scale_factor = 1000.0/img.shape[0]
@@ -81,6 +81,8 @@ def overlay_telemetry(scale_img, compass_img):
 
 
 if __name__ == '__main__':
+  rospy.init_node('overlay_scale_and_compass')
+  overlay_publisher = rospy.Publisher('/science/overlay/compressed', CompressedImage, queue_size=1)
   compass_filename = "compass.png"
   scale_filename = "scale.png"
 
@@ -99,32 +101,9 @@ if __name__ == '__main__':
     rospy.logerr("ERROR image file didn't load: %s" % compass_img)
     exit(1)
 
-  rospy.init_node('overlay_scale_and_compass', anonymous=True)
-  overlay_publisher = rospy.Publisher('/science/overlay/compressed', CompressedImage, queue_size=1)
-
-  # Get an image from ROS
-  image_topic = "/camera/rgb/image_rect_color"
-  if rospy.has_param('~image_topic'):
-    image_topic = rospy.get_param('~image_topic')
-  else:
-    rospy.logwarn("image topic not provided; using %s" % image_topic)
-  rospy.Subscriber(image_topic, Image, image_callback)
-
-  # Get a compass bearing from ROS
-  bearing_topic = "/science/bearing"
-  if rospy.has_param('~bearing_topic'):
-    bearing_topic = rospy.get_param('~bearing_topic')
-  else:
-    rospy.logwarn("bearing topic not provided; using %s" % bearing_topic)
-  rospy.Subscriber(bearing_topic, Float32, bearing_callback)
-
-  # Get scale size from ROS
-  scale_topic = "/science/scale"
-  if rospy.has_param('~scale_topic'):
-    scale_topic = rospy.get_param('~scale_topic')
-  else:
-    rospy.logwarn("scale topic not provided; using %s" % scale_topic)
-  rospy.Subscriber(scale_topic, Float32, scale_callback)
+  rospy.Subscriber(rospy.get_param('~image_topic', '/camera/rgb_fixed/compressed'), CompressedImage, image_callback)
+  rospy.Subscriber(rospy.get_param('~bearing_topic','/gps/heading'), Float32, bearing_callback)
+  rospy.Subscriber(rospy.get_param('~scale_topic', '/science/scale'), Float32, scale_callback)
 
   rate = rospy.Rate(10) # 10hz
   while not rospy.is_shutdown():
