@@ -12,7 +12,7 @@ class GPSClickController():
 
     def publish_gps_goal(self, point):
         rospy.loginfo('Publishing GPS goal to (%.3f, %.3f, %.3f)(lat, long, altitude).' % (point.point.x, point.point.y, point.point.z))
-        subprocess.call('%s --lat %s --long %s' % (self.executable, point.point.x, point.point.y), shell=True)
+        subprocess.call('%s --lat %s --long %s' % (self.executable, point.point.y, point.point.x), shell=True)
         # import gps_goal
         # gps_goal.do_gps_goal(point.point.x, point.point.y) # not in use because you cannot create a new node (rospy.init_node()) twice in the same python script
 

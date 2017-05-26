@@ -20,6 +20,7 @@ windows:
         - sleep 3; rosrun rover_science save_ph.py _description:=site1
         - watch cat *_temperature.txt
         - watch cat *_ph.txt
+        - '#~/URC/devstuff/components/Panarama/panotools.sh "$(ls ~/URC/*.jpg)"'
   - CAMERAS:
       layout: main-horizontal
       panes:
@@ -31,6 +32,8 @@ windows:
       panes:
         - rosrun rqt_tf_tree rqt_tf_tree
         - rqt_graph
+        - "#./rosws/src/rover/src/mapviz_click_to_gps_goal.py"
+        - ./rosws/src/rover/src/point_to_marker.py --scale 2
   - RVIZ:
       layout: tiled
       panes:
