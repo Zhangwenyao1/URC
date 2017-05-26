@@ -13,7 +13,7 @@ windows:
   - CORE: 
       layout: even-horizontal
       panes:
-        - 
+        - python rosws/src/rover/src/lost_comms_recovery.py --ip 192.168.137.19
         - roscore
   - GPS:
       root: ~/URC/rosws/src/rover/

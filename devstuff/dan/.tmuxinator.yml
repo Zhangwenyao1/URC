@@ -15,13 +15,13 @@ windows:
       layout: tiled
       panes:
         - bash
-        - python ~/URC/devstuff/components/ImageOverlay/overlay_scale_and_compass.py
         - sleep 3; rosrun rover_science save_temp.py _description:=site1
         - sleep 3; rosrun rover_science save_ph.py _description:=site1
         - watch cat *_temperature.txt
         - watch cat *_ph.txt
+        - '#~/URC/devstuff/components/Panarama/panotools.sh "$(ls ~/URC/*.jpg)"'
   - CAMERAS:
-      layout: main-horizontal
+      layout: tiled
       panes:
         - "#rqt_image_view /camera/rgb_fixed/compressed" # Zed Left Camera
         - "#rqt --perspective-file ./devstuff/dan/gui_configs/rqt_all_cameras.perspective" # All Cameras
@@ -31,6 +31,8 @@ windows:
       panes:
         - rosrun rqt_tf_tree rqt_tf_tree
         - rqt_graph
+        - "#./rosws/src/rover/src/mapviz_click_to_gps_goal.py"
+        - ./rosws/src/rover/src/point_to_marker.py --scale 2
   - RVIZ:
       layout: tiled
       panes:
@@ -74,8 +76,17 @@ windows:
       panes:
         - python gps_goal.py --help
         - "#rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID -- {}"
-  - IMU:
-      root: ~/URC
+  - OVERLAY:
+      root: ~/URC/devstuff/components/ImageOverlay/
       layout: tiled
       panes:
-        - "#rqt --perspective-file ./devstuff/dan/IMU.perspective"
+        - "#python ./overlay_scale_and_compass.py"
+        - "#rostopic pub /science/scale std_msgs/Float32 3.2"
+        - "#rostopic pub /gps/heading std_msgs/Float32 180"
+        - "#rqt_image_view /science/overlay/compressed"
+        - "#./overlay_scale_and_compass.py  --once --output-file out.jpg --heading 10 --scale 100 --image input.png"
+  # - IMU:
+  #     root: ~/URC
+  #     layout: tiled
+  #     panes:
+  #       - "#rqt --perspective-file ./devstuff/dan/IMU.perspective"
