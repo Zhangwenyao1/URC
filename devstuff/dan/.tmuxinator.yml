@@ -84,6 +84,7 @@ windows:
         - "#rostopic pub /science/scale std_msgs/Float32 3.2"
         - "#rostopic pub /gps/heading std_msgs/Float32 180"
         - "#rqt_image_view /science/overlay/compressed"
+        - "#./overlay_scale_and_compass.py  --once --output-file out.jpg --heading 10 --scale 100 --image input.png"
   # - IMU:
   #     root: ~/URC
   #     layout: tiled
