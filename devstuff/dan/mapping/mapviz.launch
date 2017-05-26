@@ -23,8 +23,8 @@
          heading: 0.0},
 
        { name: MDRS,
-         latitude: 38.36857886877816,
-         longitude: -110.71678161621094,
+         latitude: 38.40630,
+         longitude: -110.79201,
          altitude: 30.0,
          heading: 0.0}]
     </rosparam>
