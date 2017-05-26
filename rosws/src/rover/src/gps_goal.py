@@ -103,14 +103,14 @@ def do_gps_goal(lat, long, marker_only=False):
 
     # Send goal
     move_base.send_goal(goal)
-    rospy.loginfo('Goal inital state: %s' % GoalStatus.to_string(move_base.get_state()))
+    rospy.loginfo('Inital goal status: %s' % GoalStatus.to_string(move_base.get_state()))
     status = move_base.get_goal_status_text()
     if status:
         rospy.loginfo(status)
 
     # Wait for goal result
     move_base.wait_for_result()
-    rospy.loginfo('Goal final state: %s' % GoalStatus.to_string(move_base.get_state()))
+    rospy.loginfo('Final goal status: %s' % GoalStatus.to_string(move_base.get_state()))
     status = move_base.get_goal_status_text()
     if status:
         rospy.loginfo(status)

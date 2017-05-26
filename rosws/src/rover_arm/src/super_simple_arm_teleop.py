@@ -5,7 +5,6 @@ import struct
 import numpy as np
 
 from sensor_msgs.msg import Joy
-from sensor_msgs.msg import JointState
 
 class JoyArmSerial:
     PI = 3.14159265359
@@ -113,5 +112,4 @@ class JoyArmSerial:
 controller = JoyArmSerial()
 rospy.init_node("joystick_teleoperation_arm")
 sub = rospy.Subscriber("/joy_arm", Joy, controller.joy_callback)
-# pub = rospy.Publisher("/joint_states", JointState, queue_size=1)
 rospy.spin()
