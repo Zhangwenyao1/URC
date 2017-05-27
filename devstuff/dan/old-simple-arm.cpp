@@ -9,26 +9,18 @@ struct JOINTPINS{
   int j2 = 11; // small arm
   int j3 = 12;  // big arm
   int j4 = 13;  // base yaw
-  int g1 = 6;  // gripper enable
-  int g2 = 5;  // gripper open
-  int g3 = 4;  // gripper close
+  int g1 = 8;  // gripper enable
+  int g2 = 7;  // gripper open
+  int g3 = 6;  // gripper close
   int w1 = 14;  // winch enable
   int w2 = 15;  // winch in
   int w3 = 16;  // winch out
-  int camTilt = 7; // camera
-  // int p1 = A0; // unkown
-  // int p2 = A1; // unkown
-  // int p3 = A2; // pot3 aka. small arm
-  // int p4 = A3; // pot4 aka. wrist pitch
+  int camTilt = A0; // camera
 }pins;
 
 struct RECIEVED{
   float j0,j1,j2,j3,j4,gripper,winch,camTilt;
 }data;
-
-// struct POTS{
-//   int p1,p2,p3,p4;
-// }potsdata;
 
 Servo joint0, joint1, joint2, joint3, joint4, camTilt;
 
@@ -47,18 +39,6 @@ void recievedData(){
     Serial.readBytes((char*)&data.camTilt,sizeof(float));
   }
 }
-// void readPots(){
-//   potsdata.p1 = analogRead(pins.p1);
-//   potsdata.p2 = analogRead(pins.p2);
-//   potsdata.p3 = analogRead(pins.p3);
-//   potsdata.p4 = analogRead(pins.p4);
-// }
-// void sendData(){
-//   Serial.write((char*)&potsdata.p1, sizeof(int));
-//   Serial.write((char*)&potsdata.p2, sizeof(int));
-//   Serial.write((char*)&potsdata.p3, sizeof(int));
-//   Serial.write((char*)&potsdata.p4, sizeof(int));
-// }
 void writeToJoints(){
   joint0.writeMicroseconds(mapToVictor(data.j0));
   joint1.writeMicroseconds(mapToVictor(data.j1));
@@ -87,25 +67,25 @@ void writeToJoints(){
   }
 
   // Winch In
-  if (data.winch == 1){
+  if (data.gripper == 1){
     digitalWrite(pins.w1, HIGH);   // enable pin
     digitalWrite(pins.w2, HIGH);   // turn open on
     digitalWrite(pins.w3, LOW);   // turn close off
   }
   // Winch Out
-  else if (data.winch == -1){
+  else if (data.gripper == -1){
     digitalWrite(pins.w1, HIGH);   // enable pin
     digitalWrite(pins.w2, LOW);   // turn open off
     digitalWrite(pins.w3, HIGH);   // turn close on
   }
   // Winch Off
-  else if (data.winch == 0){
+  else if (data.gripper == 0){
     digitalWrite(pins.w1, LOW);   // enable pin
     digitalWrite(pins.w2, LOW);   // turn open off
     digitalWrite(pins.w3, LOW);   // turn close off
   }
   // Winch Break
-  else if (data.winch == 1337){
+  else if (data.gripper == 1337){
     digitalWrite(pins.w1, HIGH);   // enable pin
     digitalWrite(pins.w2, HIGH);   // turn open on
     digitalWrite(pins.w3, HIGH);   // turn close on
@@ -125,16 +105,10 @@ void setup() {
   pinMode(pins.w1, OUTPUT);
   pinMode(pins.w2, OUTPUT);
   pinMode(pins.w3, OUTPUT);
-  // pinMode(pins.p1, INPUT);
-  // pinMode(pins.p2, INPUT);
-  // pinMode(pins.p3, INPUT);
-  // pinMode(pins.p3, INPUT);
   recievedData();
 }
 
 void loop() {
-  // readPots();
-  // sendData();
-  recievedData();
-  writeToJoints();
+ recievedData();
+ writeToJoints();
 }
