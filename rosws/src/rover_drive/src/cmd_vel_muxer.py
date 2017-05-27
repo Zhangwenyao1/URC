@@ -17,8 +17,8 @@ def on_auto_data(data):
     dtt = time.time() - dt
     dt = time.time()
     auto_timeout -= dtt
-    data.linear.x = -data.linear.x
-    data.angular.z =    data.angular.z * .25
+    data.linear.x = data.linear.x
+    data.angular.z = data.angular.z
     if auto_timeout <= 0:
         auto_timeout = 0
         pub.publish(data)
