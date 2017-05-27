@@ -4,3 +4,5 @@
 # add ide things here:
 
 CMakeLists*.txt
+cmake-build-debug/
+CMakeListsPrivate.txt

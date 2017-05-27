@@ -1,0 +1,188 @@
+{
+  "keys": {}, 
+  "groups": {
+    "pluginmanager": {
+      "keys": {
+        "running-plugins": {
+          "type": "repr", 
+          "repr": "{u'rover_rqt_science/URCSciencePano': [1], u'rqt_image_view/ImageView': [1], u'rqt_ez_publisher/EzPublisher': [1], u'rover_rqt_science/URCScience': [1]}"
+        }
+      }, 
+      "groups": {
+        "plugin__rover_rqt_science__URCSciencePano__1": {
+          "keys": {}, 
+          "groups": {
+            "dock_widget__PANOSciencePluginUI": {
+              "keys": {
+                "dockable": {
+                  "type": "repr", 
+                  "repr": "True"
+                }, 
+                "parent": {
+                  "type": "repr", 
+                  "repr": "None"
+                }, 
+                "dock_widget_title": {
+                  "type": "repr", 
+                  "repr": "u'Form'"
+                }
+              }, 
+              "groups": {}
+            }
+          }
+        }, 
+        "plugin__rqt_ez_publisher__EzPublisher__1": {
+          "keys": {}, 
+          "groups": {
+            "dock_widget__EzPublisherPluginUi": {
+              "keys": {
+                "dockable": {
+                  "type": "repr", 
+                  "repr": "True"
+                }, 
+                "parent": {
+                  "type": "repr", 
+                  "repr": "None"
+                }, 
+                "dock_widget_title": {
+                  "type": "repr", 
+                  "repr": "u''"
+                }
+              }, 
+              "groups": {}
+            }, 
+            "plugin": {
+              "keys": {
+                "texts": {
+                  "type": "repr", 
+                  "repr": "[u'/zed_servo/data']"
+                }, 
+                "publish_interval": {
+                  "type": "repr", 
+                  "repr": "100"
+                }
+              }, 
+              "groups": {
+                "zed_servo": {
+                  "keys": {
+                    "data_range": {
+                      "type": "repr", 
+                      "repr": "(160.0, 0.0)"
+                    }, 
+                    "data_is_repeat": {
+                      "type": "repr", 
+                      "repr": "False"
+                    }
+                  }, 
+                  "groups": {}
+                }
+              }
+            }
+          }
+        }, 
+        "plugin__rover_rqt_science__URCScience__1": {
+          "keys": {}, 
+          "groups": {
+            "dock_widget__rootenclosure": {
+              "keys": {
+                "dockable": {
+                  "type": "repr", 
+                  "repr": "True"
+                }, 
+                "parent": {
+                  "type": "repr", 
+                  "repr": "None"
+                }, 
+                "dock_widget_title": {
+                  "type": "repr", 
+                  "repr": "u''"
+                }
+              }, 
+              "groups": {}
+            }
+          }
+        }, 
+        "plugin__rqt_image_view__ImageView__1": {
+          "keys": {}, 
+          "groups": {
+            "dock_widget__ImageViewWidget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr", 
+                  "repr": "True"
+                }, 
+                "parent": {
+                  "type": "repr", 
+                  "repr": "None"
+                }, 
+                "dock_widget_title": {
+                  "type": "repr", 
+                  "repr": "u'Image View'"
+                }
+              }, 
+              "groups": {}
+            }, 
+            "plugin": {
+              "keys": {
+                "max_range": {
+                  "type": "repr", 
+                  "repr": "10.0"
+                }, 
+                "mouse_pub_topic": {
+                  "type": "repr", 
+                  "repr": "u'/camera/rgb_fixed/compressed_mouse_left'"
+                }, 
+                "toolbar_hidden": {
+                  "type": "repr", 
+                  "repr": "False"
+                }, 
+                "zoom1": {
+                  "type": "repr", 
+                  "repr": "False"
+                }, 
+                "dynamic_range": {
+                  "type": "repr", 
+                  "repr": "False"
+                }, 
+                "topic": {
+                  "type": "repr", 
+                  "repr": "u'/camera/rgb_fixed/compressed'"
+                }, 
+                "publish_click_location": {
+                  "type": "repr", 
+                  "repr": "False"
+                }
+              }, 
+              "groups": {}
+            }
+          }
+        }
+      }
+    }, 
+    "mainwindow": {
+      "keys": {
+        "geometry": {
+          "type": "repr(QByteArray.hex)", 
+          "repr(QByteArray.hex)": "QtCore.QByteArray('01d9d0cb0002000000000041000000180000077f0000043700000041000000180000077f0000043700000000000000000780')", 
+          "pretty-print": "     A     7 A     7     "
+        }, 
+        "state": {
+          "type": "repr(QByteArray.hex)", 
+          "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff00000000fd00000001000000030000073f0000040afc0100000002fc000000000000038c0000038c00fffffffc0200000002fb0000006a007200710074005f0065007a005f007000750062006c00690073006800650072005f005f0045007a005000750062006c00690073006800650072005f005f0031005f005f0045007a005000750062006c006900730068006500720050006c007500670069006e005500690100000000000000960000007c00fffffffb0000005a007200710074005f0069006d006100670065005f0076006900650077005f005f0049006d0061006700650056006900650077005f005f0031005f005f0049006d0061006700650056006900650077005700690064006700650074010000009c0000036e0000005100fffffffc00000392000003ad000002f100fffffffc0200000002fb000000720072006f007600650072005f007200710074005f0073006300690065006e00630065005f005f0055005200430053006300690065006e0063006500500061006e006f005f005f0031005f005f00500041004e004f0053006300690065006e006300650050006c007500670069006e005500490100000000000001460000012f00fffffffb0000005e0072006f007600650072005f007200710074005f0073006300690065006e00630065005f005f0055005200430053006300690065006e00630065005f005f0031005f005f0072006f006f00740065006e0063006c006f0073007500720065010000014c000002be0000017d00ffffff0000073f0000000000000004000000040000000800000008fc00000001000000030000000100000036004d0069006e0069006d0069007a006500640044006f0063006b00570069006400670065007400730054006f006f006c0062006100720000000000ffffffff0000000000000000')", 
+          "pretty-print": "                                                                                        |                                                     n Q               rrover_rqt_science__URCSciencePano__1__PANOSciencePluginUI          ^rover_rqt_science__URCScience__1__rootenclosure                            6MinimizedDockWidgetsToolbar        "
+        }
+      }, 
+      "groups": {
+        "toolbar_areas": {
+          "keys": {
+            "MinimizedDockWidgetsToolbar": {
+              "type": "repr", 
+              "repr": "8"
+            }
+          }, 
+          "groups": {}
+        }
+      }
+    }
+  }
+}

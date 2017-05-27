@@ -12,3 +12,4 @@ CMakeLists*.txt
 
 .settings/
 CMakeListsPrivate.txt
+cmake-build-debug/

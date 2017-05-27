@@ -19,7 +19,7 @@ def pre_transmit():
 
 def on_new_twist(data):
     # pre_transmit()
-    dat = cmd_byte_map['twist'] + struct.pack("<ff", -data.linear.x, (-data.angular.z))
+    dat = cmd_byte_map['twist'] + struct.pack("<ff", data.linear.x, (-data.angular.z))
     theSerial.write(dat)
 
 def on_new_tank(data):
@@ -41,3 +41,4 @@ subscriber_twist = rospy.Subscriber("/cmd_vel", geometry_msgs.msg.Twist, on_new_
 subscriber_tank = rospy.Subscriber("/cmd_vel_tank", rover_drive.msg.Tank, on_new_tank, queue_size=15)
 subscriber_zed_servo = rospy.Subscriber("/zed_servo", std_msgs.msg.Float32, on_new_zed_servo, queue_size=15)
 rospy.spin()
+
