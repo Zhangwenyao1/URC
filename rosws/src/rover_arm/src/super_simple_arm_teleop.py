@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import time
 import rospy
 import serial
 import struct
@@ -11,7 +12,7 @@ class JoyArmSerial:
 
     def __init__(self,r = 0,i = 0):
         self.serialDev = serial.Serial()
-        self.serialDev.port = "/dev/ttyACM1" # SET SERIAL DEVICE
+        self.serialDev.port = "/dev/ttyACM0" # SET SERIAL DEVICE
         self.serialDev.open()
 
         self.velocities = {

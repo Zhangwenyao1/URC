@@ -9,7 +9,7 @@ windows:
         - "#top"
         - htop
         - dmesg -w
-        - "#cmatrix"
+        - 
   - SCI:
       root: ~/URC/rosws/src/rover_science/
       layout: tiled
@@ -55,7 +55,7 @@ windows:
       root: ~/URC/rosws/src/rover_arm/
       layout: tiled
       panes:
-        - "#roslaunch rover_teleoperation arm_teleoperation dev:=/dev/input/js0"
+        - "#roslaunch rover_teleoperation arm_teleoperation.launch dev:=/dev/input/js0"
         - rostopic echo /joy_arm
   - DRIVE:
       root: ~/URC/rosws/src/rover_teleoperation/
