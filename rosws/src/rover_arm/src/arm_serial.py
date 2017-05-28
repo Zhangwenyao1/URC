@@ -124,7 +124,7 @@ def new_data(msg):
     serial_dev.write(m)
 
 rospy.init_node("serial_arm_node")
-serial_port = rospy.get_param("~dev")
+serial_port = rospy.get_param("~dev","/dev/ttyUSB0")
 serial_dev = serial.Serial(port=serial_port, baudrate=9600)
 p = rospy.Subscriber("/arm_controller/winch", std_msgs.msg.Float32, callback=new_data, queue_size=10)
 as_arm_ = ArmActionServer(serial_dev)
