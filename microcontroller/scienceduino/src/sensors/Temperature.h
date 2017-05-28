@@ -16,7 +16,7 @@ public:
     virtual void write();
 
 private:
-    SHT1x sensor;
+    SHT1x* sensor;
 };
 
 

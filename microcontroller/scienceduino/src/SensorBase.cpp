@@ -8,7 +8,7 @@ void SensorBase::write() {
 
 }
 
-void SensorBase::SensorBase(int n) {
+SensorBase::SensorBase(int n) {
     this->id = n;
 }
 

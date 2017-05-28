@@ -56,7 +56,7 @@ class ArmActionServer:
                 self._send_abort()
                 return
             a, b, c, d = pts[indicies[0]], pts[indicies[1]], pts[indicies[2]], pts[indicies[3]]
-            self.serial.write("\x01" + struct.pack("<ffff", a, b, c, d))
+            #self.serial.write("\x01" + struct.pack("<ffff", a, b, c, d))
             rospy.loginfo("Sent command")
             if self._wait_response():
                 if self.is_preempt:
@@ -75,13 +75,13 @@ class ArmActionServer:
                 if self.is_preempt:
                     self.as_arm.set_preempted(None, "Preempt")
                     self.is_preempt = False
-                    self._send_abort()
+                    #self._send_abort()
                     return
                 self.as_arm.set_aborted(None, "Aborted")
                 rospy.logerr("Failed!")
                 return
         rospy.loginfo("Done!")
-        self._send_finish()
+        #self._send_finish()
         self._result_message.error_code = self._result_message.SUCCESSFUL
         self.as_arm.set_succeeded(self._result_message, "Done!")
         return
@@ -90,6 +90,8 @@ class ArmActionServer:
         self.is_preempt = True
 
     def _wait_response(self):
+	time.sleep(0.1)
+	return True
         while True:
             if self.is_preempt:
                 return False
@@ -124,8 +126,8 @@ def new_data(msg):
     serial_dev.write(m)
 
 rospy.init_node("serial_arm_node")
-serial_port = rospy.get_param("~dev")
-serial_dev = serial.Serial(port=serial_port, baudrate=9600)
+#serial_port = rospy.get_param("~dev")
+#serial_dev = serial.Serial(port=serial_port, baudrate=9600)
 p = rospy.Subscriber("/arm_controller/winch", std_msgs.msg.Float32, callback=new_data, queue_size=10)
-as_arm_ = ArmActionServer(serial_dev)
+as_arm_ = ArmActionServer(None)
 rospy.spin()

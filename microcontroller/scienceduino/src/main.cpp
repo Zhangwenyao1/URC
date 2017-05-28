@@ -19,6 +19,8 @@ void initializeSensors() {
 void setup() {
     Serial.begin(38400); // Open serial connection to report values to host
     initializeSensors();
+    pinMode(2, OUTPUT);
+    digitalWrite(2, HIGH);
 }
 
 void doSteppers() {};

@@ -13,12 +13,15 @@ void PH::init() {
 
 void PH::write() {
     float avg = 0;
-    for (int i=0; i < 10; i++) {
+    for (int i=0; i < 20; i++) {
         delay(10);
         avg += analogRead(PH_PIN);
     }
     Serial.write(this->id);
-    avg /= 10;
+    avg /= 20;
+    avg = avg*5.0/1024;
+    avg = 3.5 * avg;
+    //Serial.println(avg);
     Serial.write((char*)&avg, sizeof(float));
 }
 

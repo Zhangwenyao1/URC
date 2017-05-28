@@ -11,8 +11,8 @@ void Humidity::init() {
 
 void Humidity::write() {
     Serial.write(this->id);
-    float humid = this->sensor.readHumidity();
+    float humid = this->sensor->readHumidity();
     Serial.write((char*)&humid, sizeof(float));
 }
 
-Humidity::Humidity(int n, SHT1x sensor) : SensorBase(n), sensor(sensor) {}
+Humidity::Humidity(int n, SHT1x sensor) : SensorBase(n), sensor(&sensor) {}

@@ -9,13 +9,12 @@
 
 class Humidity: public SensorBase {
 public:
-    Humidity(int n);
     Humidity(int n, SHT1x sensor);
 
     virtual void write();
     virtual void init();
 private:
-    SHT1x sensor;
+    SHT1x* sensor;
 };
 
 
