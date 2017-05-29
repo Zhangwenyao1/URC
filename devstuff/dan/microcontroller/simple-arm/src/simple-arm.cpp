@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Servo.h>
-#define victorMax 2600
-#define victorMin 600
+#define victorMax 2350
+#define victorMin 650
 
 struct JOINTPINS{
   int j0 = 9; // wrist roll
@@ -65,7 +65,7 @@ void writeToJoints(){
   joint2.writeMicroseconds(mapToVictor(data.j2));
   joint3.writeMicroseconds(mapToVictor(data.j3));
   joint4.writeMicroseconds(mapToVictor(data.j4));
-  camTilt.write(data.camTilt);
+  camTilt.write((int)data.camTilt);
 
   // Gripper Open
   if (data.gripper == 1){
@@ -86,30 +86,30 @@ void writeToJoints(){
     digitalWrite(pins.g3, LOW);   // turn close on
   }
 
-  // Winch In
-  if (data.winch == 1){
-    digitalWrite(pins.w1, HIGH);   // enable pin
-    digitalWrite(pins.w2, HIGH);   // turn open on
-    digitalWrite(pins.w3, LOW);   // turn close off
-  }
-  // Winch Out
-  else if (data.winch == -1){
-    digitalWrite(pins.w1, HIGH);   // enable pin
-    digitalWrite(pins.w2, LOW);   // turn open off
-    digitalWrite(pins.w3, HIGH);   // turn close on
-  }
-  // Winch Off
-  else if (data.winch == 0){
-    digitalWrite(pins.w1, LOW);   // enable pin
-    digitalWrite(pins.w2, LOW);   // turn open off
-    digitalWrite(pins.w3, LOW);   // turn close off
-  }
-  // Winch Break
-  else if (data.winch == 1337){
-    digitalWrite(pins.w1, HIGH);   // enable pin
-    digitalWrite(pins.w2, HIGH);   // turn open on
-    digitalWrite(pins.w3, HIGH);   // turn close on
-  }
+  // // Winch In
+  // if (data.winch == 1){
+  //   digitalWrite(pins.w1, HIGH);   // enable pin
+  //   digitalWrite(pins.w2, HIGH);   // turn open on
+  //   digitalWrite(pins.w3, LOW);   // turn close off
+  // }
+  // // Winch Out
+  // else if (data.winch == -1){
+  //   digitalWrite(pins.w1, HIGH);   // enable pin
+  //   digitalWrite(pins.w2, LOW);   // turn open off
+  //   digitalWrite(pins.w3, HIGH);   // turn close on
+  // }
+  // // Winch Off
+  // else if (data.winch == 0){
+  //   digitalWrite(pins.w1, LOW);   // enable pin
+  //   digitalWrite(pins.w2, LOW);   // turn open off
+  //   digitalWrite(pins.w3, LOW);   // turn close off
+  // }
+  // // Winch Break
+  // else if (data.winch == 1337){
+  //   digitalWrite(pins.w1, HIGH);   // enable pin
+  //   digitalWrite(pins.w2, HIGH);   // turn open on
+  //   digitalWrite(pins.w3, HIGH);   // turn close on
+  // }
 }
 void setup() {
   Serial.begin(9600);
