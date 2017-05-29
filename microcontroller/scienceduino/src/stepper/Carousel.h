@@ -6,19 +6,20 @@
 #define SCIENCEDUINO_CAROUSEL_H
 
 #include <A4988.h>
+#include <Arduino.h>
 
 class Carousel {
 public:
-    Carousel(A4988 motor);
+    Carousel(A4988 motor, int limitPin);
 
     bool aligned;
     int index;
 
     void moveToIndex(int index);
-    void recalcAndMove();
-    void moveToPh() {
-        this->moveToIndex(4);
+    void moveToPh(int index) {
+        this->moveToIndex((index + 2) % 6);
     }
+    void update();
 
 
 private:
@@ -26,14 +27,18 @@ private:
 
     int stepsSinceConfirm;
     int reverseDirection;
+    int lastDirection;
+    int limitPin;
     bool base;
 
     int goalIndex;
 
-    int indexToSteps(int ioffset);
     void calculateAligned();
+    void calculateIndex();
+    void recalcAndMove();
+    void limitPushed();
 
-    bool optimalDirection(int to);
+    int optimalDirection(int to);
 };
 
 
