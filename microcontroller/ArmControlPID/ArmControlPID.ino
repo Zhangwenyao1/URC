@@ -1,9 +1,14 @@
+/*General arm control code, featuring PID control for joints 1 through 4, cotrol for the winch and claw
+* Note**: that joint1 represents the base and joint2 represents the big arm, so on and so forth
+*Tuning constants have not yet been finalized, also pot values may change if the arm stalls or gets stuck
+*/
+
 #include <Servo.h>
 #include <PID_v1.h>
 
 #define serialBaud 9600
-#define victorMin 500
-#define victorMax 2300
+#define victorMin 50
+#define victorMax 2350
 #define outputMax 100
 #define outputMin -100
 #define numJoints 6
@@ -16,7 +21,7 @@ typedef struct CONSTANTS{
     5,
     6
   };
-  int tiltCamPin;
+  int tiltCamPin = 13;
   int winchPins[3]={
     7,
     8,
@@ -31,55 +36,39 @@ typedef struct CONSTANTS{
     A0,
     A1,
     A2,
-    A3,
-    A4,
-    A5
+    A3
   };
   double j1gains[3] = {
-    0.0, //Kp
+    1, //Kp
     0.0, //Ki
     0.0  //Kd
   };
   double j2gains[3]={
-    0.0,
+    1,
     0.0,
     0.0
   };
   double j3gains[3]={
-    0.0,
+    1,
     0.0,
     0.0
   };
   double j4gains[3]={
-    0.0,
-    0.0,
-    0.0
-  };
-  double j5gains[3]={
-    0.0,
-    0.0,
-    0.0
-  };
-  double j6gains[3]={
-    0.0,
+    1,
     0.0,
     0.0
   };
   double jointPotConstraint[numJoints][2]={
     {0,0},
-    {0,0},
-    {0,0},
-    {0,0},
-    {0,0},
-    {0,0}
+    {475,10},
+    {730,185},
+    {685,165}
   };
   double jointAngleConstraint[numJoints][2]={
     {0,0},
-    {0,0},
-    {0,0},
-    {0,0},
-    {0,0},
-    {0,0}
+    {59,-23},
+    {-165,-64},
+    {-162,7}
   };
 };
 typedef struct JOINT{
@@ -88,8 +77,8 @@ typedef struct JOINT{
 };
 //declares a constants structure
 CONSTANTS constants;
-//declares six instances of the joint structure
-JOINT joints[numJoints];
+//declares five instances of the joint structure
+JOINT joints[numJoints-1];
 //camera tilt servo
 Servo tiltCam;
 //declares siz PID's and applies the values to the corresponding joints
@@ -97,8 +86,6 @@ PID j1PID(&joints[0].input, &joints[0].output, &joints[0].setpoint, constants.j1
 PID j2PID(&joints[1].input, &joints[1].output, &joints[1].setpoint, constants.j2gains[0], constants.j2gains[1], constants.j2gains[2], DIRECT);
 PID j3PID(&joints[2].input, &joints[2].output, &joints[2].setpoint, constants.j3gains[0], constants.j3gains[1], constants.j3gains[2], DIRECT);
 PID j4PID(&joints[3].input, &joints[3].output, &joints[3].setpoint, constants.j4gains[0], constants.j4gains[1], constants.j4gains[2], DIRECT);
-PID j5PID(&joints[4].input, &joints[4].output, &joints[4].setpoint, constants.j5gains[0], constants.j5gains[1], constants.j5gains[2], DIRECT);
-PID j6PID(&joints[5].input, &joints[5].output, &joints[5].setpoint, constants.j6gains[0], constants.j6gains[1], constants.j6gains[2], DIRECT);
 //initiate all of the PIDS
 void initPID(){
   //joint 1
@@ -113,26 +100,20 @@ void initPID(){
   //joint 4
   j4PID.SetMode(AUTOMATIC);
   j4PID.SetOutputLimits(outputMin,outputMax);
-  //joint 5
-  j5PID.SetMode(AUTOMATIC);
-  j5PID.SetOutputLimits(outputMin,outputMax);
-  //joint 6
-  j6PID.SetMode(AUTOMATIC);
-  j6PID.SetOutputLimits(outputMin,outputMax);
 }
 //initiate all of the motors
 void initMotors(){
-  for(int i = 0; i<numJoints; i++)
-    joints[i].motor.attach(constants.motorPins[i]);
-  tiltCam.attach(constants.tiltCamPin);
+  tiltCam.attach(constants.tiltCamPin);//init the titlCam servo
+  for(int i = 0; i<numJoints-1; i++)
+    joints[i].motor.attach(constants.motorPins[i]);//init all the joints except the claw
   for(int i =0; i<3; i++){
-    pinMode(constants.winchPins[i],OUTPUT);
-    pinMode(constants.joint6Pins[i],OUTPUT);
+    pinMode(constants.winchPins[i],OUTPUT);//init the winch
+    pinMode(constants.joint6Pins[i],OUTPUT);//init the claw
   }
 }
 //updates all the pots
 void updatePots(){
-  for(int i =0; i<numJoints; i++)
+  for(int i =0; i<numJoints-2; i++)
     joints[i].input = analogRead(constants.potPins[i]);
 }
 //writes the output of the PID to the motors
@@ -141,29 +122,30 @@ void doMotorControl(Servo motor, double output){
 }
 //enables the compute for the PID's
 void computeAllPID(){
-  if(!j1PID.Compute()||!j2PID.Compute()||!j3PID.Compute()||!j4PID.Compute()||!j5PID.Compute()||!j6PID.Compute()){//if any of the PID'S have not reached their desired positions write to motors
-    for(int i = 0; i<numJoints; i++){
-      if(abs(joints[i].output)>5)
+  if(!j1PID.Compute()&&!j2PID.Compute()&&!j3PID.Compute()&&!j4PID.Compute()){//all PID must be complete for inotder to stop computing//if any of the PID'S have not reached their desired positions write to motors
+    for(int i = 0; i<numJoints-2; i++){//4 PID's == for loops
+      if(abs(joints[i].output)>5)//here so that the PID doesn't make the arm jitter and break
         doMotorControl(joints[i].motor, joints[i].output);
     }
   }
 }
+//maps the input angle to its matching constraints
 int mapSetpoints(double angle, int joint){
   return map(angle, constants.jointAngleConstraint[joint][0],constants.jointAngleConstraint[joint][1],constants.jointPotConstraint[joint][0],constants.jointPotConstraint[joint][1]);
 }
 //constrols the direction of anything wired to L298N
 void doL298N(int dir, int enable, int forward, int reverse){
-  if(dir == 0)
+  if(dir == 0)//coast
     digitalWrite(enable,LOW);
-  else if(dir == 1){
+  else if(dir == 1){//forward
     digitalWrite(enable,HIGH);
     digitalWrite(forward,HIGH);
   }
-  else if(dir == -1){
+  else if(dir == -1){//reverse
     digitalWrite(enable,HIGH);
     digitalWrite(reverse,HIGH);
   }
-  else if(dir == 1337){
+  else if(dir == 1337){//break
     digitalWrite(enable,HIGH);
     digitalWrite(forward,HIGH);
     digitalWrite(reverse,HIGH);
@@ -173,7 +155,6 @@ void doL298N(int dir, int enable, int forward, int reverse){
 void recieveData(){
   String input;
   int commandByte;
-  float data[4];
   float temp;
   if(Serial.available()){
     Serial.readBytes((char*)&commandByte,sizeof(int));
