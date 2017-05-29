@@ -19,8 +19,8 @@ public:
     void moveToPh(int index) {
         this->moveToIndex((index + 2) % 6);
     }
-    void update();
 
+    void home();
 
 private:
     A4988 motor;
@@ -33,12 +33,8 @@ private:
 
     int goalIndex;
 
-    void calculateAligned();
-    void calculateIndex();
-    void recalcAndMove();
-    void limitPushed();
-
-    int optimalDirection(int to);
+    int dirToSteps(int v);
+    int getShortDirection();
 };
 
 
