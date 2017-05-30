@@ -6,7 +6,7 @@ import time
 import std_srvs.srv
 import rover_science.srv
 
-s = serial.Serial(port="/dev/ttyUSB0", baudrate=38400)
+s = serial.Serial(port="/dev/ttyACM0", baudrate=38400)
 rospy.init_node("science_serial")
 
 # CAROUSEL CONTROL
