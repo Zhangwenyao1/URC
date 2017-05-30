@@ -14,13 +14,31 @@ def move_to_funnel(request):
     data = struct.pack("<BB", 0x00, request.index)
     s.write(data)
     rospy.loginfo('Move %s to funnel' % request.index)
-    return rover_science.srv.CarouselResponse()
+    timeout = time.time() + 10   # 10 seconds from now
+    while True:
+        if s.in_waiting:
+            data = s.read(1)
+            rospy.loginfo('Response from arduino %s!' % data)
+            return rover_science.srv.CarouselResponse(success=True)
+        if time.time() > timeout:
+            rospy.logerr('Timeout exceeded!')
+            return rover_science.srv.CarouselResponse(success=False)
+        time.sleep(1)
 
 def move_to_ph(request):
     data = struct.pack("<BB", 0x01, request.index)
     s.write(data)
     rospy.loginfo('Move %s to ph' % request.index)
-    return rover_science.srv.CarouselResponse()
+    timeout = time.time() + 10   # 10 seconds from now
+    while True:
+        if s.in_waiting:
+            data = s.read(1)
+            rospy.loginfo('Response from arduino %s!' % data)
+            return rover_science.srv.CarouselResponse(success=True)
+        if time.time() > timeout:
+            rospy.logerr('Timeout exceeded!')
+            return rover_science.srv.CarouselResponse(success=False)
+        time.sleep(1)
 
 to_funnel_service = rospy.Service("/science/carousel/funnel", rover_science.srv.Carousel, move_to_funnel)
 rospy.loginfo('Initialized service /science/carousel/funnel')
