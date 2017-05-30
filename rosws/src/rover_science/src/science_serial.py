@@ -45,11 +45,11 @@ rospy.loginfo('Initialized service /science/carousel/funnel')
 to_ph_service = rospy.Service("/science/carousel/ph", rover_science.srv.Carousel, move_to_ph)
 rospy.loginfo('Initialized service /science/carousel/ph')
 
-# ETHANOL TUBE CONTROL
-def open_tube(request):
+# ETHANOL probe CONTROL (Open/Close)
+def open_probe(request):
     data = struct.pack("<B", 0x02)
     s.write(data)
-    rospy.loginfo('Open tube')
+    rospy.loginfo('Open probe')
     return std_srvs.srv.EmptyResponse()
 
 open_tube_service = rospy.Service("/science/tube/open", std_srvs.srv.Empty, open_tube)
@@ -63,6 +63,25 @@ def close_tube(request):
 
 close_tube_service = rospy.Service("/science/tube/close", std_srvs.srv.Empty, close_tube)
 rospy.loginfo('Initialized service /science/tube/close')
+
+# PROBE CONTROL (Up/Down)
+def up_probe(request):
+    data = struct.pack("<B", 0x02)
+    s.write(data)
+    rospy.loginfo('Probe up')
+    return std_srvs.srv.EmptyResponse()
+
+probe_up_service = rospy.Service("/science/probe/up", std_srvs.srv.Empty, up_probe)
+rospy.loginfo('Initialized service /science/probe/up')
+
+def down_probe(request):
+    data = struct.pack("<B", 0x03)
+    s.write(data)
+    rospy.loginfo('Probe down')
+    return std_srvs.srv.EmptyResponse()
+
+probe_down_service = rospy.Service("/science/probe/down", std_srvs.srv.Empty, down_probe)
+rospy.loginfo('Initialized service /science/probe/down')
 
 while not rospy.is_shutdown():
     time.sleep(1)
