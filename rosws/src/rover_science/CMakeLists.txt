@@ -56,6 +56,7 @@ find_package(catkin REQUIRED COMPONENTS geographic_msgs message_generation std_m
    UpdateMeasurement.srv
    MarkPano.srv
    DeleteSite.srv
+   Carousel.srv
  )
 
 ## Generate actions in the 'action' folder

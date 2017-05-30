@@ -1,27 +1,51 @@
 #!/usr/bin/env python
 import serial
 import struct
-import std_msgs.msg
 import rospy
 import time
+import std_srvs.srv
+import rover_science.srv
 
 s = serial.Serial(port="/dev/ttyUSB0", baudrate=38400)
-print" ADSAADFDFA2"
 rospy.init_node("science_serial")
-sensor_names = ("ph", "humid", "temp")
-pub = {n: rospy.Publisher("/science/" + name, std_msgs.msg.Float32, queue_size=10) for n, name in zip((0, 1, 2), sensor_names)}
 
-print" ADSAADFDFA"
+# CAROUSEL CONTROL
+def move_to_funnel(request):
+    data = struct.pack("<BB", 0x00, request.index)
+    s.write(data)
+    rospy.loginfo('Move %s to funnel' % request.index)
+    return rover_science.srv.CarouselResponse()
+
+def move_to_ph(request):
+    data = struct.pack("<BB", 0x01, request.index)
+    s.write(data)
+    rospy.loginfo('Move %s to ph' % request.index)
+    return rover_science.srv.CarouselResponse()
+
+to_funnel_service = rospy.Service("/science/carousel/funnel", rover_science.srv.Carousel, move_to_funnel)
+rospy.loginfo('Initialized service /science/carousel/funnel')
+to_ph_service = rospy.Service("/science/carousel/ph", rover_science.srv.Carousel, move_to_ph)
+rospy.loginfo('Initialized service /science/carousel/ph')
+
+# ETHANOL TUBE CONTROL
+def open_tube(request):
+    data = struct.pack("<B", 0x02)
+    s.write(data)
+    rospy.loginfo('Open tube')
+    return std_srvs.srv.EmptyResponse()
+
+open_tube_service = rospy.Service("/science/tube/open", std_srvs.srv.Empty, open_tube)
+rospy.loginfo('Initialized service /science/tube/open')
+
+def close_tube(request):
+    data = struct.pack("<B", 0x03)
+    s.write(data)
+    rospy.loginfo('Close tube')
+    return std_srvs.srv.EmptyResponse()
+
+close_tube_service = rospy.Service("/science/tube/close", std_srvs.srv.Empty, close_tube)
+rospy.loginfo('Initialized service /science/tube/close')
 
 while not rospy.is_shutdown():
-    if s.in_waiting < 1:
-        time.sleep(0.33)
-        print("test")
-    else:
-        t = s.read(1)
-        if ord(t) in (0, 1, 2):
-            v = struct.unpack("<f", s.read(4))[0]
-            print "[+] Data {} Value {}".format(sensor_names[ord(t)], v)
-            pub[ord(t)].publish(v)
-        else:
-            print "[!] Bad data!"
+    time.sleep(1)
+
