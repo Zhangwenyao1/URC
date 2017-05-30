@@ -13,9 +13,9 @@ void Temperature::init() {
 
 void Temperature::write() {
     Serial.write(this->id);
-    float humid = this->sensor->readTemperatureC();
-    //Serial.println(humid);
-    Serial.write((char*)&humid, sizeof(float));
+    float temp = this->sensor->readTemperatureC();
+    //Serial.println(temp);
+    Serial.write((char*)&temp, sizeof(float));
 }
 
 Temperature::Temperature(int n, SHT1x sensor) : SensorBase(n), sensor(&sensor) {}
