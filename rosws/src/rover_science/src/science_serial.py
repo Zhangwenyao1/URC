@@ -14,6 +14,7 @@ def move_to_funnel(request):
     data = struct.pack("<BB", 0x00, request.index)
     s.write(data)
     rospy.loginfo('Move %s to funnel' % request.index)
+    timeout = time.time() + 10   # 10 seconds from now
     while True:
         if s.in_waiting:
             data = s.read(1)
