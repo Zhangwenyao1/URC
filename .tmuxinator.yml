@@ -14,6 +14,7 @@ windows:
       layout: even-horizontal
       panes:
         - python rosws/src/rover/src/lost_comms_recovery.py --ip 192.168.137.19
+        - roslaunch rover lost_comms_recovery.launch
         - roscore
   - GPS:
       root: ~/URC/rosws/src/rover/

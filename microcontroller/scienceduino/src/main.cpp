@@ -9,8 +9,10 @@
 #include "motor/PhProbe.h"
 #include "motor/Tube.h"
 // Specify data and clock connections and instantiate SHT1x object
-#define SHTDataPin  10//black
-#define SHTClockPin 11//yellow
+#define SHTDataPin  A1 //black (Humidity / Temperature)
+#define SHTClockPin A2 //yellow (Humidity / Temperature)
+int PumpPin = 11;
+int ServoPin = 12;
 SHT1x sht1x(SHTDataPin, SHTClockPin);
 A4988 carouselMotor(200, 5, 6, 7);
 A4988 phMotor(200, 2, 3, 4);
@@ -25,14 +27,14 @@ Tube* tube;
 void initializeSensorsAndMotors() {
     carouselMotor.setRPM(70);
     carouselMotor.enable();
-    //phMotor.setRPM(20);
-    //phMotor.enable();
-    //phProbe.up();
+    phMotor.setRPM(20);
+    phMotor.enable();
+    phProbe.up();
     sensors[0] = new PH(0);
     sensors[1] = new Temperature(1, sht1x);
     sensors[2] = new Humidity(2, sht1x);
     carousel.home();
-    s.attach(12);
+    s.attach(ServoPin);
     tube = new Tube(s);
 }
 
@@ -50,39 +52,43 @@ void writeData() {
 
 
 void readInputs() {
-    if (Serial.available() > 0) {
+    if (Serial.available() > 0) { // MOVE TO INDEX
         byte cmd = (byte) Serial.read();
         delay(10);
         if (cmd == 0x00) {
             int index = Serial.read();
             //Serial.print(index);
             carousel.moveToIndex(index);
-            Serial.write(0x05);
+            // Serial.write(0x05);
         }
-        else if (cmd == 0x01) {
+        else if (cmd == 0x01) { // MOVE TO PH
             int index = Serial.read();
             carousel.moveToPh(index);
-            Serial.write(0x05);
+            // Serial.write(0x05);
         }
-        else if (cmd == 0x02) {
+        else if (cmd == 0x02) { // OPEN ETHANOL TUBE
             tube->open();
         }
-        else if (cmd == 0x03) {
+        else if (cmd == 0x03) { // CLOSE ETHANOL TUBE
             tube->close();
         }
-        else if (cmd == 0x04) {
-            //phProbe.up();
+        else if (cmd == 0x04) { // PROBE UP
+            phProbe.up();
         }
-        else if (cmd == 0x05) {
-            //phProbe.down();
+        else if (cmd == 0x05) { // PROBE DOWN
+            phProbe.down();
+        }
+        else if (cmd == 0x06) { // PUMP DOWN
+            // phProbe.down();
+        }
+        else if (cmd == 0x07) { // PUMP UP
+            // phProbe.down();
         }
         while (Serial.available() > 0) {Serial.read();}
     }
 }
 
 void loop() {
-    //doSteppers();
     readInputs();
-    //writeData();
-    //readInputs();
+    writeData();
 }
