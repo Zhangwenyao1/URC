@@ -14,9 +14,9 @@ def move_to_funnel(request):
     data = struct.pack("<BB", 0x00, request.index)
     s.write(data)
     rospy.loginfo('Move %s to funnel' % request.index)
-    timeout = time.time() + 10   # 10 seconds from now
+    timeout = time.time() + 16   # 10 seconds from now
     while True:
-        if s.in_waiting:
+        if s.in_waiting > 0:
             data = s.read(1)
             rospy.loginfo('Response from arduino %s!' % data)
             return rover_science.srv.CarouselResponse(success=True)

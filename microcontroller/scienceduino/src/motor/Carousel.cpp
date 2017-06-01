@@ -17,10 +17,7 @@ Carousel::Carousel(A4988 motor, int limitPin): motor(motor), limitPin(limitPin) 
 }
 
 void Carousel::moveToIndex(int index) {
-    Serial.print("HOME");
     this->home();
-    Serial.print("TO ");
-    Serial.println(index);
     this->motor.enable();
     this->goalIndex = (index + 3)%6;
     this->motor.rotate(this->getShortDirection()*2);
