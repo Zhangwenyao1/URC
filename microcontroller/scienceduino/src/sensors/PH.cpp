@@ -14,7 +14,7 @@ void PH::init() {
 void PH::write() {
     float avg = 0;
     for (int i=0; i < 20; i++) {
-        delay(10);
+        delay(02);
         avg += analogRead(PH_PIN);
     }
     Serial.write(this->id);

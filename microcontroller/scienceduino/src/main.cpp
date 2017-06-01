@@ -41,6 +41,7 @@ void initializeSensorsAndMotors() {
 void setup() {
     Serial.begin(38400); // Open serial connection to report values to host
     initializeSensorsAndMotors();
+    delay(500);
 }
 
 void writeData() {
@@ -53,8 +54,10 @@ void writeData() {
 void readInputs() {
     if (Serial.available() > 0) { // MOVE TO INDEX
         byte cmd = (byte) Serial.read();
+        delay(10);
         if (cmd == 0x00) {
             int index = Serial.read();
+            //Serial.print(index);
             carousel.moveToIndex(index);
             // Serial.write(0x05);
         }
@@ -81,6 +84,7 @@ void readInputs() {
         else if (cmd == 0x07) { // PUMP UP
             // phProbe.down();
         }
+        while (Serial.available() > 0) {Serial.read();}
     }
 }
 
