@@ -22,10 +22,11 @@ class JoyArmSerial:
             'big_arm': 0,
             'base_yaw': 0,
             'grip': 0,
-            'winch': 0
+            'winch': 0,
+            'zed_camera': 1500
         }
         self.positions = {
-            'camera': 0
+            'arm_camera': 0
         }
 
     def write_serial(self):
@@ -37,7 +38,7 @@ class JoyArmSerial:
         rospy.loginfo('positions:%s\n' % self.positions)
 
       # Execute arm position
-        encoded_position = struct.pack("<ffffffff",
+        encoded_position = struct.pack("<fffffffff",
                                         self.velocities['wrist_roll'],
                                         self.velocities['wrist_pitch'],
                                         self.velocities['small_arm'],
@@ -45,21 +46,34 @@ class JoyArmSerial:
                                         self.velocities['base_yaw'],
                                         self.velocities['grip'],
                                         self.velocities['winch'],
-                                        self.positions['camera'],
+                                        self.velocities['zed_camera'],
+                                        self.positions['arm_camera']
                                         )
         self.serialDev.write(encoded_position)
 
-    def joy_callback(self, data):
-        self.velocities = {
-            'wrist_roll': 0,
-            'wrist_pitch': 0,
-            'small_arm': 0,
-            'big_arm': 0,
-            'base_yaw': 0,
-            'grip': 0,
-            'winch': 0,
-            'camera': 0
-        }
+    def zed_servo_callback(self, data):
+        # Zed servo panning control
+        # pan leftward (left bumper)
+        # pan rightward (right bumper)
+
+        self.velocities['zed_camera'] = 1500
+        if data.buttons[5]: # pan leftward (left bumper)
+            self.velocities['zed_camera'] += 1500
+        if data.buttons[4]: # pan rightward (right bumper)
+            self.velocities['zed_camera'] -= 1500
+
+        # MOVE
+        self.write_serial()
+
+
+    def arm_joy_callback(self, data):
+        self.velocities['wrist_roll'] = 0
+        self.velocities['wrist_pitch'] = 0
+        self.velocities['small_arm'] = 0
+        self.velocities['big_arm'] = 0
+        self.velocities['base_yaw'] = 0
+        self.velocities['grip'] = 0
+        self.velocities['winch'] = 0
 
         # button 12 = double speed
         SPEED_MULTIPLIER = 1
@@ -81,9 +95,9 @@ class JoyArmSerial:
         # thumb stick back = small arm up
         self.velocities['small_arm'] = data.axes[5] / 5.0 * SPEED_MULTIPLIER
 
-        # paddle forward = arm camera up
-        # paddle back = arm camera down
-        self.positions['camera'] = np.interp(data.axes[3],[-1,1],[7,77]) # this value is angular postion in degrees
+        # paddle forward = arm arm_camera up
+        # paddle back = arm arm_camera down
+        self.positions['arm_camera'] = np.interp(data.axes[3],[-1,1],[7,77]) # this value is angular postion in degrees
 
         # button 9 = wrist clockwise
         # button 11 = wrist counter-clockwise
@@ -120,5 +134,7 @@ class JoyArmSerial:
 
 controller = JoyArmSerial()
 rospy.init_node("joystick_teleoperation_arm")
-sub = rospy.Subscriber("/joy_arm", Joy, controller.joy_callback)
+arm_sub = rospy.Subscriber("/joy_arm", Joy, controller.arm_joy_callback)
+zed_servo_sub = rospy.Subscriber("/joy", Joy, controller.zed_servo_callback)
+
 rospy.spin()

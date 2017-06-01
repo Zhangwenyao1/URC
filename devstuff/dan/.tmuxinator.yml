@@ -55,14 +55,16 @@ windows:
       root: ~/URC/rosws/src/rover_arm/
       layout: tiled
       panes:
-        - "#roslaunch rover_teleoperation arm_teleoperation.launch dev:=/dev/input/js0"
+        - "#roslaunch rover_arm super_simple_arm dev:=/dev/input/js0"
         - rostopic echo /joy_arm
+        - "cd ~/URC/devstuff/dan/microcontroller/simple-arm; #pio run -t upload"
   - DRIVE:
       root: ~/URC/rosws/src/rover_teleoperation/
       layout: tiled
       panes:
         - "#roslaunch rover_teleoperation drive_teleoperation.launch dev:=/dev/input/js0"
         - rostopic echo /joy
+        - "cd microcontroller/driveduino/; #pio run -t upload"
   - WAYPOINT:
       root: ~/URC/rosws/src/rover/src/
       layout: tiled

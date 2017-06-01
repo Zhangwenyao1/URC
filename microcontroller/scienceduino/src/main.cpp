@@ -11,7 +11,8 @@
 // Specify data and clock connections and instantiate SHT1x object
 #define SHTDataPin  A1 //black (Humidity / Temperature)
 #define SHTClockPin A2 //yellow (Humidity / Temperature)
-#define PumpPin = 11;
+int PumpPin = 11;
+int ServoPin = 12;
 SHT1x sht1x(SHTDataPin, SHTClockPin);
 A4988 carouselMotor(200, 5, 6, 7);
 A4988 phMotor(200, 2, 3, 4);
@@ -33,7 +34,7 @@ void initializeSensorsAndMotors() {
     sensors[1] = new Temperature(1, sht1x);
     sensors[2] = new Humidity(2, sht1x);
     carousel.home();
-    s.attach(12);
+    s.attach(ServoPin);
     tube = new Tube(s);
 }
 
@@ -74,11 +75,11 @@ void readInputs() {
         else if (cmd == 0x05) { // PROBE DOWN
             phProbe.down();
         }
-        else if (cmd == 0x06) { // PROBE DOWN
-            phProbe.down();
+        else if (cmd == 0x06) { // PUMP DOWN
+            // phProbe.down();
         }
-        else if (cmd == 0x07) { // PROBE DOWN
-            phProbe.down();
+        else if (cmd == 0x07) { // PUMP UP
+            // phProbe.down();
         }
     }
 }
