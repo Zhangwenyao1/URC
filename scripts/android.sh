@@ -11,7 +11,7 @@ echo "[f] setup the port forwarding"
 
 read -p "[plf]: " c
 pushd .
-cd rosws/src/rover_android
+cd ../rosws/src/rover_android
 echo "ensuring I can run ADB"
 chmod +x adb/adb
 
@@ -31,9 +31,9 @@ case "${c,,}" in
 	;;
  "f")
 	echo "forwarding local port 11311 to phone"
-	adb/adb forward tcp:11311 tcp:11311
+	adb/adb reverse tcp:11311 tcp:11311
 	echo "run the app with localhost as its thing, should work"
         ;;
-
+esac
 echo "this script was brought to you by matthew at 7 in the morning"
 echo "how the hell do you forget a GPS michael..."
