@@ -107,7 +107,7 @@ rospy.loginfo('Initialized service /science/probe/down')
 
 # PUMP CONTROL (On/Off)
 def pump_on(request):
-    data = struct.pack("<B", 0x06)
+    data = struct.pack("<B", 0x07)
     s.write(data)
     rospy.loginfo('Pump on')
     return std_srvs.srv.EmptyResponse()
@@ -116,7 +116,7 @@ pump_on_service = rospy.Service("/science/pump/on", std_srvs.srv.Empty, pump_on)
 rospy.loginfo('Initialized service /science/pump/on')
 
 def pump_off(request):
-    data = struct.pack("<B", 0x07)
+    data = struct.pack("<B", 0x06)
     s.write(data)
     rospy.loginfo('Pump off')
     return std_srvs.srv.EmptyResponse()

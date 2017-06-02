@@ -19,6 +19,9 @@ Carousel::Carousel(A4988 motor, int limitPin): motor(motor), limitPin(limitPin) 
 void Carousel::moveToIndex(int index) {
    // Serial.print("HOME");
     this->home();
+    if (this->index == 3) {
+		return;
+}
     // Serial.print("TO ");
     // Serial.println(index);
     this->motor.enable();
@@ -27,7 +30,7 @@ void Carousel::moveToIndex(int index) {
     float x = (0.270833333407*(index^4))+(-2.5324074*(index^3))+(6.40972222*(index^2))+(-2.83862433*index)+2.115079;
     //this->motor.rotate()
     this->index = index;
-    this->motor.disable();
+//    this->motor.disable();
 }
 
 int Carousel::dirToSteps(int v) {
@@ -40,6 +43,9 @@ int Carousel::getShortDirection() {
 
 void Carousel::home() {
     this->motor.enable();
+    while (digitalRead((uint8_t) this->limitPin) == LOW) {
+	   this->motor.move(-3);
+}
    // Serial.print("HOMES");
     while (digitalRead((uint8_t) this->limitPin) == HIGH) {
         this->motor.move(-1);
@@ -47,8 +53,8 @@ void Carousel::home() {
     }
    // Serial.println("is done");
     this->index = 0;
-    this->motor.move(-10);
-    this->motor.disable();
+    this->motor.move(1);
+//    this->motor.disable();
 
 }
 

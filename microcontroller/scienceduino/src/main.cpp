@@ -8,6 +8,7 @@
 #include "motor/Carousel.h"
 #include "motor/PhProbe.h"
 #include "motor/Tube.h"
+#include "motor/Pump.h"
 // Specify data and clock connections and instantiate SHT1x object
 #define SHTDataPin  A1 //black (Humidity / Temperature)
 #define SHTClockPin A2 //yellow (Humidity / Temperature)
@@ -19,7 +20,8 @@ A4988 phMotor(200, 2, 3, 4);
 SensorBase *sensors[3];
 
 Carousel carousel(carouselMotor, 8);
-PhProbe phProbe(phMotor, 9);
+PhProbe phProbe(phMotor, 10);
+Pump pump(9);
 
 Servo s;
 Tube* tube;
@@ -27,14 +29,14 @@ Tube* tube;
 void initializeSensorsAndMotors() {
     carouselMotor.setRPM(70);
     carouselMotor.enable();
-    phMotor.setRPM(20);
+    phMotor.setRPM(70);
     phMotor.enable();
-    phProbe.up();
     sensors[0] = new PH(0);
     sensors[1] = new Temperature(1, sht1x);
     sensors[2] = new Humidity(2, sht1x);
     carousel.home();
     s.attach(ServoPin);
+    pinMode(9, OUTPUT);
     tube = new Tube(s);
 }
 
@@ -42,6 +44,7 @@ void setup() {
     Serial.begin(38400); // Open serial connection to report values to host
     initializeSensorsAndMotors();
     delay(500);
+   // phProbe.down();
 }
 
 void writeData() {
@@ -79,16 +82,21 @@ void readInputs() {
             phProbe.down();
         }
         else if (cmd == 0x06) { // PUMP DOWN
-            // phProbe.down();
+            pump.off();
         }
         else if (cmd == 0x07) { // PUMP UP
-            // phProbe.down();
+		pump.on();
         }
         while (Serial.available() > 0) {Serial.read();}
     }
 }
 
+bool y = false;
+int counts = 0;
+
 void loop() {
     readInputs();
-    writeData();
+//    Serial.print(digitalRead(9));
+    phProbe.update();
+   writeData();
 }

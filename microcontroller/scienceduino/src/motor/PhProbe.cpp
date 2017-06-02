@@ -11,23 +11,26 @@ PhProbe::PhProbe(A4988 motor, int limitPin): motor(motor), limitPin((uint8_t) li
 }
 
 void PhProbe::up() {
-    this->goalState = 1;
-}
-
-void PhProbe::down() {
     this->goalState = -1;
 }
 
+void PhProbe::down() {
+    this->goalState = 1;
+}
+
 void PhProbe::checkIn() {
-    this->in = this->downProgress > 200;
+    this->in = this->downProgress > 9000;
+    //Serial.println(this->downProgress);
+    if ((this->in && this->goalState == 1) || (this->downProgress < 30 && this->goalState == -1)) {
+        this->goalState = 0;
+        //Serial.print("AYAYAYAYAYAYAYA");
+    }
 }
 
 void PhProbe::limitPush() {
     this->downProgress = 0;
     this->checkIn();
-    if (this->goalState == 1) {
-        this->goalState = 0;
-    }
+    this-> goalState = 0;
 }
 
 void PhProbe::move() {
@@ -38,9 +41,10 @@ void PhProbe::move() {
 }
 
 void PhProbe::update() {
-    if (digitalRead(this->limitPin) == LOW) {
-        this->limitPush();
+    this->checkIn();
+    while (this->goalState != 0) {
+        this->checkIn();
+        this->move();
     }
-    this->move();
 }
 
