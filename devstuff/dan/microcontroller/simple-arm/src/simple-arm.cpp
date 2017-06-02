@@ -73,7 +73,8 @@ void writeToJoints(){
   joint2.writeMicroseconds(mapToVictor(data.j2));
   joint3.writeMicroseconds(mapToVictor(data.j3));
   joint4.writeMicroseconds(mapToVictor(data.j4));
-  zedPan.writeMicroseconds(data.zedPan);
+  // zedPan.writeMicroseconds(mapToVictor(data.zedPan));
+  zedPan.write((int)data.zedPan);
   camTilt.write((int)data.camTilt);
 
   // Gripper Open

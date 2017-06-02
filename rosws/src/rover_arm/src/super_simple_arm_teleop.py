@@ -6,6 +6,7 @@ import struct
 import numpy as np
 
 from sensor_msgs.msg import Joy
+from std_msgs.msg import Float32
 
 class JoyArmSerial:
     PI = 3.14159265359
@@ -26,7 +27,8 @@ class JoyArmSerial:
             'zed_camera': 1500
         }
         self.positions = {
-            'arm_camera': 0
+            'arm_camera': 0,
+            'zed_camera': 0
         }
 
     def write_serial(self):
@@ -47,6 +49,7 @@ class JoyArmSerial:
                                         self.velocities['grip'],
                                         self.velocities['winch'],
                                         self.velocities['zed_camera'],
+                                        # self.positions['zed_camera'],
                                         self.positions['arm_camera']
                                         )
         self.serialDev.write(encoded_position)
@@ -61,6 +64,15 @@ class JoyArmSerial:
             self.velocities['zed_camera'] += 1500
         if data.buttons[4]: # pan rightward (right bumper)
             self.velocities['zed_camera'] -= 1500
+
+        # MOVE
+        self.write_serial()
+
+    def zed_servo_180_callback(self, data):
+        # Zed servo panning control
+        # pan leftward (left bumper)
+        # pan rightward (right bumper)
+        self.positions['zed_camera'] = data.data # this value is angular postion in degrees
 
         # MOVE
         self.write_serial()
@@ -135,6 +147,7 @@ class JoyArmSerial:
 controller = JoyArmSerial()
 rospy.init_node("joystick_teleoperation_arm")
 arm_sub = rospy.Subscriber("/joy_arm", Joy, controller.arm_joy_callback)
-zed_servo_sub = rospy.Subscriber("/joy", Joy, controller.zed_servo_callback)
+zed_servo_sub = rospy.Subscriber("/joy", Joy, controller.zed_servo_callback) # continuous
+# zed_servo_sub = rospy.Subscriber("/zed_servo", Float32, controller.zed_servo_180_callback) # 180
 
 rospy.spin()
