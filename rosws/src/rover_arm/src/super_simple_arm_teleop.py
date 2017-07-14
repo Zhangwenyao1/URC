@@ -139,6 +139,12 @@ class JoyArmSerial:
             self.velocities['winch'] = -1
         if data.buttons[6] and data.buttons[7]:
             self.velocities['winch'] = 1337 # special flag to free-wheel
+        #hacky swap
+
+        r = self.velocities["wrist_roll"]
+        y = self.velocities["base_yaw"]
+        self.velocities["wrist_roll"] = y
+        self.velocities["base_yaw"] = r
 
         # MOVE ARM
         self.write_serial()
