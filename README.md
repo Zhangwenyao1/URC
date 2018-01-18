@@ -1,3 +1,5 @@
+**For additional documentation please see: https://github.com/danielsnider/ros-rover**
+
 # R3-URC!
 
 ```
@@ -43,7 +45,7 @@ If we need more, or you just want to say something, you can use slack, or put it
 ## P.S
 Don't be a litterbug, keep general development... stuff in the `devstuff/` folder, and keep the structured code in the right directory!
 
-## Network IP Addresses
+## Network IP Addresses (private network)
 
 **Device**|**IP**|**Username**|**Password**
 :-----:|:-----:|:-----:|:-----:
