@@ -1,11 +1,21 @@
 # R3 ROS Workspace
 
-## Launch ALL components (not actually working, someone could write this)
+## Launch ALL components (best usage pattern)
+
+On the rover:
 ```bash
-$ tmuxinator ...
-# Less preferred method (everything runs in one terminal, harder to debug)
-$ roslaunch rover robot.launch
+$ cd URC/
+$ mux
 ```
+
+On the teleoperator's computer:
+
+```bash
+$ cd URC/devstuff/dan/
+$ mux
+```
+
+For more information about our use of tmux see section 16.1 [here](https://github.com/danielsnider/ros-rover/raw/master/Book%20Chapter%20-%20University%20Rover%20Challenge%20Tutorials%20and%20Control%20System%20Survey.pdf).
 
 ## Launch individual components
 
