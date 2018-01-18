@@ -6,7 +6,7 @@
 
 # R3 ROS Workspace
 
-## Launch ALL components (not actually working, someone could write this)
+## Launch ALL components (best usage pattern)
 
 On the rover:
 ```bash
